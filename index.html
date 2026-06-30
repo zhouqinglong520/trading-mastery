@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>游资交易心法学习库</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans SC", "Microsoft YaHei", sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+            padding: 40px 20px;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .stat-item {
+            background: rgba(255,255,255,0.2);
+            padding: 15px 30px;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .stat-item .number {
+            font-size: 2em;
+            font-weight: bold;
+            display: block;
+        }
+        
+        .stat-item .label {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+        
+        .section {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        .section-title {
+            font-size: 1.8em;
+            color: #667eea;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+        }
+        
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .card {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-color: #667eea;
+        }
+        
+        .card h3 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 1.3em;
+        }
+        
+        .card p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        
+        .card a {
+            display: inline-block;
+            padding: 8px 16px;
+            background: #667eea;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+        
+        .card a:hover {
+            background: #764ba2;
+        }
+        
+        .trader-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        
+        .trader-item {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+        
+        .trader-item:hover {
+            background: #667eea;
+            color: white;
+            border-color: #764ba2;
+            transform: scale(1.05);
+        }
+        
+        .trader-item a {
+            color: inherit;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        
+        .footer {
+            text-align: center;
+            color: white;
+            padding: 30px;
+            opacity: 0.8;
+        }
+        
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+            
+            .card-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .trader-list {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 头部 -->
+        <div class="header">
+            <h1>📚 游资交易心法学习库</h1>
+            <p>27位顶级游资的交易智慧 · 系统整理 · 方便学习</p>
+            <div class="stats">
+                <div class="stat-item">
+                    <span class="number">27</span>
+                    <span class="label">顶级游资</span>
+                </div>
+                <div class="stat-item">
+                    <span class="number">66</span>
+                    <span class="label">学习文档</span>
+                </div>
+                <div class="stat-item">
+                    <span class="number">13</span>
+                    <span class="label">可视化资料</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 快速开始 -->
+        <div class="section">
+            <h2 class="section-title">🚀 快速开始</h2>
+            <div class="card-grid">
+                <div class="card">
+                    <h3>📖 交易体系</h3>
+                    <p>基于龙行刺情绪周期的个人交易系统，17章完整内容</p>
+                    <a href="./交易体系/01_龙行刺情绪周期交易体系.md">开始学习</a>
+                </div>
+                
+                <div class="card">
+                    <h3>🎯 核心游资</h3>
+                    <p>炒股养家、ASKING、92科比等一线游资心法</p>
+                    <a href="./游资心法/">查看全部</a>
+                </div>
+                
+                <div class="card">
+                    <h3>📊 可视化学习</h3>
+                    <p>13个HTML可视化文件，直观理解交易体系</p>
+                    <a href="./可视化/">查看可视化</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 游资心法导航 -->
+        <div class="section">
+            <h2 class="section-title">🌟 游资心法</h2>
+            <p style="color: #666; margin-bottom: 20px;">点击任意游资，查看学习笔记、深度研报和思维导图</p>
+            <div class="trader-list">
+                <div class="trader-item">
+                    <a href="./游资心法/炒股养家/">炒股养家</a>
+                </div>
+                <div class="trader-item">
+                    <a href="./游资心法/ASKING/">ASKING</a>
+                </div>
+                <div class="trader-item">
+                    <a href="./游资心法/92科比/">92科比</a>
+                </div>
+                <div class="trader-item">
+                    <a href="./游资心法/徐翔/">徐翔</a>
+                </div>
+                <div class="trader-item">
+                    <a href="./游资心法/赵老哥/">赵老哥</a>
+                </div>
+                <div class="trader-item">
+                    <a href="./游资心法/龙飞虎/">龙飞虎</a>
+                </div>
+                <div class="trader-item">
+                    <a href="./游资心法/瑞鹤仙/">瑞鹤仙</a>
+                </div>
+                <div class="trader-item">
+                    <a href="./游资心法/退学炒股/">退学炒股</a>
+                </div>
+                <div class="trader-item">
+                    <a href="./游资心法/令胡冲/">令胡冲</a>
+                </div>
+                <div class="trader-item">
+                    <a href="./游资心法/乔帮主/">乔帮主</a>
+                </div>
+                <div class="trader-item">
+                    <a href="./游资心法/龙行刺/">龙行刺</a>
+                </div>
+                <div class="trader-item">
+                    <a href="./游资心法/丁一熊/">丁一熊</a>
+                </div>
+                <div class="trader-item">
+                    <a href="./游资心法/万法归宗/">万法归宗</a>
+                </div>
+                <div class="trader-item">
+                    <a href="./游资心法/凡倍无名/">凡倍无名</a>
+                </div>
+                <div class="trader-item">
+                    <a href="./游资心法/孤独牛背/">孤独牛背</a>
+                </div>
+                <div class="trader-item">
+                    <a href="./游资心法/小鳄鱼/">小鳄鱼</a>
+                </div>
+                <div class="trader-item">
+                    <a href="./游资心法/明王/">明王</a>
+                </div>
+                <div class="trader-item">
+                    <a href="./游资心法/艾琳/">艾琳</a>
+                </div>
+                <div class="trader-item">
+                    <a href="./游资心法/浓汤野人/">浓汤野人</a>
+                </div>
+                <div class="trader-item">
+                    <a href="./游资心法/欢乐海岸/">欢乐海岸</a>
+                </div>
+                <div class="trader-item">
+                    <a href="./游资心法/著名刺客/">著名刺客</a>
+                </div>
+                <div class="trader-item">
+                    <a href="./游资心法/职业炒手/">职业炒手</a>
+                </div>
+                <div class="trader-item">
+                    <a href="./游资心法/杨百万/">杨百万</a>
+                </div>
+                <div class="trader-item">
+                    <a href="./游资心法/Asking/">Asking</a>
+                </div>
+                <div class="trader-item">
+                    <a href="./游资心法/养家/">养家</a>
+                </div>
+                <div class="trader-item">
+                    <a href="./游资心法/章建平/">章建平</a>
+                </div>
+                <div class="trader-item">
+                    <a href="./游资心法/方新侠/">方新侠</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 学习路径 -->
+        <div class="section">
+            <h2 class="section-title">📈 推荐学习路径</h2>
+            <div class="card-grid">
+                <div class="card">
+                    <h3>第一阶段：建立认知</h3>
+                    <p>1-2周</p>
+                    <p>炒股养家心法 → ASKING心法 → 龙行刺情绪周期</p>
+                </div>
+                
+                <div class="card">
+                    <h3>第二阶段：深化理解</h3>
+                    <p>2-4周</p>
+                    <p>92科比 → 退学炒股 → 瑞鹤仙</p>
+                </div>
+                
+                <div class="card">
+                    <h3>第三阶段：实战应用</h3>
+                    <p>持续</p>
+                    <p>每日复盘 → 记录日志 → 定期重读</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 可视化资料 -->
+        <div class="section">
+            <h2 class="section-title">📊 可视化资料</h2>
+            <div class="card-grid">
+                <div class="card">
+                    <h3>情绪周期体系</h3>
+                    <p>龙行刺情绪周期交易体系可视化</p>
+                    <a href="./可视化/【终极版】龙行刺情绪周期交易体系（可视化）.html">查看</a>
+                </div>
+                
+                <div class="card">
+                    <h3>游资心法总览</h3>
+                    <p>28位游资心法学习笔记可视化</p>
+                    <a href="./可视化/28位游资心法学习笔记_可视化.html">查看</a>
+                </div>
+                
+                <div class="card">
+                    <h3>深度研报汇总</h3>
+                    <p>26位游资深度研读报告</p>
+                    <a href="./可视化/26位游资深度研读报告_完整总结.html">查看</a>
+                </div>
+                
+                <div class="card">
+                    <h3>交易体系整合</h3>
+                    <p>严格整合版交易体系可视化</p>
+                    <a href="./可视化/交易体系_严格整合版_可视化.html">查看</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 页脚 -->
+        <div class="footer">
+            <p>📚 游资交易心法学习库</p>
+            <p>GitHub: <a href="https://github.com/zhouqinglong520/trading-mastery" style="color: white;">zhouqinglong520/trading-mastery</a></p>
+            <p>⚠️ 本内容仅供学习交流，不构成投资建议</p>
+        </div>
+    </div>
+</body>
+</html>
