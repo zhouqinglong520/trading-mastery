@@ -8,7 +8,7 @@
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="version" content="v5-raw-download">
+  <meta name="version" content="v5.2-ad-download">
   <title>交易大师 · 游资心法库</title>
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <style>
@@ -268,17 +268,17 @@
           <div style="margin:30px 0;padding:20px;background:var(--bg-soft);border-radius:12px;text-align:center">
             <div style="font-size:48px;margin-bottom:16px">📄</div>
             <div style="margin-bottom:20px;color:var(--text-mute)">这是一份原始PDF资料，点击下方按钮下载阅读</div>
-            <div id="downloadAdArea" style="margin:20px 0;min-height:90px"></div>
+            <div id="downloadAdArea" style="margin:20px auto;min-height:250px;display:flex;align-items:center;justify-content:center"></div>
+            <div id="downloadBannerArea" style="margin:10px auto;min-height:60px;display:flex;align-items:center;justify-content:center"></div>
             <button id="downloadBtn" class="download-btn" onclick="downloadWithAd('${a.downloadUrl}')">
               📥 下载原始资料 (${a.fileSize})
             </button>
           </div>
         </div>`;
         
-        // Load ad into download area
-        if (typeof loadAdInElement === 'function') {
-          loadAdInElement('downloadAdArea');
-        }
+        // Load Adsterra ad into download area
+        loadAdsterra('downloadAdArea', '3fea37f26fcbda4a0ce245e67d31f438', 300, 250);
+        loadAdsterra('downloadBannerArea', '07a2d13b9fb4b43646af5334ff4a60da', 468, 60);
       } else if (a.isHtml) {
         d.innerHTML = `<div class="detail-content" style="padding:12px;max-width:100%"><button class="mobile-back" onclick="goBack()">← 返回列表</button><iframe class="html-frame" src="viz/${a.htmlFile}" sandbox="allow-scripts allow-same-origin"></iframe></div>`;
       } else {
@@ -318,6 +318,36 @@
     renderSidebar();
     renderList();
   
+    // Adsterra ad loader
+    function loadAdsterra(containerId, key, width, height) {
+      const el = document.getElementById(containerId);
+      if (!el) return;
+      el.innerHTML = '';
+      el.style.width = width + 'px';
+      el.style.maxWidth = '100%';
+      el.style.height = height + 'px';
+      el.style.margin = '20px auto';
+      el.style.overflow = 'hidden';
+
+      const iframe = document.createElement('iframe');
+      iframe.width = String(width);
+      iframe.height = String(height);
+      iframe.style.border = 'none';
+      iframe.style.display = 'block';
+      iframe.setAttribute('scrolling', 'no');
+      iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin');
+      iframe.setAttribute('frameborder', '0');
+      el.appendChild(iframe);
+
+      const adHtml = '<!DOCTYPE html><html><head><meta charset="utf-8"><style>*{margin:0;padding:0}body{overflow:hidden}</style></head><body>' +
+        '<scr' + 'ipt>window.atOptions={\'key\':\'' + key + '\',\'format\':\'iframe\',\'height\':' + height + ',\'width\':' + width + ',\'params\':{}};</scr' + 'ipt>' +
+        '<scr' + 'ipt src="https://pl30122979.effectivecpmnetwork.com/' + key + '/invoke.js"></scr' + 'ipt>' +
+        '</body></html>';
+
+      const blob = new Blob([adHtml], { type: 'text/html' });
+      iframe.src = URL.createObjectURL(blob);
+    }
+
     // Download with ad delay
     function downloadWithAd(url) {
       const btn = document.getElementById('downloadBtn');
