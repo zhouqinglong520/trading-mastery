@@ -8,7 +8,7 @@
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="version" content="v5.2-ad-download">
+  <meta name="version" content="v5.3-multi-ads">
   <title>交易大师 · 游资心法库</title>
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <style>
@@ -169,6 +169,7 @@
           <span id="listCount">79 篇</span>
         </div>
         <div id="listContent"></div>
+      <div id="listBottomAd" style="padding:15px;text-align:center;border-top:1px solid var(--border);min-height:60px;display:none"></div>
       </div>
       <div class="detail" id="detail">
         <div class="detail-empty">
@@ -211,7 +212,16 @@
         }
       });
       document.getElementById('sidebar').innerHTML = h;
-      document.getElementById('sidebar').querySelectorAll('.cat-item').forEach(el => el.onclick = () => { curCat = curCat===el.dataset.cat?null:el.dataset.cat; curSub=null; renderSidebar(); renderList(); });
+      document.getElementById('sidebar').querySelectorAll('.cat-item').forEach(el => el.onclick = () => { curCat = curCat===el.dataset.cat?null:el.dataset.cat; curSub=null; renderSidebar(); renderList();
+
+    // Load sidebar ad
+    loadAdsterra('sidebarAd', '07a2d13b9fb4b43646af5334ff4a60da', 160, 60);
+
+    // Load list bottom ad when articles are shown
+    setTimeout(() => {
+      loadAdsterra('listBottomAd', '07a2d13b9fb4b43646af5334ff4a60da', 468, 60);
+      document.getElementById('listBottomAd').style.display = 'block';
+    }, 500); });
       document.getElementById('sidebar').querySelectorAll('.sub-cat-item').forEach(el => el.onclick = () => { curSub = curSub===el.dataset.sub?null:el.dataset.sub; renderSidebar(); renderList(); });
     }
 
@@ -288,9 +298,13 @@
         const cn = cat ? cat.name : '';
         let sn = '';
         if (a.subcategory && cat?.sub) { const s = cat.sub.find(s=>s.id===a.subcategory); if(s) sn = ' > '+s.name; }
-        d.innerHTML = `<div class="detail-content"><button class="mobile-back" onclick="goBack()">← 返回列表</button><h1 class="detail-title">${a.title}</h1><div class="detail-meta">${cn}${sn} · ${a.docType||'笔记'}</div>${html}</div>`;
+        d.innerHTML = `<div class="detail-content"><button class="mobile-back" onclick="goBack()">← 返回列表</button><h1 class="detail-title">${a.title}</h1><div class="detail-meta">${cn}${sn} · ${a.docType||'笔记'}</div>${html}<div id="detailBottomAd" style="margin:30px auto;text-align:center;min-height:60px"></div></div>`;
       }
-      d.scrollTop = 0;
+      // Load detail bottom ad
+        setTimeout(() => {
+          if (!a.isPdf) loadAdsterra('detailBottomAd', '07a2d13b9fb4b43646af5334ff4a60da', 468, 60);
+        }, 300);
+        d.scrollTop = 0;
     }
 
     function goBack() {
