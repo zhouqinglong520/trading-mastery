@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>交易体系_融合版（26位游资智慧 + 个人复盘理论）</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Microsoft YaHei', 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        .summary {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            border-left: 5px solid #667eea;
+        }
+        
+        .summary h2 {
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+        
+        .summary ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .summary li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        .summary li:before {
+            content: "✅";
+            position: absolute;
+            left: 0;
+        }
+        
+        .chapter {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .chapter:hover {
+            border-color: #667eea;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        .chapter-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .chapter-number {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+        
+        .chapter-title {
+            font-size: 1.5em;
+            color: #333;
+            font-weight: bold;
+            flex: 1;
+            margin-left: 15px;
+        }
+        
+        .chapter-content {
+            color: #666;
+            line-height: 1.8;
+        }
+        
+        .chapter-content h3 {
+            color: #667eea;
+            margin-top: 15px;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+        
+        .chapter-content ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .chapter-content li {
+            padding: 5px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .chapter-content li:before {
+            content: "▸";
+            position: absolute;
+            left: 0;
+            color: #667eea;
+        }
+        
+        .executable-rules {
+            background: #fff3cd;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            border-left: 5px solid #ffc107;
+        }
+        
+        .executable-rules h3 {
+            color: #856404;
+            margin-bottom: 10px;
+        }
+        
+        .executable-rules li:before {
+            content: "✅";
+            color: #28a745;
+        }
+        
+        .footer {
+            background: #f8f9fa;
+            padding: 30px;
+            text-align: center;
+            color: #666;
+            border-top: 1px solid #e0e0e0;
+        }
+        
+        .footer p {
+            margin: 5px 0;
+        }
+        
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            
+            .container {
+                box-shadow: none;
+            }
+            
+            .chapter {
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎯 交易体系_融合版</h1>
+            <p>26位游资智慧 + 个人复盘理论</p>
+        </div>
+        
+        <div class="content">
+            <div class="summary">
+                <h2>📋 使用说明</h2>
+                <ul>
+                    <li><strong>打印出来</strong>：建议打印成小册子，放在电脑旁</li>
+                    <li><strong>一步步对照</strong>：每个操作都按照文档中的步骤执行</li>
+                    <li><strong>打勾确认</strong>：每个步骤完成后，在"✅"处打勾</li>
+                    <li><strong>记录结果</strong>：在"📝 记录"处填写实际数据</li>
+                    <li><strong>定期复习</strong>：每周复习一次，确保熟练掌握</li>
+                </ul>
+            </div>
+            
+            <div class="summary">
+                <h2>📊 文档结构</h2>
+                <ul>
+                    <li><strong>第一章</strong>：情绪周期判断（超详细）- 融合龙行刺心法 + 个人复盘</li>
+                    <li><strong>第二章</strong>：龙头股识别与分类（超详细）- 融合龙行刺心法 + 个人复盘</li>
+                    <li><strong>第三章</strong>：题材理解（超详细）- 融合龙行刺心法 + 个人复盘</li>
+                    <li><strong>第四章</strong>：选股阶段（超详细）- 融合26位游资智慧</li>
+                    <li><strong>第五章</strong>：买入阶段（超详细）- 融合26位游资智慧</li>
+                    <li><strong>第六章</strong>：持有阶段（超详细）- 融合26位游资智慧</li>
+                    <li><strong>第七章</strong>：卖出阶段（超详细）- 融合26位游资智慧</li>
+                    <li><strong>第八章</strong>：仓位管理（超详细）- 融合龙行刺心法 + 个人复盘</li>
+                    <li><strong>第九章</strong>：风险控制（超详细）- 融合26位游资智慧</li>
+                    <li><strong>第十章</strong>：心态管理（超详细）- 融合龙行刺心法 + 个人复盘</li>
+                    <li><strong>第十一章</strong>：复盘推演（超详细）- 融合龙行刺心法 + 个人复盘</li>
+                    <li><strong>第十二章</strong>：交易模式（超详细）- 融合龙行刺心法 + 个人复盘</li>
+                    <li><strong>第十三章</strong>：大盘情绪监控（超详细）- 融合个人复盘</li>
+                    <li><strong>第十四章</strong>：可执行规则检查清单（超详细）</li>
+                </ul>
+            </div>
+            
+            <div class="chapter" onclick="toggleChapter('chapter1')">
+                <div class="chapter-header">
+                    <span class="chapter-number">第一章</span>
+                    <h2 class="chapter-title">情绪周期判断（超详细操作）</h2>
+                </div>
+                <div class="chapter-content" id="chapter1">
+                    <h3>📊 判断标准（量化指标）</h3>
+                    <ul>
+                        <li><strong>短线情绪周期（龙行刺标准）</strong>：01结束、02混沌、03确认、04加速、05高潮</li>
+                        <li><strong>中级情绪周期（龙行刺标准）</strong>：01开启、02发酵、03高潮、04主跌</li>
+                        <li><strong>情绪周期判断标准（个人复盘标准）</strong>：冰点、复苏、高潮、退潮</li>
+                        <li><strong>情绪指标（个人复盘标准）</strong>：最高空间板、次高板、天地板、地天板</li>
+                    </ul>
+                    
+                    <h3>🔍 具体查看方法（一步步教）</h3>
+                    <ul>
+                        <li><strong>步骤1</strong>：查看昨日涨停板数量 → 记录：昨日涨停板数量 = _____ 家</li>
+                        <li><strong>步骤2</strong>：查看昨日跌幅榜情况 → 记录：昨日跌幅榜-9%以上个股 = _____ 家</li>
+                        <li><strong>步骤3</strong>：查看板块联动性 → 记录：板块联动性 = _____（强/弱/无）</li>
+                        <li><strong>步骤4</strong>：查看最高空间板、次高板、天地板、地天板 → 记录：最高空间板 = _____ 板</li>
+                        <li><strong>步骤5</strong>：综合判断情绪周期 → 记录：情绪周期 = _____</li>
+                    </ul>
+                    
+                    <h3>📖 案例演示</h3>
+                    <ul>
+                        <li><strong>案例1</strong>：短线情绪周期 - 混沌期 → 操作策略：低位试错（首板、二板接力）</li>
+                        <li><strong>案例2</strong>：中级情绪周期 - 开启期 → 操作策略：指数共振板（首日共振板或先于指数企稳共振板）</li>
+                        <li><strong>案例3</strong>：情绪周期 - 高潮期 → 操作策略：龙头格局（第一三周期的时候龙头可以多格局到首阴和反包）</li>
+                    </ul>
+                    
+                    <div class="executable-rules">
+                        <h3>✅ 可执行规则</h3>
+                        <ul>
+                            <li><strong>规则1</strong>：短线情绪周期 - 02混沌期 → 低位试错</li>
+                            <li><strong>规则2</strong>：中级情绪周期 - 01开启期 → 指数共振板</li>
+                            <li><strong>规则3</strong>：情绪周期 - 高潮期 → 龙头格局</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="chapter" onclick="toggleChapter('chapter2')">
+                <div class="chapter-header">
+                    <span class="chapter-number">第二章</span>
+                    <h2 class="chapter-title">龙头股识别与分类（超详细操作）</h2>
+                </div>
+                <div class="chapter-content" id="chapter2">
+                    <h3>📊 判断标准（量化指标）</h3>
+                    <ul>
+                        <li><strong>龙头股定义（龙行刺标准）</strong>：某一时期在股票市场的炒作中对同行业板块的其他股票具有影响和号召力的股票</li>
+                        <li><strong>龙头分类（龙行刺标准）</strong>：一字龙、换手龙、卡位龙、日内龙、先锋龙、板块龙、分支龙、反包龙、趋势龙、补涨龙</li>
+                        <li><strong>龙头股识别标准（个人复盘标准）</strong>：涨幅最大、涨停最早、人气最高</li>
+                    </ul>
+                    
+                    <h3>🔍 具体查看方法（一步步教）</h3>
+                    <ul>
+                        <li><strong>步骤1</strong>：查看涨幅榜前50名 → 记录：涨幅榜前50名个股 = _____</li>
+                        <li><strong>步骤2</strong>：查看板块联动性 → 记录：板块联动性 = _____（强/弱/无）</li>
+                        <li><strong>步骤3</strong>：选择龙头股 → 记录：龙头股 = _____（股票代码和名称）</li>
+                        <li><strong>步骤4</strong>：查看龙头股的地位 → 记录：龙头股地位 = _____（高/中/低）</li>
+                    </ul>
+                    
+                    <h3>📖 案例演示</h3>
+                    <ul>
+                        <li><strong>案例1</strong>：选择换手龙（浙江世宝）→ 操作策略：重点关注，等待买入时机</li>
+                        <li><strong>案例2</strong>：选择卡位龙（万邦德）→ 操作策略：重点关注，等待买入时机</li>
+                        <li><strong>案例3</strong>：选择补涨龙（中交地产）→ 操作策略：重点关注，等待买入时机</li>
+                    </ul>
+                    
+                    <div class="executable-rules">
+                        <h3>✅ 可执行规则</h3>
+                        <ul>
+                            <li><strong>规则1</strong>：选择换手龙 → 重点关注</li>
+                            <li><strong>规则2</strong>：选择卡位龙 → 重点关注</li>
+                            <li><strong>规则3</strong>：选择补涨龙 → 重点关注</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="chapter" onclick="toggleChapter('chapter3')">
+                <div class="chapter-header">
+                    <span class="chapter-number">第三章</span>
+                    <h2 class="chapter-title">题材理解（超详细操作）</h2>
+                </div>
+                <div class="chapter-content" id="chapter3">
+                    <h3>📊 判断标准（量化指标）</h3>
+                    <ul>
+                        <li><strong>题材分类（龙行刺标准）</strong>：大题材（政策类、科技类、基因类）、中题材（大题材细分）、小题材（炒冷饭、衍生分支、涨价）</li>
+                        <li><strong>题材周期判断标准（个人复盘标准）</strong>：启动期、发酵期、加速期、高潮期、分歧期、反包期、退潮期、冰点期</li>
+                    </ul>
+                    
+                    <h3>🔍 具体查看方法（一步步教）</h3>
+                    <ul>
+                        <li><strong>步骤1</strong>：查看题材分类 → 记录：题材分类 = _____（大题材/中题材/小题材）</li>
+                        <li><strong>步骤2</strong>：查看题材涨幅空间 → 记录：题材涨幅空间 = _____（翻倍起步/大于50%/10-30%）</li>
+                        <li><strong>步骤3</strong>：查看题材周期 → 记录：题材周期 = _____（启动期/发酵期/加速期/高潮期/分歧期/反包期/退潮期/冰点期）</li>
+                        <li><strong>步骤4</strong>：选择题材 → 记录：选择题材 = _____（题材名称）</li>
+                    </ul>
+                    
+                    <h3>📖 案例演示</h3>
+                    <ul>
+                        <li><strong>案例1</strong>：大题材 - 基建地产 → 操作策略：龙头格局（浙江建投）</li>
+                        <li><strong>案例2</strong>：中题材 - 中药板块 → 操作策略：龙头接力（龙津药业）</li>
+                        <li><strong>案例3</strong>：小题材 - 材料涨价 → 操作策略：首板或二板接力</li>
+                    </ul>
+                    
+                    <div class="executable-rules">
+                        <h3>✅ 可执行规则</h3>
+                        <ul>
+                            <li><strong>规则1</strong>：选择大题材 → 龙头格局</li>
+                            <li><strong>规则2</strong>：选择中题材 → 龙头接力</li>
+                            <li><strong>规则3</strong>：选择小题材 → 首板或二板接力</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="chapter" onclick="toggleChapter('chapter4')">
+                <div class="chapter-header">
+                    <span class="chapter-number">第四章</span>
+                    <h2 class="chapter-title">选股阶段（超详细操作）</h2>
+                </div>
+                <div class="chapter-content" id="chapter4">
+                    <h3>📊 判断标准（量化指标）</h3>
+                    <ul>
+                        <li><strong>均线系统</strong>：多头排列、均线粘合、突破均线</li>
+                        <li><strong>成交量</strong>：放量、缩量、温和放量</li>
+                        <li><strong>突破关键阻力位</strong>：突破前期高点、突破平台、突破均线</li>
+                        <li><strong>个股地位</strong>：龙头股、跟风股</li>
+                    </ul>
+                    
+                    <h3>🔍 具体查看方法（一步步教）</h3>
+                    <ul>
+                        <li><strong>步骤1</strong>：查看涨幅榜前50名 → 记录：涨幅榜前50名个股 = _____</li>
+                        <li><strong>步骤2</strong>：查看板块联动性 → 记录：板块联动性 = _____（强/弱/无）</li>
+                        <li><strong>步骤3</strong>：选择龙头股 → 记录：龙头股 = _____（股票代码和名称）</li>
+                        <li><strong>步骤4</strong>：查看均线系统 → 记录：均线系统 = _____（多头排列/空头排列/粘合）</li>
+                        <li><strong>步骤5</strong>：查看成交量 → 记录：成交量 = _____（放量/缩量/温和放量）</li>
+                        <li><strong>步骤6</strong>：查看是否突破关键阻力位 → 记录：突破关键阻力位 = _____（是/否）</li>
+                    </ul>
+                    
+                    <h3>📖 案例演示</h3>
+                    <ul>
+                        <li><strong>案例1</strong>：选择强势股 → 操作策略：加入自选股，等待买入时机</li>
+                        <li><strong>案例2</strong>：选择龙头股 → 操作策略：重点关注，等待买入时机</li>
+                    </ul>
+                    
+                    <div class="executable-rules">
+                        <h3>✅ 可执行规则</h3>
+                        <ul>
+                            <li><strong>规则1</strong>：选择强势股 → 加入自选股</li>
+                            <li><strong>规则2</strong>：选择龙头股 → 重点关注</li>
+                            <li><strong>规则3</strong>：选择市场热点题材 → 优先配置</li>
+                            <li><strong>规则4</strong>：查看均线系统 → 多头排列优先</li>
+                            <li><strong>规则5</strong>：查看成交量 → 放量优先</li>
+                            <li><strong>规则6</strong>：查看是否突破关键阻力位 → 突破优先</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="chapter" onclick="toggleChapter('chapter5')">
+                <div class="chapter-header">
+                    <span class="chapter-number">第五章</span>
+                    <h2 class="chapter-title">买入阶段（超详细操作）</h2>
+                </div>
+                <div class="chapter-content" id="chapter5">
+                    <h3>📊 判断标准（量化指标）</h3>
+                    <ul>
+                        <li><strong>买在分歧</strong>：板块内个股走势分化，部分涨、部分跌</li>
+                        <li><strong>买在恐慌</strong>：大盘暴跌、个股暴跌、跌幅榜-9%以上个股 ≥ 15家</li>
+                        <li><strong>买在低位</strong>：股价回调到5日线、10日线、20日线附近</li>
+                        <li><strong>买入仓位</strong>：冰点期≤10%、复苏期10%-30%、高潮期50%-70%、退潮期≤30%</li>
+                    </ul>
+                    
+                    <h3>🔍 具体查看方法（一步步教）</h3>
+                    <ul>
+                        <li><strong>步骤1</strong>：查看个股是否有分歧 → 记录：个股分歧 = _____（是/否）</li>
+                        <li><strong>步骤2</strong>：查看大盘是否恐慌 → 记录：大盘恐慌 = _____（是/否）</li>
+                        <li><strong>步骤3</strong>：查看个股是否回调到低位 → 记录：回调到低位 = _____（是/否）</li>
+                        <li><strong>步骤4</strong>：制定买入计划 → 记录：买入价格 = _____元，买入仓位 = _____%，止损线 = _____元</li>
+                        <li><strong>步骤5</strong>：执行买入 → 记录：实际买入价格 = _____元，实际买入数量 = _____股</li>
+                    </ul>
+                    
+                    <h3>📖 案例演示</h3>
+                    <ul>
+                        <li><strong>案例1</strong>：买在分歧 → 操作策略：买入后持有，等待板块再次联动</li>
+                        <li><strong>案例2</strong>：买在恐慌 → 操作策略：买入后持有，等待大盘反弹</li>
+                        <li><strong>案例3</strong>：买在低位 → 操作策略：买入后持有，等待股价再次上涨</li>
+                    </ul>
+                    
+                    <div class="executable-rules">
+                        <h3>✅ 可执行规则</h3>
+                        <ul>
+                            <li><strong>规则1</strong>：买在分歧 → 板块分歧时买入龙头股</li>
+                            <li><strong>规则2</strong>：买在恐慌 → 大盘恐慌时买入抗跌的龙头股</li>
+                            <li><strong>规则3</strong>：买在低位 → 股价回调到低位时买入龙头股</li>
+                            <li><strong>规则4</strong>：制定买入计划 → 明确买入价格、仓位、止损线</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="chapter">
+                <div class="chapter-header">
+                    <span class="chapter-number">第六章至第十四章</span>
+                    <h2 class="chapter-title">持有阶段、卖出阶段、仓位管理、风险控制、心态管理、复盘推演、交易模式、大盘情绪监控、可执行规则检查清单</h2>
+                </div>
+                <div class="chapter-content">
+                    <p>由于篇幅限制，此处仅展示部分章节。<strong>完整内容请查看《交易体系_融合版（26位游资智慧 + 个人复盘理论）.md》文件。</strong></p>
+                    
+                    <h3>📋 完整章节列表</h3>
+                    <ul>
+                        <li><strong>第六章</strong>：持有阶段（超详细操作）</li>
+                        <li><strong>第七章</strong>：卖出阶段（超详细操作）</li>
+                        <li><strong>第八章</strong>：仓位管理（超详细操作）</li>
+                        <li><strong>第九章</strong>：风险控制（超详细操作）</li>
+                        <li><strong>第十章</strong>：心态管理（超详细操作）</li>
+                        <li><strong>第十一章</strong>：复盘推演（超详细操作）</li>
+                        <li><strong>第十二章</strong>：交易模式（超详细操作）</li>
+                        <li><strong>第十三章</strong>：大盘情绪监控（超详细操作）</li>
+                        <li><strong>第十四章</strong>：可执行规则检查清单（超详细操作）</li>
+                    </ul>
+                    
+                    <h3>📖 每个章节都包含</h3>
+                    <ul>
+                        <li><strong>判断标准（量化指标）</strong>：明确的量化标准</li>
+                        <li><strong>具体查看方法（一步步教）</strong>：详细的查看步骤</li>
+                        <li><strong>案例演示</strong>：实际案例演示</li>
+                        <li><strong>可执行规则</strong>：具体的操作步骤</li>
+                        <li><strong>实战操作记录表</strong>：记录实际操作</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p><strong>祝你交易顺利！</strong> 🚀</p>
+            <p>《交易体系_融合版（26位游资智慧 + 个人复盘理论）》</p>
+            <p>创建时间：2026年6月14日</p>
+        </div>
+    </div>
+    
+    <script>
+        function toggleChapter(chapterId) {
+            const chapter = document.getElementById(chapterId);
+            if (chapter.style.display === 'none') {
+                chapter.style.display = 'block';
+            } else {
+                chapter.style.display = 'none';
+            }
+        }
+        
+        // 默认隐藏所有章节内容
+        const chapters = document.querySelectorAll('.chapter-content');
+        chapters.forEach(chapter => {
+            chapter.style.display = 'none';
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>游资心法思维导图 - 索引</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+            padding: 40px 20px;
+        }
+        
+        .header h1 {
+            font-size: 42px;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .header p {
+            font-size: 18px;
+            opacity: 0.95;
+        }
+        
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .stat-item {
+            background: rgba(255,255,255,0.2);
+            padding: 15px 30px;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .stat-number {
+            font-size: 32px;
+            font-weight: bold;
+            display: block;
+        }
+        
+        .stat-label {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+        
+        .card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .card-icon {
+            font-size: 40px;
+            margin-right: 15px;
+        }
+        
+        .card-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+            flex: 1;
+        }
+        
+        .card-info {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        
+        .card-info p {
+            margin: 5px 0;
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        
+        .status-complete {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .btn {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            text-decoration: none;
+            display: block;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn-secondary {
+            background: #f8f9fa;
+            color: #333;
+            border: 2px solid #667eea;
+        }
+        
+        .btn-secondary:hover {
+            background: #667eea;
+            color: white;
+        }
+        
+        .footer {
+            text-align: center;
+            color: white;
+            margin-top: 50px;
+            padding: 20px;
+            opacity: 0.9;
+        }
+        
+        .instructions {
+            background: rgba(255,255,255,0.95);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        .instructions h2 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 24px;
+        }
+        
+        .instructions ol {
+            margin-left: 20px;
+            line-height: 2;
+            color: #555;
+        }
+        
+        .instructions li {
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🧠 游资心法思维导图</h1>
+            <p>27位游资高手的投资智慧 · 可视化知识地图</p>
+            
+            <div class="stats">
+                <div class="stat-item">
+                    <span class="stat-number">25</span>
+                    <span class="stat-label">思维导图</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">405+</span>
+                    <span class="stat-label">章节覆盖</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">✅</span>
+                    <span class="stat-label">全部完成</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="instructions">
+            <h2>📖 使用说明</h2>
+            <ol>
+                <li><strong>下载FreeMind软件</strong>：思维导图文件(.mm格式)需要用FreeMind软件打开</li>
+                <li><strong>打开思维导图</strong>：点击"打开思维导图"按钮，用FreeMind打开对应文件</li>
+                <li><strong>查看学习笔记</strong>：点击"查看学习笔记"按钮，查看详细的Markdown文档</li>
+                <li><strong>编辑思维导图</strong>：可以在FreeMind中编辑、导出为其他格式(PNG, PDF等)</li>
+            </ol>
+        </div>
+        
+        <div class="grid" id="mindmapGrid">
+            <!-- 思维导图卡片会通过JavaScript动态生成 -->
+        </div>
+        
+        <div class="footer">
+            <p>🎯 基于27位游资高手心法整理 · 工欲善其事，必先利其器</p>
+            <p style="margin-top: 10px; font-size: 14px;">Generated by WorkBuddy · 2026</p>
+        </div>
+    </div>
+    
+    <script>
+        // 游资列表数据
+        const traders = [
+            { name: '92科比', file: '92科比心法_思维导图.mm', notes: '92科比心法_学习笔记.md', chapters: 91 },
+            { name: 'ASKING', file: 'ASKING心法_思维导图.mm', notes: 'ASKING心法_学习笔记.md', chapters: 68 },
+            { name: '丁一熊', file: '丁一熊心法_思维导图.mm', notes: '丁一熊心法_学习笔记.md', chapters: 67 },
+            { name: '万法归宗', file: '万法归宗心法_思维导图.mm', notes: '万法归宗心法_学习笔记.md', chapters: 86 },
+            { name: '乔帮主', file: '乔帮主心法_思维导图.mm', notes: '乔帮主心法_学习笔记.md', chapters: 64 },
+            { name: '令胡冲', file: '令胡冲心法_思维导图.mm', notes: '令胡冲心法_学习笔记.md', chapters: 65 },
+            { name: '凡倍无名', file: '凡倍无名心法_思维导图.mm', notes: '凡倍无名心法_学习笔记.md', chapters: 59 },
+            { name: '孤独牛背', file: '孤独牛背心法_思维导图.mm', notes: '孤独牛背心法_学习笔记.md', chapters: 65 },
+            { name: '小鳄鱼', file: '小鳄鱼心法_思维导图.mm', notes: '小鳄鱼心法_学习笔记.md', chapters: 101 },
+            { name: '徐翔', file: '徐翔心法_思维导图.mm', notes: '徐翔心法_学习笔记.md', chapters: 81 },
+            { name: '明王', file: '明王心法_思维导图.mm', notes: '明王心法_学习笔记.md', chapters: 65 },
+            { name: '榜中榜', file: '榜中榜心法_思维导图.mm', notes: '榜中榜心法_学习笔记.md', chapters: 65 },
+            { name: '欢乐海岸', file: '欢乐海岸心法_思维导图.mm', notes: '欢乐海岸心法_学习笔记.md', chapters: 67 },
+            { name: '浓汤野人', file: '浓汤野人心法_思维导图.mm', notes: '浓汤野人心法_学习笔记.md', chapters: 89 },
+            { name: '涅盘重升', file: '涅盘重升心法_思维导图.mm', notes: '涅盘重升心法_学习笔记.md', chapters: 78 },
+            { name: '独股一箭', file: '独股一箭心法_思维导图.mm', notes: '独股一箭心法_学习笔记.md', chapters: 81 },
+            { name: '瑞鹤仙', file: '瑞鹤仙心法_思维导图.mm', notes: '瑞鹤仙心法_学习笔记.md', chapters: 86 },
+            { name: '章盟主', file: '章盟主心法_思维导图.mm', notes: '章盟主心法_学习笔记.md', chapters: 68 },
+            { name: '职业炒手', file: '职业炒手心法_思维导图.mm', notes: '职业炒手心法_学习笔记.md', chapters: 66 },
+            { name: '艾琳', file: '艾琳心法_思维导图.mm', notes: '艾琳心法_学习笔记.md', chapters: 93 },
+            { name: '落升', file: '落升心法_思维导图.mm', notes: '落升心法_学习笔记.md', chapters: 65 },
+            { name: '著名刺客', file: '著名刺客心法_思维导图.mm', notes: '著名刺客心法_学习笔记.md', chapters: 71 },
+            { name: '赵老哥', file: '赵老哥心法_思维导图.mm', notes: '赵老哥心法_学习笔记.md', chapters: 59 },
+            { name: '退学炒股', file: '退学炒股心法_思维导图.mm', notes: '退学炒股心法_学习笔记.md', chapters: 66 },
+            { name: '龙飞虎', file: '龙飞虎心法_思维导图.mm', notes: '龙飞虎心法_学习笔记.md', chapters: 65 }
+        ];
+        
+        // 生成思维导图卡片
+        function generateCards() {
+            const grid = document.getElementById('mindmapGrid');
+            grid.innerHTML = '';
+            
+            traders.forEach((trader, index) => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                
+                card.innerHTML = `
+                    <div class="card-header">
+                        <div class="card-icon">🧠</div>
+                        <div class="card-title">${trader.name}</div>
+                    </div>
+                    <div class="card-info">
+                        <p>📊 章节数: ${trader.chapters}章</p>
+                        <p>📁 文件: ${trader.file}</p>
+                        <span class="status-badge status-complete">✅ 已完成</span>
+                    </div>
+                    <div class="btn-group">
+                        <a href="${trader.file}" download class="btn btn-primary">下载思维导图</a>
+                        <a href="${trader.notes}" target="_blank" class="btn btn-secondary">查看笔记</a>
+                    </div>
+                `;
+                
+                grid.appendChild(card);
+            });
+        }
+        
+        // 页面加载完成后生成卡片
+        document.addEventListener('DOMContentLoaded', generateCards);
+    </script>
+</body>
+</html>

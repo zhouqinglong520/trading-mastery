@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>【终极版】龙行刺情绪周期交易体系（可视化）</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Microsoft YaHei', '微软雅黑', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 36px;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 18px;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .section {
+            margin-bottom: 40px;
+            padding: 30px;
+            background: #f8f9fa;
+            border-radius: 15px;
+            border-left: 5px solid #667eea;
+        }
+
+        .section h2 {
+            color: #667eea;
+            font-size: 28px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .section h3 {
+            color: #764ba2;
+            font-size: 22px;
+            margin-top: 25px;
+            margin-bottom: 15px;
+        }
+
+        .section h4 {
+            color: #555;
+            font-size: 18px;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        .section p {
+            line-height: 1.8;
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        tr:hover {
+            background: #f5f5f5;
+        }
+
+        .highlight {
+            background: #fff3cd;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #ffc107;
+            margin: 20px 0;
+        }
+
+        .warning {
+            background: #f8d7da;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #dc3545;
+            margin: 20px 0;
+        }
+
+        .tip {
+            background: #d1ecf1;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #17a2b8;
+            margin: 20px 0;
+        }
+
+        .checklist {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .checklist h4 {
+            color: #28a745;
+            margin-bottom: 15px;
+        }
+
+        .checklist ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .checklist li {
+            padding: 10px 0;
+            border-bottom: 1px solid #e0e0e0;
+            color: #555;
+        }
+
+        .checklist li:before {
+            content: "☐ ";
+            color: #667eea;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .step {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 15px 0;
+            border-left: 4px solid #28a745;
+        }
+
+        .step h4 {
+            color: #28a745;
+            margin-bottom: 10px;
+        }
+
+        .example {
+            background: #f0f0f0;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 4px solid #6c757d;
+        }
+
+        .example h4 {
+            color: #6c757d;
+            margin-bottom: 10px;
+        }
+
+        .footer {
+            background: #f8f9fa;
+            padding: 30px;
+            text-align: center;
+            color: #666;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .print-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 16px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            transition: all 0.3s;
+        }
+
+        .print-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.4);
+        }
+
+        @media print {
+            .print-btn {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📈 【终极版】龙行刺情绪周期交易体系</h1>
+            <p>超详细实战手册（2025实战修订版）</p>
+            <p>整合26位游资智慧 + 个人复盘理论 + 龙行刺原始内容</p>
+        </div>
+
+        <div class="content">
+            <div class="section">
+                <h2>📋 使用说明</div>
+                <p><strong>这份文档是每个步骤都有详细操作说明的超实战手册！</strong></p>
+                <ul>
+                    <li>✅ <strong>每个判断细节都有明确的量化标准</strong></li>
+                    <li>✅ <strong>每个步骤都有具体的查看方法</strong></li>
+                    <li>✅ <strong>每个步骤都有详细的执行步骤</strong></li>
+                    <li>✅ <strong>每个章节都有案例演示</strong></li>
+                    <li>✅ <strong>每个章节都有实战操作记录表</strong></li>
+                </ul>
+                <div class="tip">
+                    <strong>💡 使用方法：</strong>
+                    <ol>
+                        <li>打印这份文档，放在电脑旁</li>
+                        <li>每一步操作前，先查看对应章节</li>
+                        <li>严格按照文档中的步骤执行</li>
+                        <li>用不同颜色的笔标记完成情况</li>
+                        <li>每天复盘时，记录到"实战操作记录表"</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>📊 1. 情绪周期判断体系</h2>
+                
+                <h3>1.1 中级情绪周期（方向性指引）</h3>
+                <table>
+                    <tr>
+                        <th>阶段</th>
+                        <th>表现特征</th>
+                        <th>量化指标</th>
+                        <th>机会策略</th>
+                        <th>仓位</th>
+                        <th>风险提示</th>
+                    </tr>
+                    <tr>
+                        <td><strong>开启</strong></td>
+                        <td>1. 指数连续下跌后企稳<br>2. 出现打破空间的连板</td>
+                        <td>1. 昨日涨停板数量：≥30家<br>2. 空间板高度：≥6板<br>3. 昨日跌幅榜：≤5家</td>
+                        <td>1. 指数共振板<br>2. 分支龙头<br>3. 核心个股的首阴低吸</td>
+                        <td>80%-100%</td>
+                        <td>避免追高旧题材跟风</td>
+                    </tr>
+                    <tr>
+                        <td><strong>发酵</strong></td>
+                        <td>1. 指数横盘震荡<br>2. 空间再次受到压制</td>
+                        <td>1. 空间板高度：≤5板<br>2. 连板数量：10-20家<br>3. 昨日跌幅榜：5-10家</td>
+                        <td>1. 补涨龙<br>2. 新题材卡位</td>
+                        <td>10%-30%</td>
+                        <td>轮动快，轻仓试错</td>
+                    </tr>
+                    <tr>
+                        <td><strong>高潮</strong></td>
+                        <td>1. 情绪与指数共振向上<br>2. 连板空间打开，并且数量增多</td>
+                        <td>1. 空间板高度：≥8板<br>2. 连板数量：≥30家<br>3. 板块涨停：≥10家</td>
+                        <td>1. 题材龙接力<br>2. 辨识度低吸</td>
+                        <td>100%</td>
+                        <td>警惕加速板诱多</td>
+                    </tr>
+                    <tr>
+                        <td><strong>主跌</strong></td>
+                        <td>1. 情绪与指数共振下杀<br>2. 空间受到压制，连板数量减少</td>
+                        <td>1. 空间板高度：≤4板<br>2. 连板数量：≤10家<br>3. 昨日跌幅榜：≥15家</td>
+                        <td>1. 空仓<br>2. 轮动</td>
+                        <td>1%-10%</td>
+                        <td>避免接力中位股</td>
+                    </tr>
+                </table>
+
+                <div class="checklist">
+                    <h4>✅ 检查清单</h4>
+                    <ul>
+                        <li>步骤1完成：打开东方财富网</li>
+                        <li>步骤2完成：查看涨停板数量（记录：_____家）</li>
+                        <li>步骤3完成：查看空间板高度（记录：_____板）</li>
+                        <li>步骤4完成：查看跌幅榜情况（记录：_____家）</li>
+                        <li>步骤5完成：记录数据到Excel</li>
+                    </ul>
+                </div>
+
+                <div class="example">
+                    <h4>📖 案例演示：中级周期开启阶段（2022年4月）</h4>
+                    <p><strong>涨停板数量</strong>：35家 → 判断：高潮</p>
+                    <p><strong>空间板高度</strong>：6板（湖南发展） → 判断：突破</p>
+                    <p><strong>跌幅榜</strong>：3家 → 判断：正常</p>
+                    <p><strong>操作</strong>：满仓干龙头（湖南发展）</p>
+                </div>
+
+                <h3>1.2 短线情绪周期（操作性策略）</h3>
+                <table>
+                    <tr>
+                        <th>阶段</th>
+                        <th>表现特征</th>
+                        <th>量化指标</th>
+                        <th>机会策略</th>
+                        <th>风险提示</th>
+                    </tr>
+                    <tr>
+                        <td><strong>结束</strong></td>
+                        <td>主线龙头断板</td>
+                        <td>1. 高度压制在3B及以下<br>2. 连板数被压制在个位数<br>3. 次日无脑做高标</td>
+                        <td>1. 中位接力补涨<br>2. 龙头首阴低吸</td>
+                        <td>补涨股次日核按钮</td>
+                    </tr>
+                    <tr>
+                        <td><strong>混沌</strong></td>
+                        <td>龙头断板，题材四处开花，资金迷茫</td>
+                        <td>1. 题材散乱<br>2. 资金迷茫</td>
+                        <td>1. 中位接力补涨<br>2. 龙头反包低吸<br>3. 低位试错</td>
+                        <td>试错成本高，成功率低</td>
+                    </tr>
+                    <tr>
+                        <td><strong>确认</strong></td>
+                        <td>混沌后，主线题材卡位确认</td>
+                        <td>1. 主线题材卡位<br>2. 资金形成合力</td>
+                        <td>龙头接力</td>
+                        <td>误判主线导致站错队</td>
+                    </tr>
+                    <tr>
+                        <td><strong>加速</strong></td>
+                        <td>主线加速，并出现连板跟风助攻</td>
+                        <td>1. 龙头首次确认加速<br>2. 板块内有连板的助攻</td>
+                        <td>1. 龙头接力<br>2. 跟风套利<br>3. 老龙反抽</td>
+                        <td>跟风股次日溢价不足</td>
+                    </tr>
+                    <tr>
+                        <td><strong>高潮</strong></td>
+                        <td>板块全面发酵，板块内连板增多</td>
+                        <td>1. 板块全面发酵<br>2. 板块内连板增多</td>
+                        <td>1. 龙头格局<br>2. 切换</td>
+                        <td>跟风股成接盘重灾区</td>
+                    </tr>
+                </table>
+
+                <div class="warning">
+                    <strong>⚠️ 风险警示：</strong>
+                    <p><strong>短线情绪周期上在01、02、05阶段是最容易亏钱的阶段</strong></p>
+                    <p><strong>中级情绪周期上在02、04是最容易亏钱的阶段</strong></p>
+                    <p><strong>双重叠加风险（最危险！）</strong>：当短线周期的混沌阶段 + 中级周期的发酵/主跌阶段，亏钱效应非常炸裂！可能今天一字涨停，明天就一字跌停。<strong>这个时候最好是空仓！</strong></p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>🎯 2. 选股阶段：龙头识别与操作</h2>
+                
+                <h3>2.1 龙头股类型</h3>
+                <table>
+                    <tr>
+                        <th>类型</th>
+                        <th>定义</th>
+                        <th>买点</th>
+                        <th>卖点</th>
+                    </tr>
+                    <tr>
+                        <td><strong>空间龙</strong></td>
+                        <td>市场上连板高度最高的个股</td>
+                        <td>爆量分歧日低吸</td>
+                        <td>跌破5日线</td>
+                    </tr>
+                    <tr>
+                        <td><strong>补涨龙</strong></td>
+                        <td>主线退潮后低位崛起</td>
+                        <td>首板/二板弱转强</td>
+                        <td>高度达7板或板块分化</td>
+                    </tr>
+                    <tr>
+                        <td><strong>反包龙</strong></td>
+                        <td>二波突破</td>
+                        <td>0.618支撑位首板打板</td>
+                        <td>二次断板无承接</td>
+                    </tr>
+                    <tr>
+                        <td><strong>切换龙</strong></td>
+                        <td>新题材卡位</td>
+                        <td>板块首次联动首板</td>
+                        <td>板块持续性证伪</td>
+                    </tr>
+                    <tr>
+                        <td><strong>日内龙</strong></td>
+                        <td>市场上首先涨停的个股</td>
+                        <td>每个板块在某一个阶段，都有一些资金尝试发动行情</td>
+                        <td>单日试错为主</td>
+                    </tr>
+                    <tr>
+                        <td><strong>先手龙</strong></td>
+                        <td>突然的利好，导致资金认可，提前涨停启动</td>
+                        <td>比板块其它个股领先身位</td>
+                        <td>率先启动，相对抛压更小</td>
+                    </tr>
+                    <tr>
+                        <td><strong>板块龙</strong></td>
+                        <td>板块中最先涨停连板身位最高的个股</td>
+                        <td>两个都符合的才叫龙，不要求高度</td>
+                        <td>板块内最先涨停</td>
+                    </tr>
+                    <tr>
+                        <td><strong>中军</strong></td>
+                        <td>市值超过100亿，交易额在20亿以上的个股</td>
+                        <td>一般是大资金的战场</td>
+                        <td>容量大，走势稳</td>
+                    </tr>
+                </table>
+
+                <div class="example">
+                    <h4>📖 案例演示：空间龙（2023年1月）</h4>
+                    <p><strong>主流板块</strong>：新能源车</p>
+                    <p><strong>龙头个股</strong>：通达动力</p>
+                    <p><strong>龙头类型</strong>：空间龙（6板）</p>
+                    <p><strong>操作</strong>：爆量分歧日低吸</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>💰 3. 买入阶段：9种常用手法详解</h2>
+                
+                <h3>手法1：连板接力</h3>
+                <table>
+                    <tr>
+                        <th>项目</th>
+                        <th>内容</th>
+                    </tr>
+                    <tr>
+                        <td><strong>买点</strong></td>
+                        <td>1. 分歧先手（三成）<br>2. 高开竞价/打板（五成）</td>
+                    </tr>
+                    <tr>
+                        <td><strong>仓位</strong></td>
+                        <td>1. 分歧先手：三成<br>2. 高开竞价/打板：五成</td>
+                    </tr>
+                    <tr>
+                        <td><strong>逻辑</strong></td>
+                        <td>1. 分歧先手：题材经过爆量分歧，提前预判该题材继续走远，有想象空间，低吸三成<br>2. 高开竞价/打板：题材经过爆量分歧，次日弱转强带动板块发酵，满仓打板</td>
+                    </tr>
+                    <tr>
+                        <td><strong>止损点</strong></td>
+                        <td>1. 分歧先手：次日非弱转强-低开无承接<br>2. 高开竞价/打板：次日非加速-平开/低开</td>
+                    </tr>
+                </table>
+
+                <div class="step">
+                    <h4>📝 查看方法：</h4>
+                    <p><strong>步骤1</strong>：判断是否为连板接力（查看个股是否已经连板，查看个股是否处于分歧日）</p>
+                    <p><strong>步骤2</strong>：判断买点（如果是分歧先手：低吸三成；如果是高开竞价/打板：打板五成）</p>
+                    <p><strong>步骤3</strong>：执行买入（打开交易软件，输入股票代码，输入买入价格和数量，确认买入）</p>
+                    <p><strong>步骤4</strong>：记录交易（打开"交易记录表"，记录日期、股票名称、买点、仓位、逻辑、止损点）</p>
+                </div>
+
+                <div class="example">
+                    <h4>📖 案例演示：分歧先手（2023年1月）</h4>
+                    <p><strong>股票名称</strong>：通达动力</p>
+                    <p><strong>买点</strong>：6板分歧日</p>
+                    <p><strong>仓位</strong>：三成</p>
+                    <p><strong>逻辑</strong>：新能源车题材经过爆量分歧，提前预判该题材继续走远</p>
+                    <p><strong>止损点</strong>：次日非弱转强-低开无承接</p>
+                    <p><strong>结果</strong>：次日弱转强，盈利30%</p>
+                </div>
+
+                <h3>手法2：反包二波</h3>
+                <table>
+                    <tr>
+                        <th>项目</th>
+                        <th>内容</th>
+                    </tr>
+                    <tr>
+                        <td><strong>买点</strong></td>
+                        <td>底分型支撑打板（五成）</td>
+                    </tr>
+                    <tr>
+                        <td><strong>仓位</strong></td>
+                        <td>五成</td>
+                    </tr>
+                    <tr>
+                        <td><strong>逻辑</strong></td>
+                        <td>个股经过洗盘，在0.618取得支撑，调整时间为4-8天，题材再次发酵，前龙走二波</td>
+                    </tr>
+                    <tr>
+                        <td><strong>止损点</strong></td>
+                        <td>跌破支撑</td>
+                    </tr>
+                </table>
+
+                <h3>手法3-10：其他手法</h3>
+                <div class="tip">
+                    <p><strong>手法3：一字板首开</strong> - 平开或爆量上板（三成）</p>
+                    <p><strong>手法4：切换板</strong> - 首板（三成）</p>
+                    <p><strong>手法5：地天板</strong> - 跟随翘板（三成）</p>
+                    <p><strong>手法6：同身位低吸</strong> - 低吸（两成）</p>
+                    <p><strong>手法7：可转债</strong> - 竞价（三成）</p>
+                    <p><strong>手法8：弱转强错杀低吸</strong> - 回封板（三成）</p>
+                    <p><strong>手法9：次高空间接力</strong> - 最高断板，次高低吸（两成）</p>
+                    <p><strong>手法10：次新首开</strong> - 情绪有分歧预期（三成）</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>📈 4. 持有阶段：龙头格局与切换</h2>
+                
+                <h3>4.1 龙头格局条件</h3>
+                <div class="highlight">
+                    <p><strong>✅ 可以格局的条件：</strong></p>
+                    <p>1. <strong>中级周期第一阶段（开启）</strong> - 龙头可以多格局到首阴和反包</p>
+                    <p>2. <strong>中级周期第三阶段（高潮）</strong> - 龙头可以多格局到首阴和反包</p>
+                    <p>3. <strong>龙头首次阴线</strong> - 可以低吸，等待反包</p>
+                    <p>4. <strong>龙头反包</strong> - 可以格局到二波结束，跌破5日线再卖</p>
+                </div>
+
+                <h3>4.2 切换条件</h3>
+                <div class="tip">
+                    <p><strong>🔄 需要切换的条件：</strong></p>
+                    <p>1. <strong>龙头高潮意味着次日开始分歧</strong> - 可以注意低位板块，做切换</p>
+                    <p>2. <strong>板块全面发酵，板块内连板增多</strong> - 这个时候跟风都是卖点，可以切换低位新题材</p>
+                    <p>3. <strong>有新的板块或题材成为新的主流</strong> - 这个属于板块挤压效应，在熊市中，资金有限，多线作战，必然导致资金分流，后继无力，可以切换到新主流</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>💸 5. 卖出阶段：卖点判断与执行</h2>
+                
+                <h3>5.1 空间龙头卖点</h3>
+                <div class="step">
+                    <h4>📝 卖点条件：</h4>
+                    <p>1. <strong>在赚钱效应回暖和赚钱效应高潮期一直拿住</strong></p>
+                    <p>2. <strong>龙头确认断板</strong> - 卖出2/3</p>
+                    <p>3. <strong>留1/3走完反包破5日线再卖</strong></p>
+                </div>
+
+                <h3>5.2 分支套利卖点</h3>
+                <div class="step">
+                    <h4>📝 卖点条件：</h4>
+                    <p><strong>次日有利润就走</strong></p>
+                </div>
+
+                <h3>5.3 分支龙头卖点</h3>
+                <div class="step">
+                    <h4>📝 卖点条件：</h4>
+                    <p>1. <strong>当天炸板</strong></p>
+                    <p>2. <strong>情绪超预期：对情绪次日判断分歧，但最高或者次高依然是一字走加速，此时分支龙如果平开或者低开快速杀跌的话，是会吃到情绪溢价的，如果持仓，就不着急卖</strong></p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>⚖️ 6. 仓位管理：动态调整策略</h2>
+                
+                <h3>6.1 仓位管理矩阵</h3>
+                <table>
+                    <tr>
+                        <th>周期阶段</th>
+                        <th>仓位上限</th>
+                        <th>主攻方向</th>
+                        <th>风险提示</th>
+                    </tr>
+                    <tr>
+                        <td><strong>中周期开启</strong></td>
+                        <td>100%</td>
+                        <td>空间龙+共振首板</td>
+                        <td>警惕伪空间板（如一字顶板无换手）</td>
+                    </tr>
+                    <tr>
+                        <td><strong>中周期高潮</strong></td>
+                        <td>80%</td>
+                        <td>龙头格局+分支补涨</td>
+                        <td>跟风股加速即卖点</td>
+                    </tr>
+                    <tr>
+                        <td><strong>中周期主跌</strong></td>
+                        <td>≤10%</td>
+                        <td>可转债/次新首开</td>
+                        <td>杜绝中位股接力</td>
+                    </tr>
+                </table>
+
+                <div class="warning">
+                    <strong>⚠️ 仓位管理铁律：</strong>
+                    <p><strong>主升期满仓，退潮期≤30%！</strong></p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>🛡️ 7. 风险控制：止损与防守</h2>
+                
+                <h3>7.1 止损规则</h3>
+                <div class="step">
+                    <h4>📝 止损条件：</h4>
+                    <p>1. <strong>个股跌破关键支撑</strong> - 如5日线，立即离场</p>
+                    <p>2. <strong>板块退潮</strong> - 跌停≥5家，立即离场</p>
+                    <p>3. <strong>龙头断板</strong> - 卖出2/3，留1/3走完反包破5日线再卖</p>
+                    <p>4. <strong>次日非弱转强</strong> - 低开无承接，立即离场</p>
+                </div>
+
+                <h3>7.2 空仓原则</h3>
+                <div class="highlight">
+                    <p><strong>✅ 必须空仓的条件：</strong></p>
+                    <p>1. <strong>中级周期第四阶段（主跌）+ 短线混沌期</strong> - 强制空仓3日以上</p>
+                    <p>2. <strong>双重叠加风险</strong> - 当短线周期的混沌阶段 + 中级周期的发酵/主跌阶段，立即空仓！</p>
+                    <p>3. <strong>连板高度压至4板以下</strong> - 空仓</p>
+                    <p>4. <strong>跌停家数＞20家</strong> - 空仓</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>📝 8. 复盘体系：每日/每周/每月</h2>
+                
+                <h3>8.1 每日复盘模板</h3>
+                <div class="tip">
+                    <p><strong>📋 复盘模板：</strong></p>
+                    <p>日期：_____</p>
+                    <p>空间梯队：_____</p>
+                    <p>最高板：_____</p>
+                    <p>次高板：_____</p>
+                    <p>主线：_____</p>
+                    <p>主线龙头：_____</p>
+                    <p>分支：_____</p>
+                    <p>分支龙头：_____</p>
+                    <p>情绪周期：_____</p>
+                    <p>情绪指标：_____</p>
+                    <p>市场表现：_____</p>
+                    <p>明日预期：_____</p>
+                    <p>持有个股：_____</p>
+                    <p>交易计划：_____</p>
+                </div>
+
+                <h3>8.2 每周复盘内容</h3>
+                <div class="step">
+                    <p>1. <strong>周期定位校验</strong> - 对比历史相似周期</p>
+                    <p>2. <strong>账户回撤分析</strong> - 统计亏损交易中的周期误判比例</p>
+                    <p>3. <strong>本周交易总结</strong> - 总结本周交易得失</p>
+                </div>
+
+                <h3>8.3 每月复盘内容</h3>
+                <div class="step">
+                    <p>1. <strong>月度交易总结</strong> - 总结月度交易得失</p>
+                    <p>2. <strong>交易体系优化</strong> - 优化交易体系</p>
+                    <p>3. <strong>下月交易计划</strong> - 制定下月交易计划</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>🧠 9. 心态管理：交易心理训练</h2>
+                
+                <h3>9.1 心态管理原则</h3>
+                <div class="highlight">
+                    <p><strong>✅ 心态管理原则：</strong></p>
+                    <p>1. <strong>赚钱的时候明白是市场行情给的</strong></p>
+                    <p>2. <strong>亏钱：控制好仓位、模式内的操作可以接受、不能使操作变形</strong></p>
+                    <p>3. <strong>积极的心态足以让你做成任何事情</strong></p>
+                    <p>4. <strong>交易之道在人心，人心之道生情绪。掌控自己，才能不被市场掌控，否则会有踩不完的坑</strong></p>
+                </div>
+
+                <h3>9.2 训练方式</h3>
+                <div class="tip">
+                    <p><strong>💪 训练方式：</strong></p>
+                    <p>1. <strong>执行计划</strong> - 计划交易，交易计划，多做静态交易，按照计划执行</p>
+                    <p>2. <strong>习惯空仓</strong> - 没有确定性的买点坚决空仓</p>
+                    <p>3. <strong>没有踏空</strong> - 没有踏空之说，错过了等待下一次</p>
+                    <p>4. <strong>积极暗示</strong> - 自我鼓励，每天积极暗示自己一定能行</p>
+                </div>
+
+                <h3>9.3 推荐书籍</h3>
+                <div class="step">
+                    <p>1. <strong>《交易心理分析》</strong></p>
+                    <p>2. <strong>《知行合一》</strong></p>
+                    <p>3. <strong>《止损》</strong></p>
+                    <p>4. <strong>《自控力》</strong></p>
+                    <p>5. <strong>《认知觉醒：开启自我改变的原动力》</strong></p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>🎯 10. 题材理解：大/中/小题材分类</h2>
+                
+                <h3>10.1 题材分类</h3>
+                <table>
+                    <tr>
+                        <th>类型</th>
+                        <th>细分</th>
+                        <th>涨幅空间</th>
+                        <th>持续时间</th>
+                    </tr>
+                    <tr>
+                        <td><strong>大题材</strong></td>
+                        <td>1. 政策类<br>2. 科技类<br>3. 基因类</td>
+                        <td>以月为单位，翻倍起步，通常会有二波（如今年基建地产-浙江建投）</td>
+                        <td>2-6个月</td>
+                    </tr>
+                    <tr>
+                        <td><strong>中题材</strong></td>
+                        <td>1. 炒冷饭<br>2. 衍生分支<br>3. 涨价</td>
+                        <td>以周为单位，龙头涨幅空间大于50%，如基建分支地产，医药分支中药</td>
+                        <td>2-4周</td>
+                    </tr>
+                    <tr>
+                        <td><strong>小题材</strong></td>
+                        <td></td>
+                        <td>以日为单位，通常是消息刺激，产品涨价等，涨幅空间在10-30%，如材料涨价，期货暴涨，突发消息等</td>
+                        <td>1-3天</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="section">
+                <h2>🎓 11. 实战案例：经典周期复盘</h2>
+                
+                <h3>案例1：2022年4月-7月 基建地产周期（湖南发展-浙江建投）</h3>
+                <div class="example">
+                    <p><strong>中级周期开启阶段</strong>：指数连续下跌后企稳，湖南发展打出6板空间 → <strong>操作：满仓干龙头（湖南发展）</strong></p>
+                    <p><strong>中级周期高潮阶段</strong>：浙江建投走二波，板块全面发酵 → <strong>操作：龙头锁仓，等待反包</strong></p>
+                    <p><strong>中级周期主跌阶段</strong>：龙头断板，亏钱效应严重 → <strong>操作：空仓管住手</strong></p>
+                </div>
+
+                <h3>案例2：2023年1月-2月 AI周期（汉王科技-鸿博股份）</h3>
+                <div class="example">
+                    <p><strong>中级周期开启阶段</strong>：AI题材爆发，汉王科技打出7板空间 → <strong>操作：满仓干龙头（汉王科技）</strong></p>
+                    <p><strong>中级周期高潮阶段</strong>：鸿博股份走补涨，板块全面发酵 → <strong>操作：龙头锁仓，切换补涨龙（鸿博股份）</strong></p>
+                    <p><strong>中级周期主跌阶段</strong>：龙头断板，亏钱效应严重 → <strong>操作：空仓管住手</strong></p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>📝 12. 错题集与心得</h2>
+                
+                <h3>12.1 错题集</h3>
+                <div class="warning">
+                    <p><strong>❌ 十大致命误区：</strong></p>
+                    <p>1. <strong>龙头首阴必反包</strong> → 退潮期反包失败率＞80%</p>
+                    <p>2. <strong>冰点次日必反转</strong> → 需确认情绪修复信号（如反核涨停）</p>
+                    <p>3. <strong>盲目格局</strong> → 破5日线无条件止损</p>
+                    <p>4. <strong>杂毛补涨幻想</strong> → 非龙头属性对标股淘汰率＞90%</p>
+                </div>
+
+                <h3>12.2 心得</h3>
+                <div class="highlight">
+                    <p><strong>✅ 心得体会：</strong></p>
+                    <p>1. <strong>计划交易，交易计划</strong></p>
+                    <p>2. <strong>没有确定性的买点坚决空仓</strong></p>
+                    <p>3. <strong>没有踏空之说，错过了等待下一次</strong></p>
+                    <p>4. <strong>自我鼓励，每天积极暗示自己一定能行</strong></p>
+                    <p>5. <strong>掌控自己，才能不被市场掌控</strong></p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>📊 13. 实战操作记录表</h2>
+                
+                <h3>13.1 每日实战操作记录表</h3>
+                <table>
+                    <tr>
+                        <th>日期</th>
+                        <th>情绪周期</th>
+                        <th>指数气氛</th>
+                        <th>主流板块</th>
+                        <th>龙头个股</th>
+                        <th>买点</th>
+                        <th>仓位</th>
+                        <th>卖点</th>
+                        <th>盈利</th>
+                        <th>备注</th>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </table>
+
+                <h3>13.2 每周实战操作记录表</h3>
+                <table>
+                    <tr>
+                        <th>周数</th>
+                        <th>交易次数</th>
+                        <th>盈利次数</th>
+                        <th>亏损次数</th>
+                        <th>胜率</th>
+                        <th>总盈利</th>
+                        <th>总亏损</th>
+                        <th>净盈利</th>
+                        <th>备注</th>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </table>
+
+                <h3>13.3 每月实战操作记录表</h3>
+                <table>
+                    <tr>
+                        <th>月份</th>
+                        <th>交易次数</th>
+                        <th>盈利次数</th>
+                        <th>亏损次数</th>
+                        <th>胜率</th>
+                        <th>总盈利</th>
+                        <th>总亏损</th>
+                        <th>净盈利</th>
+                        <th>备注</th>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="section">
+                <h2>🎯 14. 总结</h2>
+                <div class="highlight">
+                    <p><strong>📈 核心思想：</strong></p>
+                    <p><strong>买在分歧转一致-弱转强，卖在一致转分歧-强转弱（反复阅读，必有收获）</strong></p>
+                </div>
+                <div class="tip">
+                    <p><strong>💡 使用建议：</strong></p>
+                    <p>1. <strong>打印这份文档</strong>，放在电脑旁</p>
+                    <p>2. <strong>每一步操作前</strong>，先查看对应章节</p>
+                    <p>3. <strong>严格按照文档中的步骤执行</strong></p>
+                    <p>4. <strong>用不同颜色的笔标记完成情况</strong></p>
+                    <p>5. <strong>每天复盘时</strong>，记录到"实战操作记录表"</p>
+                </div>
+                <div class="warning">
+                    <p><strong>⚠️ 风险提示：</strong></p>
+                    <p><strong>股市有风险，投资需谨慎！</strong></p>
+                    <p><strong>这份文档仅供参考学习，不构成投资建议！</strong></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>📈 【终极版】龙行刺情绪周期交易体系（超详细实战手册）</p>
+            <p>版本：2025实战修订版 | 最后更新：2026年6月15日</p>
+            <p>作者：龙行刺 | 整合者：AI助手（整合26位游资智慧+个人复盘理论）</p>
+            <p>祝你交易顺利！📈</p>
+        </div>
+    </div>
+
+    <button class="print-btn" onclick="window.print()">🖨️ 打印文档</button>
+</body>
+</html>

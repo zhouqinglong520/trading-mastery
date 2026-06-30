@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>模拟交易系统_可视化</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Microsoft YaHei', '微软雅黑', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 60px 40px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .header p {
+            font-size: 20px;
+            opacity: 0.95;
+        }
+        
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            padding: 40px;
+            background: #f8f9fa;
+            border-bottom: 2px solid #e9ecef;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 48px;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        
+        .stat-label {
+            font-size: 16px;
+            color: #666;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        .section {
+            margin-bottom: 50px;
+        }
+        
+        .section-title {
+            font-size: 32px;
+            color: #667eea;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #667eea;
+        }
+        
+        .card {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border-left: 5px solid #667eea;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 12px rgba(0,0,0,0.15);
+        }
+        
+        .card-title {
+            font-size: 28px;
+            color: #667eea;
+            margin-bottom: 20px;
+        }
+        
+        .card-content {
+            font-size: 16px;
+            color: #333;
+            line-height: 1.8;
+        }
+        
+        .rule-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .rule-list li {
+            padding: 10px 0;
+            padding-left: 30px;
+            position: relative;
+        }
+        
+        .rule-list li:before {
+            content: '✅';
+            position: absolute;
+            left: 0;
+        }
+        
+        .btn {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 10px 20px;
+            background: #667eea;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+        
+        .btn:hover {
+            background: #764ba2;
+        }
+        
+        .footer {
+            background: #667eea;
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .footer p {
+            margin: 10px 0;
+            font-size: 16px;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 30px;
+            background: #e9ecef;
+            border-radius: 15px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .status-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+        
+        .status-card {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border-left: 5px solid #667eea;
+        }
+        
+        .status-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 12px rgba(0,0,0,0.15);
+        }
+        
+        .status-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+        
+        .status-info {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📈 模拟交易系统</h1>
+            <p>基于26位游资智慧，建立完整交易体系</p>
+        </div>
+        
+        <div class="stats">
+            <div class="stat-item">
+                <div class="stat-number">¥100,000</div>
+                <div class="stat-label">初始资金</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">0</div>
+                <div class="stat-label">交易次数</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">0%</div>
+                <div class="stat-label">胜率</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">0%</div>
+                <div class="stat-label">总收益率</div>
+            </div>
+        </div>
+        
+        <div class="content">
+            <div class="section">
+                <h2 class="section-title">📊 账户状态</h2>
+                
+                <div class="status-grid">
+                    <div class="status-card">
+                        <div class="status-title">账户概况</div>
+                        <div class="status-info">账户编号：#001</div>
+                        <div class="status-info">开户日期：2026年6月8日</div>
+                        <div class="status-info">初始资金：¥100,000</div>
+                        <div class="status-info">当前资金：¥______</div>
+                        <div class="status-info">总收益率：______%</div>
+                    </div>
+                    
+                    <div class="status-card">
+                        <div class="status-title">交易统计</div>
+                        <div class="status-info">交易次数：___次</div>
+                        <div class="status-info">盈利次数：___次</div>
+                        <div class="status-info">亏损次数：___次</div>
+                        <div class="status-info">胜率：______%</div>
+                    </div>
+                    
+                    <div class="status-card">
+                        <div class="status-title">持仓状态</div>
+                        <div class="status-info">当前持仓：___只</div>
+                        <div class="status-info">可用资金：¥______</div>
+                        <div class="status-info">总市值：¥______</div>
+                        <div class="status-info">总资产：¥______</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2 class="section-title">📝 交易流程</h2>
+                
+                <div class="card">
+                    <h3 class="card-title">第一步：交易前准备</h3>
+                    <div class="card-content">
+                        <ul class="rule-list">
+                            <li><strong>查看市场情绪</strong>：查看昨日涨停板数量、跌幅榜、板块联动性，判断市场情绪（1-10分）</li>
+                            <li><strong>查看指数气氛</strong>：查看上证指数和创业板指数的走势，判断指数气氛</li>
+                            <li><strong>选择标的</strong>：根据市场情绪和指数气氛，选择符合条件的标的</li>
+                        </ul>
+                        <a href="模拟交易系统_使用指南.md" class="btn">查看详情</a>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title">第二步：交易计划制定</h3>
+                    <div class="card-content">
+                        <ul class="rule-list">
+                            <li><strong>明确交易理由</strong>：明确为什么要交易这只股票？是否符合交易体系中的可执行规则？</li>
+                            <li><strong>明确买入条件</strong>：明确买入条件是什么？在什么情况下买入？</li>
+                            <li><strong>明确卖出条件</strong>：明确卖出条件是什么？在什么情况下卖出？</li>
+                        </ul>
+                        <a href="模拟交易日志_模板.md" class="btn">查看模板</a>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title">第三步：选股阶段</h3>
+                    <div class="card-content">
+                        <ul class="rule-list">
+                            <li><strong>只做强势股</strong>：只做强势股，不做弱势股。强势股的特征：均线多头排列，成交量放大，突破关键阻力位</li>
+                            <li><strong>只做龙头</strong>：只做龙头，不做跟风。龙头股是市场选择的结果，不是你选择的结果</li>
+                            <li><strong>紧跟市场热点</strong>：紧跟市场热点题材，不做冷门股。热点的判断：涨停板数量，板块联动性，政策支持力度</li>
+                        </ul>
+                        <a href="我的交易体系_二十六位游资深度精华版.md" class="btn">查看体系</a>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title">第四步：买入阶段</h3>
+                    <div class="card-content">
+                        <ul class="rule-list">
+                            <li><strong>买在分歧，卖在一致</strong>：当市场对一只股票有分歧时买入，当市场一致看好时卖出</li>
+                            <li><strong>买在恐慌，卖在贪婪</strong>：当市场恐慌时买入，当市场贪婪时卖出</li>
+                            <li><strong>买在低位，卖在高位</strong>：买在低位，卖在高位</li>
+                        </ul>
+                        <a href="模拟交易日志_模板.md" class="btn">查看模板</a>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title">第五步：持有阶段</h3>
+                    <div class="card-content">
+                        <ul class="rule-list">
+                            <li><strong>顺势持有</strong>：在上升趋势中持有，在下降趋势中卖出</li>
+                            <li><strong>达到预期收益就卖</strong>：达到3-5%收益就卖，不贪心，锁定利润</li>
+                            <li><strong>走势不符合预期就卖</strong>：走势不符合预期立即止损，避免更大亏损</li>
+                        </ul>
+                        <a href="模拟交易日志_模板.md" class="btn">查看模板</a>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title">第六步：卖出阶段</h3>
+                    <div class="card-content">
+                        <ul class="rule-list">
+                            <li><strong>顺势持有</strong>：在上升趋势中持有，在下降趋势中卖出</li>
+                            <li><strong>达到预期收益就卖</strong>：达到3-5%收益就卖，不贪心，锁定利润</li>
+                            <li><strong>走势不符合预期就卖</strong>：走势不符合预期立即止损，避免更大亏损</li>
+                        </ul>
+                        <a href="模拟交易日志_模板.md" class="btn">查看模板</a>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title">第七步：交易日志填写</h3>
+                    <div class="card-content">
+                        <ul class="rule-list">
+                            <li><strong>详细记录</strong>：详细记录每笔交易的选股、买入、持有、卖出全过程</li>
+                            <li><strong>及时记录</strong>：交易完成后，立即填写交易日志，不要拖延</li>
+                            <li><strong>诚实记录</strong>：诚实记录交易过程，不要美化或掩饰</li>
+                        </ul>
+                        <a href="模拟交易日志_模板.md" class="btn">查看模板</a>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title">第八步：复盘与总结</h3>
+                    <div class="card-content">
+                        <ul class="rule-list">
+                            <li><strong>每日复盘</strong>：每天交易结束后，立即进行复盘</li>
+                            <li><strong>每周复盘</strong>：每周交易结束后，进行一次周复盘</li>
+                            <li><strong>每月复盘</strong>：每月交易结束后，进行一次月复盘</li>
+                        </ul>
+                        <a href="模拟交易复盘_模板.md" class="btn">查看模板</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2 class="section-title">📋 可执行规则检查清单</h2>
+                
+                <div class="card">
+                    <h3 class="card-title">交易前检查清单</h3>
+                    <div class="card-content">
+                        <ul class="rule-list">
+                            <li>是否查看了市场情绪？</li>
+                            <li>是否查看了指数气氛？</li>
+                            <li>是否选择了符合条件的标的？</li>
+                            <li>是否明确了交易理由？</li>
+                            <li>是否明确了买入条件？</li>
+                            <li>是否明确了卖出条件？</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title">选股阶段检查清单</h3>
+                    <div class="card-content">
+                        <ul class="rule-list">
+                            <li>是否符合"只做强势股"？</li>
+                            <li>是否符合"只做龙头"？</li>
+                            <li>是否符合"紧跟市场热点"？</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title">买入阶段检查清单</h3>
+                    <div class="card-content">
+                        <ul class="rule-list">
+                            <li>是否符合"买在分歧，卖在一致"？</li>
+                            <li>是否符合"买在恐慌，卖在贪婪"？</li>
+                            <li>是否符合"买在低位，卖在高位"？</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title">持有阶段检查清单</h3>
+                    <div class="card-content">
+                        <ul class="rule-list">
+                            <li>是否符合"顺势持有"？</li>
+                            <li>是否符合"达到预期收益就卖"？</li>
+                            <li>是否符合"走势不符合预期就卖"？</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title">卖出阶段检查清单</h3>
+                    <div class="card-content">
+                        <ul class="rule-list">
+                            <li>是否符合"顺势持有"？</li>
+                            <li>是否符合"达到预期收益就卖"？</li>
+                            <li>是否符合"走势不符合预期就卖"？</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title">仓位管理检查清单</h3>
+                    <div class="card-content">
+                        <ul class="rule-list">
+                            <li>是否符合"顺势加仓"？</li>
+                            <li>是否符合"逆势减仓"？</li>
+                            <li>是否符合"严格控制"？</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title">风险控制检查清单</h3>
+                    <div class="card-content">
+                        <ul class="rule-list">
+                            <li>是否符合"严格止损"？</li>
+                            <li>是否符合"保护本金"？</li>
+                            <li>是否符合"控制回撤"？</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2 class="section-title">📚 学习资源</h2>
+                
+                <div class="card">
+                    <h3 class="card-title">模拟交易系统文档</h3>
+                    <div class="card-content">
+                        <ul class="rule-list">
+                            <li><strong>模拟交易系统_使用指南.md</strong>：模拟交易系统的使用指南，包括系统概述、交易前准备、选股阶段、买入阶段、持有阶段、卖出阶段、仓位管理、风险控制、交易日志填写、复盘与总结、心态管理、常见问题与解答、可执行规则检查清单、学习路径与计划、核心要点总结</li>
+                            <li><strong>模拟交易日志_模板.md</strong>：模拟交易日志的模板，包括交易前准备、交易计划制定、买入阶段、持有阶段、卖出阶段、规则执行检查、复盘与总结、下一步计划</li>
+                            <li><strong>模拟交易账户_记录表.md</strong>：模拟交易账户的记录表，包括账户基本信息、交易记录表、持仓记录表、收益统计表、风险控制记录表、规则执行统计表、心态管理记录表、复盘与总结记录表、下一步计划</li>
+                            <li><strong>模拟交易复盘_模板.md</strong>：模拟交易复盘的模板，包括复盘概述、交易对错分析、规则执行检查、心态管理分析、交易体系优化、学习路径与计划、下一步计划、核心要点总结</li>
+                        </ul>
+                        <a href="模拟交易系统_使用指南.md" class="btn">查看使用指南</a>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title">26位游资深度研读报告</h3>
+                    <div class="card-content">
+                        <ul class="rule-list">
+                            <li><strong>炒股养家心法_深度研读报告.md</strong>：情绪周期大师，心法深邃</li>
+                            <li><strong>Asking心法_深度研读报告.md</strong>：等待高手，控制回撤</li>
+                            <li><strong>职业炒手心法_深度研读报告.md</strong>：交易本质，弱市操作</li>
+                            <li><strong>赵老哥心法_深度研读报告.md</strong>：龙头战法，八年一万倍</li>
+                            <li><strong>徐翔心法_深度研读报告.md</strong>：情绪周期，心如止水</li>
+                            <li><strong>龙飞虎心法_深度研读报告.md</strong>：情绪周期，心法深邃</li>
+                            <li><strong>小鳄鱼心法_深度研读报告.md</strong>：新生代游资，手法犀利</li>
+                            <li><strong>92科比心法_深度研读报告.md</strong>：新生代游资，模式清晰</li>
+                            <li><strong>瑞鹤仙心法_深度研读报告.md</strong>：新生代游资，情绪掌控</li>
+                            <li><strong>著名刺客心法_深度研读报告.md</strong>：新生代游资，龙头战法</li>
+                        </ul>
+                        <a href="26位游资深度研读报告_完整总结.html" class="btn">查看完整总结</a>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title">我的交易体系</h3>
+                    <div class="card-content">
+                        <ul class="rule-list">
+                            <li><strong>我的交易体系_二十六位游资深度精华版.md</strong>：基于26位游资智慧，建立完整交易体系。包括：交易哲学与心态、选股体系、买入时机把握、持有与卖出策略、仓位管理、风险控制、情绪周期判断、龙头战法、超短百科全书、模式转换心法、控制回撤体系、指数气氛判断、实战案例分析、学习路径与计划、核心要点总结</li>
+                        </ul>
+                        <a href="我的交易体系_二十六位游资深度精华版.md" class="btn">查看交易体系</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>📈 模拟交易系统</p>
+            <p>基于26位游资智慧，建立完整交易体系</p>
+            <p>生成日期：2026年6月8日</p>
+        </div>
+    </div>
+</body>
+</html>
