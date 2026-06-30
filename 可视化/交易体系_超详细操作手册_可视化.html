@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>交易体系_超详细操作手册（实战版）_可视化</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Microsoft YaHei', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .header h1 {
+            color: #667eea;
+            font-size: 36px;
+            margin-bottom: 15px;
+        }
+
+        .header p {
+            color: #666;
+            font-size: 18px;
+            line-height: 1.8;
+        }
+
+        .instructions {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 40px;
+        }
+
+        .instructions h2 {
+            color: #667eea;
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        .instructions ol {
+            margin-left: 20px;
+            line-height: 2;
+        }
+
+        .instructions li {
+            color: #333;
+            font-size: 16px;
+        }
+
+        .chapters {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .chapter-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 25px;
+            border-radius: 15px;
+            color: white;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+            transition: transform 0.3s;
+        }
+
+        .chapter-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .chapter-card h3 {
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+
+        .chapter-card ul {
+            margin-left: 20px;
+            line-height: 1.8;
+        }
+
+        .chapter-card li {
+            font-size: 14px;
+        }
+
+        .checklist {
+            background: #fff9e6;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 40px;
+        }
+
+        .checklist h2 {
+            color: #ff9800;
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .checklist-item input[type="checkbox"] {
+            margin-right: 10px;
+        }
+
+        .checklist-item label {
+            font-size: 16px;
+            color: #333;
+        }
+
+        .footer {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 2px solid #eee;
+        }
+
+        .footer p {
+            color: #666;
+            font-size: 16px;
+        }
+
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+
+            .container {
+                box-shadow: none;
+            }
+
+            .chapter-card {
+                break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📚 交易体系_超详细操作手册（实战版）</h1>
+            <p>本手册为<strong>实战操作指南</strong>，每个判断细节都有<strong>明确的量化标准</strong>、<strong>具体的查看方法</strong>、<strong>详细的操作步骤</strong>和<strong>案例演示</strong>。</p>
+            <p>适合打印出来放在电脑旁，一步步对照操作。</p>
+        </div>
+
+        <div class="instructions">
+            <h2>📋 使用说明</h2>
+            <ol>
+                <li><strong>打印出来</strong>：建议打印成小册子，放在电脑旁</li>
+                <li><strong>一步步对照</strong>：每个操作都按照手册中的步骤执行</li>
+                <li><strong>打勾确认</strong>：每个步骤完成后，在"✅"处打勾</li>
+                <li><strong>记录结果</strong>：在"📝 记录"处填写实际数据</li>
+                <li><strong>定期复习</strong>：每周复习一次，确保熟练掌握</li>
+            </ol>
+        </div>
+
+        <div class="chapters">
+            <div class="chapter-card">
+                <h3>第一章：市场情绪判断</h3>
+                <ul>
+                    <li>昨日涨停板数量（冰点/复苏/高潮/极度高潮）</li>
+                    <li>昨日跌幅榜情况（正常/恐慌/极度恐慌）</li>
+                    <li>板块联动性（强联动/弱联动/无联动）</li>
+                    <li>市场情绪综合判断（冰点期/复苏期/高潮期/退潮期）</li>
+                </ul>
+            </div>
+
+            <div class="chapter-card">
+                <h3>第二章：指数气氛判断</h3>
+                <ul>
+                    <li>上证指数走势（上涨/下跌/震荡）</li>
+                    <li>创业板指数走势（上涨/下跌/震荡）</li>
+                    <li>上证指数与创业板指数的关系（28齐跌/28齐涨/28分化/小盘股气氛好）</li>
+                </ul>
+            </div>
+
+            <div class="chapter-card">
+                <h3>第三章：选股阶段</h3>
+                <ul>
+                    <li>均线系统（多头排列/空头排列/粘合）</li>
+                    <li>成交量（放量/缩量/温和放量）</li>
+                    <li>突破关键阻力位（突破前期高点/突破平台/突破均线）</li>
+                    <li>个股地位（龙头股/跟风股）</li>
+                </ul>
+            </div>
+
+            <div class="chapter-card">
+                <h3>第四章：买入阶段</h3>
+                <ul>
+                    <li>买在分歧（板块内个股走势分化）</li>
+                    <li>买在恐慌（大盘暴跌、个股暴跌）</li>
+                    <li>买在低位（股价回调到均线附近）</li>
+                    <li>买入仓位（冰点期/复苏期/高潮期/退潮期）</li>
+                </ul>
+            </div>
+
+            <div class="chapter-card">
+                <h3>第五章：持有阶段</h3>
+                <ul>
+                    <li>顺势持有（上升趋势/持有策略）</li>
+                    <li>达到预期收益就卖（预期收益/卖出策略）</li>
+                    <li>走势不符合预期就卖（不符合预期/卖出策略）</li>
+                </ul>
+            </div>
+
+            <div class="chapter-card">
+                <h3>第六章：卖出阶段</h3>
+                <ul>
+                    <li>分批卖出（第一批/第二批/第三批）</li>
+                    <li>止损卖出（止损线/止损策略）</li>
+                    <li>紧急情况卖出（紧急情况/卖出策略）</li>
+                </ul>
+            </div>
+
+            <div class="chapter-card">
+                <h3>第七章：仓位管理</h3>
+                <ul>
+                    <li>顺势加仓（趋势向好/加仓策略）</li>
+                    <li>逆势减仓（趋势转弱/减仓策略）</li>
+                    <li>严格控制（单只个股仓位/总仓位）</li>
+                </ul>
+            </div>
+
+            <div class="chapter-card">
+                <h3>第八章：风险控制</h3>
+                <ul>
+                    <li>严格止损（止损线/止损策略）</li>
+                    <li>保护本金（本金亏损/保护策略）</li>
+                    <li>控制回撤（单日回撤/控制策略）</li>
+                </ul>
+            </div>
+
+            <div class="chapter-card">
+                <h3>第九章：心态管理</h3>
+                <ul>
+                    <li>战胜"小明"（"小明"表现/战胜策略）</li>
+                    <li>控制回撤比追求暴利更重要（控制回撤/追求暴利）</li>
+                    <li>耐心是交易者最好的朋友（耐心表现/耐心策略）</li>
+                </ul>
+            </div>
+
+            <div class="chapter-card">
+                <h3>第十章：复盘与总结</h3>
+                <ul>
+                    <li>每日复盘（复盘内容/复盘时间）</li>
+                    <li>每周复盘（复盘内容/复盘时间）</li>
+                    <li>每月复盘（复盘内容/复盘时间）</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="checklist">
+            <h2>✅ 可执行规则检查清单（示例）</h2>
+            <div class="checklist-item">
+                <input type="checkbox" id="check1">
+                <label for="check1">交易前：查看市场情绪（昨日涨停板数量、跌幅榜情况、板块联动性）</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="check2">
+                <label for="check2">交易前：查看指数气氛（上证指数走势、创业板指数走势、指数气氛判断）</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="check3">
+                <label for="check3">交易前：制定交易计划（交易品种、买入价格、买入仓位、止损线、预期收益）</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="check4">
+                <label for="check4">选股阶段：查看涨幅榜前50名、板块联动性、选择龙头股、查看均线系统、查看成交量、查看是否突破关键阻力位</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="check5">
+                <label for="check5">买入阶段：查看个股是否有分歧、查看大盘是否恐慌、查看个股是否回调到低位、执行买入</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="check6">
+                <label for="check6">持有阶段：查看个股是否在上升趋势中、查看个股是否达到预期收益、查看个股走势是否符合预期、执行持有或卖出</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="check7">
+                <label for="check7">卖出阶段：查看是否达到预期收益、查看是否跌破止损线、查看是否出现紧急情况、执行卖出</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="check8">
+                <label for="check8">仓位管理：查看趋势是否向好、查看趋势是否转弱、查看单只个股仓位和总仓位、执行加仓或减仓</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="check9">
+                <label for="check9">风险控制：查看个股是否跌破止损线、查看本金是否亏损超过-10%、查看单日回撤是否超过-3%、执行风险控制</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="check10">
+                <label for="check10">心态管理：交易前写交易计划、交易中严格执行、交易后复盘总结、执行心态管理</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="check11">
+                <label for="check11">复盘与总结：每日复盘、每周复盘、每月复盘、执行复盘与总结</label>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>🎯 <strong>祝你交易顺利！</strong></p>
+            <p>📝 文件位置：C:\Users\Administrator\Documents\游资学习笔记\交易体系_超详细操作手册_实战版.md</p>
+        </div>
+    </div>
+</body>
+</html>

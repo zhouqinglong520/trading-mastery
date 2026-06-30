@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的交易体系 - 三位游资深度精华版</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Microsoft YaHei', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            line-height: 1.8;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 36px;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .header p {
+            font-size: 18px;
+            opacity: 0.9;
+        }
+        
+        .core-traders {
+            display: flex;
+            justify-content: space-around;
+            padding: 30px;
+            background: #f8f9fa;
+            border-bottom: 2px solid #e9ecef;
+        }
+        
+        .trader-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            text-align: center;
+            width: 30%;
+        }
+        
+        .trader-card h3 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        .chapter {
+            margin-bottom: 40px;
+            padding: 25px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-left: 5px solid #667eea;
+        }
+        
+        .chapter h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+        
+        .rule-box {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 4px solid #28a745;
+        }
+        
+        .rule-box h4 {
+            color: #28a745;
+            margin-bottom: 10px;
+        }
+        
+        .rule-box ul {
+            margin-left: 20px;
+        }
+        
+        .rule-box li {
+            margin: 8px 0;
+        }
+        
+        .warning-box {
+            background: #fff3cd;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 4px solid #ffc107;
+        }
+        
+        .warning-box strong {
+            color: #856404;
+        }
+        
+        .improvement-list {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        .improvement-list h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+        
+        .improvement-list ul {
+            margin-left: 20px;
+        }
+        
+        .improvement-list li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        
+        .footer {
+            background: #2c3e50;
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: #667eea;
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            margin: 10px;
+            transition: all 0.3s;
+        }
+        
+        .btn:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>💡 我的交易体系 - 三位游资深度精华版</h1>
+            <p>基于炒股养家、ASKING、职业炒手三位核心游资的深度研读 | 15章 | 可执行细节规则</p>
+        </div>
+        
+        <div class="core-traders">
+            <div class="trader-card">
+                <h3>🎯 炒股养家</h3>
+                <p><strong>地位</strong>：情绪周期理论开创者</p>
+                <p><strong>核心</strong>：情绪周期、养家心法</p>
+                <p><strong>必读</strong>：⭐⭐⭐⭐⭐</p>
+            </div>
+            
+            <div class="trader-card">
+                <h3>🎯 ASKING</h3>
+                <p><strong>地位</strong>：炒股养家的偶像</p>
+                <p><strong>核心</strong>：asking精华2000页</p>
+                <p><strong>必读</strong>：⭐⭐⭐⭐⭐</p>
+            </div>
+            
+            <div class="trader-card">
+                <h3>🎯 职业炒手</h3>
+                <p><strong>地位</strong>：龙头战法体系化第一人</p>
+                <p><strong>核心</strong>：龙头识别、板块轮动</p>
+                <p><strong>必读</strong>：⭐⭐⭐⭐⭐</p>
+            </div>
+        </div>
+        
+        <div class="content">
+            <h2 style="color: #667eea; text-align: center; margin-bottom: 30px;">📊 更新内容对比</h2>
+            
+            <div class="improvement-list">
+                <h3>✅ 新增可执行细节规则</h3>
+                <ul>
+                    <li><strong>第一章 交易理念</strong>：增加"符合条件清单"、"选股打分表"、"人气所向记录"等可执行规则</li>
+                    <li><strong>第二章 选股体系</strong>：增加"选股打分表"、"股票池管理"、"人气排行榜记录"等可执行规则</li>
+                    <li><strong>第三章 买入时机</strong>：增加"超预期定义"、"买入条件检查清单"、"情绪周期阶段判断"等可执行规则</li>
+                    <li><strong>第四章 持有与卖出</strong>：增加"持有条件三要素"、"卖出条件模板"、"分仓操作SOP"等可执行规则</li>
+                    <li><strong>第五章 仓位管理</strong>：增加"首次买入≤50%"、"Never满仓"、"空仓等待时机"等可执行规则</li>
+                    <li><strong>第六章 风险控制</strong>：增加"止损点设定"、"每日最大损失≤1.5%"、"五不要原则"等可执行规则</li>
+                    <li><strong>第七章 心态管理</strong>：增加"平和冷静修炼"、"心态失衡停止交易"、"概率思维培养"等可执行规则</li>
+                </ul>
+            </div>
+            
+            <div class="improvement-list">
+                <h3>🎯 核心改进点</h3>
+                <ul>
+                    <li><strong>从"知道"到"做到"</strong>：每个章节都增加了✅可执行规则，告诉你具体怎么做</li>
+                    <li><strong>从"理论"到"实战"</strong>：每个核心思想都配套了具体的操作方法</li>
+                    <li><strong>从"模糊"到"清晰"</strong>：所有规则都具体化、量化、可执行</li>
+                    <li><strong>从"通用"到"个性"</strong>：基于三位游资的个性经验，提炼出适合你的方法</li>
+                </ul>
+            </div>
+            
+            <div class="chapter">
+                <h2>🎯 一、交易理念 - 新增可执行细节</h2>
+                
+                <div class="rule-box">
+                    <h4>✅ 可执行规则1：符合条件清单</h4>
+                    <ul>
+                        <li>是否是主流题材？</li>
+                        <li>是否是龙头股？</li>
+                        <li>是否处于情绪周期的主升阶段？</li>
+                        <li>是否符合"超预期"买点？</li>
+                        <li>是否符合"人气所向"？</li>
+                    </ul>
+                    <p><strong>使用方法</strong>：每次操作前，逐项检查，全部符合才操作，否则一律不做。</p>
+                </div>
+                
+                <div class="rule-box">
+                    <h4>✅ 可执行规则2：人气所向记录</h4>
+                    <ul>
+                        <li>每天记录"人气所向"（哪个板块、哪只股票人气最高）</li>
+                        <li>数据来源：淘股吧、东方财富股吧、雪球热搜榜</li>
+                        <li>只做人气前3名的股票</li>
+                    </ul>
+                </div>
+                
+                <div class="warning-box">
+                    <strong>⚠️ 核心要点</strong>：操作股票，不应一直想着挣钱，只需做正确的操作，赚钱只是正确操作的附加品。
+                </div>
+            </div>
+            
+            <div class="chapter">
+                <h2>📊 二、选股体系 - 新增可执行细节</h2>
+                
+                <div class="rule-box">
+                    <h4>✅ 可执行规则1：选股打分表</h4>
+                    <ul>
+                        <li>题材（10分）：是否是主流题材？是否是新题材？</li>
+                        <li>形态（10分）：是否突破？是否缩量？是否平台整理？</li>
+                        <li>人气（10分）：是否人气所向？是否市场焦点？</li>
+                        <li>小盘（10分）：流通市值是否≤100亿？</li>
+                        <li>低价（10分）：股价是否≤20元？</li>
+                    </ul>
+                    <p><strong>使用方法</strong>：总分≥40分才考虑买入。</p>
+                </div>
+                
+                <div class="rule-box">
+                    <h4>✅ 可执行规则2：龙头识别SOP</h4>
+                    <ul>
+                        <li>看涨停时间：谁第一个涨停？</li>
+                        <li>看封单强度：谁封单最大、最稳？</li>
+                        <li>看板块地位：谁是板块中军？</li>
+                        <li>看次日溢价：谁次日高开幅度最大？</li>
+                        <li>看人气：谁在股吧、雪球讨论最多？</li>
+                    </ul>
+                </div>
+                
+                <div class="warning-box">
+                    <strong>⚠️ 核心要点</strong>：不管你的技术有多牛，脱离主流，只有死路一条！说白了，不参与任何性质整理！
+                </div>
+            </div>
+            
+            <div class="chapter">
+                <h2>⏰ 三、买入时机 - 新增可执行细节</h2>
+                
+                <div class="rule-box">
+                    <h4>✅ 可执行规则1：超预期定义</h4>
+                    <ul>
+                        <li>竞价超预期：高开幅度超过昨日预判</li>
+                        <li>盘口超预期：涨停时间比昨天更早、封单比昨天更大</li>
+                        <li>题材超预期：新消息、新政策、新事件驱动</li>
+                    </ul>
+                    <p><strong>使用方法</strong>：只有"超预期"才买入，否则一律观望。</p>
+                </div>
+                
+                <div class="rule-box">
+                    <h4>✅ 可执行规则2：买入条件检查清单</h4>
+                    <ul>
+                        <li>是否是主流题材？</li>
+                        <li>是否是龙头股？</li>
+                        <li>是否处于情绪周期的主升阶段？</li>
+                        <li>是否符合"超预期"买点？</li>
+                        <li>是否符合"人气所向"？</li>
+                    </ul>
+                    <p><strong>使用方法</strong>：90%的时间空仓等待，只做10%的确定性机会。</p>
+                </div>
+                
+                <div class="warning-box">
+                    <strong>⚠️ 核心要点</strong>：等待需要绝对的耐心，发现需要经验来确认，跟随则是最次要的买入动作了。
+                </div>
+            </div>
+            
+            <div class="chapter">
+                <h2>🔄 四、持有与卖出 - 新增可执行细节</h2>
+                
+                <div class="rule-box">
+                    <h4>✅ 可执行规则1：持有条件三要素</h4>
+                    <ul>
+                        <li>持有条件1：股价在5日线上</li>
+                        <li>持有条件2：成交量没有萎缩（≥5日均量）</li>
+                        <li>持有条件3：板块没有退潮（板块内还有涨停股）</li>
+                    </ul>
+                    <p><strong>使用方法</strong>：三个条件同时满足，持有；任何一个条件不满足，卖出。</p>
+                </div>
+                
+                <div class="rule-box">
+                    <h4>✅ 可执行规则2：卖出条件模板</h4>
+                    <ul>
+                        <li>达到预期收益（如：+10%）就卖</li>
+                        <li>跌破5日线就卖</li>
+                        <li>板块退潮就卖</li>
+                        <li>龙头炸板就卖</li>
+                        <li>不及预期（如：竞价低开）就卖</li>
+                    </ul>
+                    <p><strong>使用方法</strong>：买入前先想好"卖出条件"（触发器），达到条件就卖，不要犹豫。</p>
+                </div>
+                
+                <div class="warning-box">
+                    <strong>⚠️ 核心要点</strong>：说白了，不参与任何性质整理！线下卖出，坚决果断的认错出局！
+                </div>
+            </div>
+            
+            <div class="chapter">
+                <h2>💰 五、仓位管理 - 新增可执行细节</h2>
+                
+                <div class="rule-box">
+                    <h4>✅ 可执行规则1：分仓操作SOP</h4>
+                    <ul>
+                        <li>首次买入：≤50%仓位</li>
+                        <li>确认是龙头后：可以加到≤70%仓位</li>
+                        <li>Never 满仓！最多≤70%仓位</li>
+                    </ul>
+                </div>
+                
+                <div class="rule-box">
+                    <h4>✅ 可执行规则2：空仓等待时机</h4>
+                    <ul>
+                        <li>90%的时间空仓等待</li>
+                        <li>只做10%的确定性机会</li>
+                        <li>空仓不是错过机会，而是等待机会</li>
+                    </ul>
+                </div>
+                
+                <div class="warning-box">
+                    <strong>⚠️ 核心要点</strong>：不要一次满仓，很容易成为忠烈祠堂中的牌位！如果你年龄够长，就知道，机会可以失去，有本钱在，机会就在。
+                </div>
+            </div>
+            
+            <div class="chapter">
+                <h2>🛡️ 六、风险控制 - 新增可执行细节</h2>
+                
+                <div class="rule-box">
+                    <h4>✅ 可执行规则1：止损点设定</h4>
+                    <ul>
+                        <li>设定止损点：-3%、-5%、-7%（根据个人风险偏好）</li>
+                        <li>达到止损点，立即止损，不要幻想反弹</li>
+                        <li>止损要坚决、果断，不要犹豫、不要补仓</li>
+                    </ul>
+                </div>
+                
+                <div class="rule-box">
+                    <h4>✅ 可执行规则2：每日最大损失控制</h4>
+                    <ul>
+                        <li>每笔交易止损≤3%</li>
+                        <li>每天总止损≤5%</li>
+                        <li>如果当天止损达到5%，立即停止交易，反思错误</li>
+                    </ul>
+                </div>
+                
+                <div class="warning-box">
+                    <strong>⚠️ 核心要点</strong>：止损是保护本金的最后一道防线！不要预测底部、不要逆市操作、不要急于抄底、不要重仓操作、不要不止损！
+                </div>
+            </div>
+            
+            <div class="chapter">
+                <h2>🧘 七、心态管理 - 新增可执行细节</h2>
+                
+                <div class="rule-box">
+                    <h4>✅ 可执行规则1：平和冷静修炼</h4>
+                    <ul>
+                        <li>交易时保持平和、冷静，不要激动、不要贪婪、不要恐惧</li>
+                        <li>如果心态失衡，立即停止交易，调整心态</li>
+                        <li>心态占7分，技术占3分</li>
+                    </ul>
+                </div>
+                
+                <div class="rule-box">
+                    <h4>✅ 可执行规则2：概率思维培养</h4>
+                    <ul>
+                        <li>炒股做的是概率，不是确定性</li>
+                        <li>接受失败，10个股票命中5个就是成功</li>
+                        <li>没有人每次都能看准妖股，炒股做的是概率</li>
+                    </ul>
+                </div>
+                
+                <div class="warning-box">
+                    <strong>⚠️ 核心要点</strong>：平和、冷静，是交易的基本功。要听到大盘的呼吸，远离喧嚣，与寂寞相伴。
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 40px;">
+                <a href="我的交易体系_三位游资深度精华版.md" class="btn">📥 下载完整交易体系文档</a>
+                <a href="炒股养家心法_深度研读报告.md" class="btn">📖 查看炒股养家深度研读</a>
+                <a href="ASKING心法_深度研读报告.md" class="btn">📖 查看ASKING深度研读</a>
+                <a href="职业炒手心法_深度研读报告.md" class="btn">📖 查看职业炒手深度研读</a>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <h3>🚀 祝你早日建立自己的交易体系，实现稳定盈利，财务自由！</h3>
+            <p style="margin-top: 15px;">记住三位游资的智慧精华：</p>
+            <p style="margin-top: 10px; font-size: 14px; opacity: 0.9;">
+                <strong>炒股养家</strong>：得情绪者得天下，人气所向，牛股所在；超预期的买点，是短线交易的核心<br>
+                <strong>ASKING</strong>：等待需要绝对的耐心，发现需要经验来确认；我们赚大钱，全是符合这样的条件<br>
+                <strong>职业炒手</strong>：市场永远是对的，错的是我们自己；5日线上，量在，板块在，则反弹在
+            </p>
+            <p style="margin-top: 20px; font-size: 12px; opacity: 0.8;">生成时间：2026年6月11日 | 基于三位核心游资深度研读 | 15章 | 可执行细节规则</p>
+        </div>
+    </div>
+</body>
+</html>

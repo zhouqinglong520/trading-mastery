@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>三位核心游资 - 深度研读报告</title>
+    <style>
+        * {
+            margin:0;
+            padding:0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin:0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+            padding: 40px 20px;
+        }
+        
+        .header h1 {
+            font-size: 42px;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .header p {
+            font-size: 18px;
+            opacity: 0.95;
+        }
+        
+        .intro {
+            background: rgba(255,255,255,0.95);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        .intro h2 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 24px;
+        }
+        
+        .intro p {
+            color: #555;
+            line-height: 1.8;
+            margin: 10px 0;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+        
+        .card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .card-icon {
+            font-size: 40px;
+            margin-right: 15px;
+        }
+        
+        .card-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+            flex: 1;
+        }
+        
+        .card-info {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        
+        .card-info ul {
+            margin-left: 20px;
+            margin-top: 10px;
+        }
+        
+        .card-info li {
+            margin: 5px 0;
+        }
+        
+        .highlight {
+            background: #fff3cd;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+        
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .btn {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            text-decoration: none;
+            display: block;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn-secondary {
+            background: #f8f9fa;
+            color: #333;
+            border: 2px solid #667eea;
+        }
+        
+        .btn-secondary:hover {
+            background: #667eea;
+            color: white;
+        }
+        
+        .footer {
+            text-align: center;
+            color: white;
+            margin-top: 50px;
+            padding: 20px;
+            opacity: 0.9;
+        }
+        
+        .next-steps {
+            background: rgba(255,255,255,0.95);
+            border-radius: 15px;
+            padding: 30px;
+            margin-top: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        .next-steps h2 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 24px;
+        }
+        
+        .next-steps ol {
+            margin-left: 20px;
+            line-height: 2;
+            color: #555;
+        }
+        
+        .next-steps li {
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📊 三位核心游资 - 深度研读报告</h1>
+            <p>炒股养家 + ASKING + 职业炒手 · 深度剖析与体系完善</p>
+        </div>
+        
+        <div class="intro">
+            <h2>🎯 研读目标</h2>
+            <p>深入剖析三位开山鼻祖级游资的交易体系，提取可执行的细节规则，完善个人交易体系。</p>
+            
+            <p><span class="highlight">炒股养家</span>：情绪周期理论开创者，A股短线交易鼻祖</p>
+            <p><span class="highlight">ASKING</span>：龙头战法代表人物，A股之神</p>
+            <p><span class="highlight">职业炒手</span>：交易本质认知大师，弱市操作专家</p>
+        </div>
+        
+        <div class="grid" id="reportGrid">
+            <!-- 报告卡片会通过JavaScript动态生成 -->
+        </div>
+        
+        <div class="next-steps">
+            <h2>�到点 下一步建议</h2>
+            <ol>
+                <li><strong>熟读三份深度研读报告</strong>：每份报告至少读3遍，理解核心思想</li>
+                <li><strong>提取可执行规则</strong>：从报告中提取具体的、可执行的交易规则</li>
+                <li><strong>更新交易体系</strong>：将新规则融入自己的交易体系</li>
+                <li><strong>模拟交易练习</strong>：用三位游资的方法进行模拟交易</li>
+                <li><strong>小资金实盘</strong>：用1-2万资金开始实盘操作，验证理论</li>
+                <li><strong>定期复盘总结</strong>：每天写交易日志，每周总结得失</li>
+            </ol>
+        </div>
+        
+        <div class="footer">
+            <p>🎯 基于三位核心游资的智慧，建立属于自己的交易体系</p>
+            <p style="margin-top: 10px; font-size: 14px;">Generated by WorkBuddy · 2026</p>
+        </div>
+    </div>
+    
+    <script>
+        // 报告数据
+        const reports = [
+            {
+                name: '炒股养家',
+                file: '炒股养家心法_深度研读报告.md',
+                chapters: 8,
+                coreInsights: [
+                    '得情绪者得天下，人气所向，牛股所在',
+                    '超预期的买点，是短线交易的核心',
+                    '平和、冷静，是交易的基本功',
+                    '分仓操作，越涨越卖'
+                ]
+            },
+            {
+                name: 'ASKING',
+                file: 'ASKING心法_深度研读报告.md',
+                chapters: 8,
+                coreInsights: [
+                    '等待需要绝对的耐心，发现需要经验来确认',
+                    '只做超强势股的追涨和守株待兔',
+                    '龙头需要技术吗，不需要，要的是临阵时的果敢和勇气',
+                    '我们赚大钱，全是符合这样的条件，而亏钱基本都是不符合而去强做'
+                ]
+            },
+            {
+                name: '职业炒手',
+                file: '职业炒手心法_深度研读报告.md',
+                chapters: 8,
+                coreInsights: [
+                    '市场永远是对的，错的是我们自己',
+                    '不要试图预测市场，要学会应对市场',
+                    '弱市操作要谨慎：降低仓位，精选个股，快进快出',
+                    '超短线要快进快出：不恋战，积小胜为大胜'
+                ]
+            }
+        ];
+        
+        // 生成报告卡片
+        function generateCards() {
+            const grid = document.getElementById('reportGrid');
+            grid.innerHTML = '';
+            
+            reports.forEach((report, index) => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                
+                const icon = index === 0 ? '🎯' : index === 1 ? '⚡' : '🛡️';
+                
+                card.innerHTML = `
+                    <div class="card-header">
+                        <div class="card-icon">${icon}</div>
+                        <div class="card-title">${report.name}</div>
+                    </div>
+                    <div class="card-info">
+                        <p><strong>章节数：</strong>${report.chapters}章</p>
+                        <p><strong>核心洞察：</strong></p>
+                        <ul>
+                            ${report.coreInsights.map(insight => `<li>${insight}</li>`).join('')}
+                        </ul>
+                    </div>
+                    <div class="btn-group">
+                        <a href="${report.file}" download class="btn btn-primary">下载报告</a>
+                        <a href="${report.file}" target="_blank" class="btn btn-secondary">在线阅读</a>
+                    </div>
+                `;
+                
+                grid.appendChild(card);
+            });
+        }
+        
+        // 页面加载完成后生成卡片
+        document.addEventListener('DOMContentLoaded', generateCards);
+    </script>
+</body>
+</html>

@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>28位游资心法学习笔记 - 可视化查看器</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Microsoft YaHei', '微软雅黑', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 42px;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 18px;
+            opacity: 0.95;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            padding: 30px;
+            background: #f8f9fa;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 48px;
+            font-weight: bold;
+            color: #667eea;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 16px;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .section-title {
+            font-size: 32px;
+            color: #667eea;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .card {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 15px;
+            padding: 25px;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+            border-color: #667eea;
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .card-icon {
+            font-size: 40px;
+            margin-right: 15px;
+        }
+
+        .card-title {
+            font-size: 22px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .card-subtitle {
+            font-size: 14px;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        .card-rating {
+            color: #ff6b6b;
+            margin: 10px 0;
+        }
+
+        .card-desc {
+            font-size: 14px;
+            color: #555;
+            line-height: 1.6;
+            margin: 10px 0;
+        }
+
+        .card-link {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 8px 16px;
+            background: #667eea;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .card-link:hover {
+            background: #764ba2;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 30px;
+            background: #f8f9fa;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .mindmap-section {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+        }
+
+        .mindmap-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .mindmap-item {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            border: 2px solid #667eea;
+            text-align: center;
+        }
+
+        .mindmap-item a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .mindmap-item a:hover {
+            color: #764ba2;
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .card-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .header h1 {
+                font-size: 32px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎓 28位游资心法学习笔记</h1>
+            <p>可视化查看器 - 系统学习游资心法，建立自己的交易体系</p>
+        </div>
+
+        <div class="stats">
+            <div class="stat-item">
+                <span class="stat-number">27</span>
+                <span class="stat-label">已完成学习笔记（位）</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">405</span>
+                <span class="stat-label">总章节数（15章/位）</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">2</span>
+                <span class="stat-label">思维导图（个）</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">7</span>
+                <span class="stat-label">学习批次</span>
+            </div>
+        </div>
+
+        <div class="content">
+            <!-- 第一批：情绪周期与龙头战法 -->
+            <div class="section">
+                <h2 class="section-title">📈 第一批：情绪周期与龙头战法（5位）</h2>
+                <div class="card-grid">
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-icon">🦊</span>
+                            <div>
+                                <div class="card-title">炒股养家</div>
+                                <div class="card-subtitle">情绪周期鼻祖</div>
+                            </div>
+                        </div>
+                        <div class="card-rating">⭐⭐⭐⭐⭐</div>
+                        <div class="card-desc">洞悉情绪周期，把握市场节奏。核心战法：情绪周期判断、龙头战法、仓位管理。</div>
+                        <a href="炒股养家心法_学习笔记.md" class="card-link" target="_blank">📖 查看学习笔记</a>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-icon">❓</span>
+                            <div>
+                                <div class="card-title">Asking</div>
+                                <div class="card-subtitle">A股之神</div>
+                            </div>
+                        </div>
+                        <div class="card-rating">⭐⭐⭐⭐⭐</div>
+                        <div class="card-desc">asking questions，寻找答案。核心战法：超强势股追涨、守株待兔。</div>
+                        <a href="Asking心法_学习笔记.md" class="card-link" target="_blank">📖 查看学习笔记</a>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-icon">🎯</span>
+                            <div>
+                                <div class="card-title">职业炒手</div>
+                                <div class="card-subtitle">交易本质</div>
+                            </div>
+                        </div>
+                        <div class="card-rating">⭐⭐⭐⭐</div>
+                        <div class="card-desc">交易本质、弱市操作。核心战法：弱市不做、强势做龙头。</div>
+                        <a href="职业炒手心法_学习笔记.md" class="card-link" target="_blank">📖 查看学习笔记</a>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-icon">🚀</span>
+                            <div>
+                                <div class="card-title">赵老哥</div>
+                                <div class="card-subtitle">八年一万倍</div>
+                            </div>
+                        </div>
+                        <div class="card-rating">⭐⭐⭐⭐⭐</div>
+                        <div class="card-desc">题材炒作本质、连板战法。核心战法：八年一万倍、龙头战法。</div>
+                        <a href="赵老哥心法_学习笔记.md" class="card-link" target="_blank">📖 查看学习笔记</a>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-icon">🎓</span>
+                            <div>
+                                <div class="card-title">退学炒股</div>
+                                <div class="card-subtitle">一万到千万蜕变</div>
+                            </div>
+                        </div>
+                        <div class="card-rating">⭐⭐⭐⭐</div>
+                        <div class="card-desc">一万到千万蜕变、超短打板。核心战法：超短打板、情绪周期。</div>
+                        <a href="退学炒股心法_学习笔记.md" class="card-link" target="_blank">📖 查看学习笔记</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 第二批：动态仓位与低吸战法 -->
+            <div class="section">
+                <h2 class="section-title">📊 第二批：动态仓位与低吸战法（4位）</h2>
+                <div class="card-grid">
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-icon">🐉</span>
+                            <div>
+                                <div class="card-title">龙飞虎</div>
+                                <div class="card-subtitle">动态仓位管理</div>
+                            </div>
+                        </div>
+                        <div class="card-rating">⭐⭐⭐⭐</div>
+                        <div class="card-desc">动态仓位管理、股灾抢反弹。核心战法：动态仓位管理、股灾抢反弹。</div>
+                        <a href="龙飞虎心法_学习笔记.md" class="card-link" target="_blank">📖 查看学习笔记</a>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-icon">🗡️</span>
+                            <div>
+                                <div class="card-title">乔帮主</div>
+                                <div class="card-subtitle">低吸之王</div>
+                            </div>
+                        </div>
+                        <div class="card-rating">⭐⭐⭐⭐</div>
+                        <div class="card-desc">低吸之王、模式转换。核心战法：低吸战法、模式转换。</div>
+                        <a href="乔帮主心法_学习笔记.md" class="card-link" target="_blank">📖 查看学习笔记</a>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-icon">🏹</span>
+                            <div>
+                                <div class="card-title">独股一箭</div>
+                                <div class="card-subtitle">赚钱效应精髓</div>
+                            </div>
+                        </div>
+                        <div class="card-rating">⭐⭐⭐⭐</div>
+                        <div class="card-desc">赚钱效应精髓、情绪控制。核心战法：赚钱效应、情绪控制。</div>
+                        <a href="独股一箭心法_学习笔记.md" class="card-link" target="_blank">📖 查看学习笔记</a>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-icon">🎭</span>
+                            <div>
+                                <div class="card-title">徐翔</div>
+                                <div class="card-subtitle">投机的心性</div>
+                            </div>
+                        </div>
+                        <div class="card-rating">⭐⭐⭐⭐⭐</div>
+                        <div class="card-desc">专注、长期投资、逆向思维。核心战法：专注、长期投资、逆向思维。</div>
+                        <a href="徐翔心法_学习笔记.md" class="card-link" target="_blank">📖 查看学习笔记</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 第三批：新生代游资 -->
+            <div class="section">
+                <h2 class="section-title">🚀 第三批：新生代游资（4位）</h2>
+                <div class="card-grid">
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-icon">🐊</span>
+                            <div>
+                                <div class="card-title">小鳄鱼</div>
+                                <div class="card-subtitle">90后游资代表</div>
+                            </div>
+                        </div>
+                        <div class="card-rating">⭐⭐⭐⭐</div>
+                        <div class="card-desc">90后游资代表，超短线核心战法。核心战法：连板、反包、补涨、新股。</div>
+                        <a href="小鳄鱼心法_学习笔记.md" class="card-link" target="_blank">📖 查看学习笔记</a>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-icon">🎨</span>
+                            <div>
+                                <div class="card-title">92科比</div>
+                                <div class="card-subtitle">新生代首板高手</div>
+                            </div>
+                        </div>
+                        <div class="card-rating">⭐⭐⭐⭐</div>
+                        <div class="card-desc">新生代首板高手，大道无形。核心战法：情绪周期四阶段、首板战法。</div>
+                        <a href="92科比心法_学习笔记.md" class="card-link" target="_blank">📖 查看学习笔记</a>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-icon">🦅</span>
+                            <div>
+                                <div class="card-title">瑞鹤仙</div>
+                                <div class="card-subtitle">熊市出英雄</div>
+                            </div>
+                        </div>
+                        <div class="card-rating">⭐⭐⭐⭐</div>
+                        <div class="card-desc">熊市出英雄，稳定盈利。核心战法：稳定盈利、多模式战法。</div>
+                        <a href="瑞鹤仙心法_学习笔记.md" class="card-link" target="_blank">📖 查看学习笔记</a>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-icon">🗡️</span>
+                            <div>
+                                <div class="card-title">著名刺客</div>
+                                <div class="card-subtitle">龙头战法执行者</div>
+                            </div>
+                        </div>
+                        <div class="card-rating">⭐⭐⭐⭐</div>
+                        <div class="card-desc">龙头战法执行者，大长腿战法。核心战法：大长腿战法、龙头战法。</div>
+                        <a href="著名刺客心法_学习笔记.md" class="card-link" target="_blank">📖 查看学习笔记</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 第四批：妖股炒作与趋势狙击 -->
+            <div class="section">
+                <h2 class="section-title">🎯 第四批：妖股炒作与趋势狙击（4位）</h2>
+                <div class="card-grid">
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-icon">🎪</span>
+                            <div>
+                                <div class="card-title">欢乐海岸</div>
+                                <div class="card-subtitle">妖股炒作大师</div>
+                            </div>
+                        </div>
+                        <div class="card-rating">⭐⭐⭐⭐</div>
+                        <div class="card-desc">妖股炒作大师，龙回头战法。核心战法：妖股炒作、龙回头战法。</div>
+                        <a href="欢乐海岸心法_学习笔记.md" class="card-link" target="_blank">📖 查看学习笔记</a>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-icon">👑</span>
+                            <div>
+                                <div class="card-title">章盟主</div>
+                                <div class="card-subtitle">A股传奇</div>
+                            </div>
+                        </div>
+                        <div class="card-rating">⭐⭐⭐⭐⭐</div>
+                        <div class="card-desc">A股传奇，趋势为王。核心战法：趋势狙击法、主题投资。</div>
+                        <a href="章盟主心法_学习笔记.md" class="card-link" target="_blank">📖 查看学习笔记</a>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-icon">❓</span>
+                            <div>
+                                <div class="card-title">ASKING</div>
+                                <div class="card-subtitle">A股之神</div>
+                            </div>
+                        </div>
+                        <div class="card-rating">⭐⭐⭐⭐⭐</div>
+                        <div class="card-desc">A股之神，asking questions。核心战法：超强势股追涨、守株待兔。</div>
+                        <a href="ASKING心法_学习笔记.md" class="card-link" target="_blank">📖 查看学习笔记</a>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-icon">📈</span>
+                            <div>
+                                <div class="card-title">艾琳</div>
+                                <div class="card-subtitle">抓住大波段的奥秘</div>
+                            </div>
+                        </div>
+                        <div class="card-rating">⭐⭐⭐⭐</div>
+                        <div class="card-desc">抓住大波段的奥秘，股指期货日内交易。核心战法：系统化交易、胜率与盈亏比。</div>
+                        <a href="艾琳心法_学习笔记.md" class="card-link" target="_blank">📖 查看学习笔记</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 第五批：长者的智慧与理解力 -->
+            <div class="section">
+                <h2 class="section-title">🧠 第五批：长者的智慧与理解力（4位）</h2>
+                <div class="card-grid">
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-icon">🐻</span>
+                            <div>
+                                <div class="card-title">丁一熊</div>
+                                <div class="card-subtitle">长者的智慧</div>
+                            </div>
+                        </div>
+                        <div class="card-rating">⭐⭐⭐</div>
+                        <div class="card-desc">长者的智慧，如果你年龄够长，就明白。核心战法：熊市操作、空仓等待。</div>
+                        <a href="丁一熊心法_学习笔记.md" class="card-link" target="_blank">📖 查看学习笔记</a>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-icon">🔄</span>
+                            <div>
+                                <div class="card-title">万法归宗</div>
+                                <div class="card-subtitle">市场永远是对的</div>
+                            </div>
+                        </div>
+                        <div class="card-rating">⭐⭐⭐⭐</div>
+                        <div class="card-desc">市场永远是对的，跟随是最好的办法。核心战法：空仓与等待、趋势与跟随。</div>
+                        <a href="万法归宗心法_学习笔记.md" class="card-link" target="_blank">📖 查看学习笔记</a>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-icon">🐉</span>
+                            <div>
+                                <div class="card-title">浓汤野人</div>
+                                <div class="card-subtitle">棉花期货大鳄</div>
+                            </div>
+                        </div>
+                        <div class="card-rating">⭐⭐⭐⭐</div>
+                        <div class="card-desc">600万到28亿棉花之战。核心战法：剑术之道、重剑无锋。</div>
+                        <a href="浓汤野人心法_学习笔记.md" class="card-link" target="_blank">📖 查看学习笔记</a>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-icon">🔥</span>
+                            <div>
+                                <div class="card-title">涅盘重升</div>
+                                <div class="card-subtitle">情绪演变的认知</div>
+                            </div>
+                        </div>
+                        <div class="card-rating">⭐⭐⭐⭐</div>
+                        <div class="card-desc">情绪演变的认知，60万做到8727万。核心战法：赚钱效应、6大情绪。</div>
+                        <a href="涅盘重升心法_学习笔记.md" class="card-link" target="_blank">📖 查看学习笔记</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 第六批：理解力与熊市生存 -->
+            <div class="section">
+                <h2 class="section-title">🧠 第六批：理解力与熊市生存（4位）</h2>
+                <div class="card-grid">
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-icon">📊</span>
+                            <div>
+                                <div class="card-title">榜中榜</div>
+                                <div class="card-subtitle">理解力才是王道</div>
+                            </div>
+                        </div>
+                        <div class="card-rating">⭐⭐⭐⭐</div>
+                        <div class="card-desc">理解力才是王道，市场情绪至上。核心战法：理解力、选股体系。</div>
+                        <a href="榜中榜心法_学习笔记.md" class="card-link" target="_blank">📖 查看学习笔记</a>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-icon">📉</span>
+                            <div>
+                                <div class="card-title">落升</div>
+                                <div class="card-subtitle">民间股神</div>
+                            </div>
+                        </div>
+                        <div class="card-rating">⭐⭐⭐</div>
+                        <div class="card-desc">民间股神，3年112倍。核心战法：熊市盈利技巧、乖离率指标。</div>
+                        <a href="落升心法_学习笔记.md" class="card-link" target="_blank">📖 查看学习笔记</a>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-icon">🗿</span>
+                            <div>
+                                <div class="card-title">明王</div>
+                                <div class="card-subtitle">不动明王</div>
+                            </div>
+                        </div>
+                        <div class="card-rating">⭐⭐⭐⭐</div>
+                        <div class="card-desc">不动明王，熊市生存之道。核心战法：反弹三定律、5日线战法。</div>
+                        <a href="明王心法_学习笔记.md" class="card-link" target="_blank">📖 查看学习笔记</a>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-icon">🎯</span>
+                            <div>
+                                <div class="card-title">令胡冲</div>
+                                <div class="card-subtitle">盘感训练及打板技术</div>
+                            </div>
+                        </div>
+                        <div class="card-rating">⭐⭐⭐⭐</div>
+                        <div class="card-desc">盘感训练及打板技术。核心战法：盘感训练、打板技术。</div>
+                        <a href="令胡冲心法_学习笔记.md" class="card-link" target="_blank">📖 查看学习笔记</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 第七批：超短百科全书与控制回撤 -->
+            <div class="section">
+                <h2 class="section-title">📚 第七批：超短百科全书与控制回撤（3位）</h2>
+                <div class="card-grid">
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-icon">📖</span>
+                            <div>
+                                <div class="card-title">凡倍无名</div>
+                                <div class="card-subtitle">超短百科全书</div>
+                            </div>
+                        </div>
+                        <div class="card-rating">⭐⭐⭐⭐</div>
+                        <div class="card-desc">超短百科全书，超短作手。核心战法：超短的含义、模式的选择。</div>
+                        <a href="凡倍无名心法_学习笔记.md" class="card-link" target="_blank">📖 查看学习笔记</a>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-icon">🐃</span>
+                            <div>
+                                <div class="card-title">孤独牛背</div>
+                                <div class="card-subtitle">超短梦想系列</div>
+                            </div>
+                        </div>
+                        <div class="card-rating">⭐⭐⭐⭐</div>
+                        <div class="card-desc">超短梦想系列之控制回撤篇。核心战法：多空仓、仓位控制。</div>
+                        <a href="孤独牛背心法_学习笔记.md" class="card-link" target="_blank">📖 查看学习笔记</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 思维导图 -->
+            <div class="mindmap-section">
+                <h2 class="section-title">🧠 思维导图（FreeMind格式）</h2>
+                <div class="mindmap-grid">
+                    <div class="mindmap-item">
+                        <a href="炒股养家心法_思维导图.mm" target="_blank">🦊 炒股养家心法思维导图</a>
+                    </div>
+                    <div class="mindmap-item">
+                        <a href="Asking心法_思维导图.mm" target="_blank">❓ Asking心法思维导图</a>
+                    </div>
+                </div>
+                <p style="margin-top: 15px; color: #666; font-size: 14px;">
+                    💡 使用FreeMind软件打开.mm文件查看思维导图
+                </p>
+            </div>
+
+            <!-- 学习心得 -->
+            <div class="section">
+                <h2 class="section-title">💡 学习心得与总结</h2>
+                <div style="background: #f8f9fa; padding: 25px; border-radius: 15px; line-height: 2;">
+                    <h3 style="color: #667eea; margin-bottom: 15px;">1. 情绪周期是所有战法的基础</h3>
+                    <p style="margin-bottom: 20px;">炒股养家、Asking、职业炒手、赵老哥等都强调情绪周期的重要性。学会判断情绪周期，才能把握市场节奏。</p>
+
+                    <h3 style="color: #667eea; margin-bottom: 15px;">2. 龙头战法是核心</h3>
+                    <p style="margin-bottom: 20px;">所有游资都强调龙头的重要性。龙头需要技术吗？不需要，要的是临阵时的果敢和勇气。</p>
+
+                    <h3 style="color: #667eea; margin-bottom: 15px;">3. 仓位管理决定生死</h3>
+                    <p style="margin-bottom: 20px;">龙飞虎、乔帮主、独股一箭等都强调仓位管理的重要性。不要一次满仓，很容易成为忠烈祠堂中的牌位。</p>
+
+                    <h3 style="color: #667eea; margin-bottom: 15px;">4. 心态管理是长期盈利的关键</h3>
+                    <p style="margin-bottom: 20px;">徐翔、小鳄鱼、92科比等都强调心态管理的重要性。做短线就是不断自我否定，不断修正自己。</p>
+
+                    <h3 style="color: #667eea; margin-bottom: 15px;">5. 风险控制是保护本金的最后一道防线</h3>
+                    <p>瑞鹤仙、著名刺客、欢乐海岸等都强调风险控制的重要性。止损是保护本金，空仓是规避风险。</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>📚 28位游资心法学习笔记 - 可视化查看器</p>
+            <p>系统学习游资心法，建立自己的交易体系</p>
+            <p>最后更新：2026年2月</p>
+        </div>
+    </div>
+</body>
+</html>

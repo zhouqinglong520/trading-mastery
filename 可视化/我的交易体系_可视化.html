@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的交易体系 - 27位游资智慧精华</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Microsoft YaHei', '微软雅黑', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 36px;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 18px;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .section {
+            margin-bottom: 40px;
+            padding: 30px;
+            background: #f8f9fa;
+            border-radius: 15px;
+            border-left: 5px solid #667eea;
+            transition: all 0.3s ease;
+        }
+
+        .section:hover {
+            transform: translate(-5px, -5px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.2);
+        }
+
+        .section h2 {
+            color: #667eea;
+            font-size: 28px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .section h2 span {
+            font-size: 36px;
+        }
+
+        .section h3 {
+            color: #764ba2;
+            font-size: 20px;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        .section ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .section li {
+            padding: 10px 0;
+            padding-left: 30px;
+            position: relative;
+            line-height: 1.8;
+            color: #333;
+        }
+
+        .section li:before {
+            content: "▸";
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, #ffd700 0%, #ffed4e 100%);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .quote {
+            background: white;
+            border-left: 4px solid #764ba2;
+            padding: 15px 20px;
+            margin: 15px 0;
+            font-style: italic;
+            color: #555;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        }
+
+        .card h4 {
+            color: #667eea;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .checklist {
+            margin-top: 20px;
+        }
+
+        .checklist label {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            margin: 5px 0;
+            background: white;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .checklist label:hover {
+            background: #f0f0f0;
+            transform: translateX(5px);
+        }
+
+        .checklist input[type="checkbox"] {
+            margin-right: 10px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 30px;
+            background: #e0e0e0;
+            border-radius: 15px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            transition: width 0.5s ease;
+        }
+
+        .footer {
+            background: #2c3e50;
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .footer p {
+            margin: 10px 0;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            margin: 10px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 28px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+
+            .section {
+                padding: 20px;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎯 我的交易体系</h1>
+            <p>27位游资智慧精华 | 405章学习笔记 | 建立自己的交易体系</p>
+        </div>
+
+        <div class="content">
+            <!-- 一、交易理念 -->
+            <div class="section">
+                <h2><span>🎯</span>一、交易理念（信仰体系）</h2>
+                
+                <h3>1.1 核心信仰</h3>
+                <ul>
+                    <li><span class="highlight">市场永远是对的</span> - 万法归宗、ASKING、令胡冲等共同认知</li>
+                    <li><span class="highlight">情绪周期是所有战法的基础</span> - 炒股养家、Asking、职业炒手、赵老哥等</li>
+                    <li><span class="highlight">龙头战法是核心</span> - 所有27位游资都强调龙头的重要性</li>
+                    <li><span class="highlight">仓位管理决定生死</span> - 龙飞虎、乔帮主、独股一箭等</li>
+                    <li><span class="highlight">心态管理是长期盈利的关键</span> - 徐翔、小鳄鱼、92科比等</li>
+                    <li><span class="highlight">风险控制是保护本金的最后一道防线</span> - 瑞鹤仙、著名刺客、欢乐海岸等</li>
+                </ul>
+
+                <h3>1.2 交易本质</h3>
+                <div class="quote">"超短线本质是人与人的博弈" - 小鳄鱼</div>
+                <div class="quote">"交易本质是价差" - 艾琳</div>
+                <div class="quote">"投机做的到底是什么？赚钱效应(情绪)的延续" - 涅盘重升</div>
+                <div class="quote">"股票本质：筹码交换的游戏，讲故事卖给信故事的人" - 92科比</div>
+                <div class="quote">"市场是一个自学习的生物" - 浓汤野人</div>
+            </div>
+
+            <!-- 二、选股体系 -->
+            <div class="section">
+                <h2><span>📊</span>二、选股体系（买什么）</h2>
+                
+                <h3>2.1 选股原则（27位游资共通点）</h3>
+                <ul>
+                    <li><span class="highlight">只做主流题材</span> - 炒股养家、Asking、职业炒手、赵老哥等</li>
+                    <li><span class="highlight">只做龙头股</span> - 所有游资共同认知</li>
+                    <li>选择题材+形态+人气+小盘+低价 - 榜中榜</li>
+                    <li>选择有题材标的，禁做无题材或题材不明标的 - 孤独牛背</li>
+                    <li>主流热点板块在启动之初介入 - 落升</li>
+                </ul>
+
+                <h3>2.2 选股方法</h3>
+                <ul>
+                    <li>对市场上2000多只个股基本面了如指掌 - 令胡冲</li>
+                    <li>每天盘前选1-10只，总数不超过30只 - 榜中榜</li>
+                    <li>分封制选择特点就是曾经牛过的王族贵族，自己亲族，和帮自己牛过的功臣 - 明王</li>
+                    <li>选股的原则：题材是第一生产力，喜新厌旧 - 榜中榜</li>
+                </ul>
+
+                <h3>2.3 选股注意事项</h3>
+                <div class="quote">"不管你的技术有多牛，脱离主流，只有死路一条！" - 著名刺客</div>
+                <div class="quote">"最强的板，不是看封单大不大、涨停时间早不早，而是看第二天接力的人能不能赚钱" - 著名刺客</div>
+                <div class="quote">"说白了，不参与任何性质整理！" - ASKING</div>
+            </div>
+
+            <!-- 三、买入时机把握 -->
+            <div class="section">
+                <h2><span>⏰</span>三、买入时机把握（何时买）</h2>
+                
+                <h3>3.1 买入时机的选择</h3>
+                <ul>
+                    <li><span class="highlight">等待需要绝对的耐心</span>，发现需要经验来确认，跟随则是最次要的买入动作了 - ASKING</li>
+                    <li>5日线收复和成交量逆转同时形成 - 明王</li>
+                    <li>买入的时机决定了主动权 - 明王</li>
+                    <li>打板的时机，完全凭感觉 - 令胡冲</li>
+                </ul>
+
+                <h3>3.2 买入的方法</h3>
+                <ul>
+                    <li>低吸、半路、打板、竞价，根据市场环境选择 - 小鳄鱼</li>
+                    <li>二板比首板确定性更高，适合大部分散户 - 小鳄鱼</li>
+                    <li>要么做高，要么做低，中位股的风险较大 - 92科比</li>
+                    <li>弱转强最好不要体现在竞价上 - 92科比</li>
+                </ul>
+
+                <h3>3.3 买入的注意事项</h3>
+                <div class="quote">"不是为了打板而打板，如果看到板的股就去打，牛市还可能维持收益，熊市是彻底的爆亏" - 令胡冲</div>
+                <div class="quote">"高开就死了，低开多好" - 榜中榜</div>
+                <div class="quote">"行情好满仓做追龙头，行情不好不追高低吸为主或空仓" - 小鳄鱼</div>
+            </div>
+
+            <!-- 四、持有与卖出策略 -->
+            <div class="section">
+                <h2><span>🔄</span>四、持有与卖出策略（何时卖）</h2>
+                
+                <h3>4.1 持有策略</h3>
+                <ul>
+                    <li>5日线上，量在，板块在，则反弹在 - 明王</li>
+                    <li><span class="highlight">持有盈利单是最安全的交易行为</span> - 艾琳</li>
+                    <li>拿牛股需要牛逼的心 - 榜中榜</li>
+                    <li>主升浪可遇而不可求 - 瑞鹤仙</li>
+                </ul>
+
+                <h3>4.2 卖出策略</h3>
+                <ul>
+                    <li><span class="highlight">卖出时机决定了获利度</span> - 令胡冲、凡倍无名</li>
+                    <li>24日乖离率接近0时卖出 - 落升</li>
+                    <li>5日线是最牛最霸道的均线 - 明王</li>
+                    <li>止损是保护本金，止盈需要行情 - 艾琳</li>
+                </ul>
+
+                <h3>4.3 卖出的方法</h3>
+                <div class="quote">"线下卖出，坚决果断的认错出局" - 著名刺客、瑞鹤仙</div>
+                <div class="quote">"不要存在恐高的心理，往往涨的越高的股票越安全的" - 欢乐海岸</div>
+                <div class="quote">"妖股都是M头，是有次高点的，不会直接A字下杀" - 欢乐海岸</div>
+            </div>
+
+            <!-- 五、仓位管理与资金管理 -->
+            <div class="section">
+                <h2><span>💰</span>五、仓位管理与资金管理（买多少）</h2>
+                
+                <h3>5.1 仓位管理的原则</h3>
+                <ul>
+                    <li><span class="highlight">不要一次满仓</span>，很容易成为忠烈祠堂中的牌位 - 明王</li>
+                    <li>5日线下不持仓超过20％ - 明王、艾琳</li>
+                    <li>单只标的仓位重，赚的多，但遇到亏损回撤幅度也大，盈亏同源，得之易失之易 - 孤独牛背</li>
+                    <li>小资金也要分仓，也不加杠杆 - 92科比、瑞鹤仙</li>
+                </ul>
+
+                <h3>5.2 仓位管理的方法</h3>
+                <ul>
+                    <li>行情好满仓做追龙头，行情不好不追高低吸为主或空仓 - 小鳄鱼</li>
+                    <li>月均20%，4年内如果本金10万就可以达到1亿以上 - 榜中榜</li>
+                    <li>参与妖股的仓位视个人情况而定，一年中并没有太多妖股，轻仓体验vs重仓抓取 - 欢乐海岸</li>
+                    <li>降低获利目标，多忍少盲动 - 落升</li>
+                </ul>
+
+                <h3>5.3 仓位管理的注意事项</h3>
+                <div class="quote">"空仓是规避风险" - 丁一熊、万法归宗</div>
+                <div class="quote">"空仓艺术：一年中基本上有一半时间处于空和轻的状态" - 万法归宗</div>
+                <div class="quote">"学会空仓，等待需要绝对的耐心" - 万法归宗、孤独牛背</div>
+                <div class="quote">"如果你年龄够长，就知道，机会可以失去，有本钱在，机会就在" - 丁一熊</div>
+            </div>
+
+            <!-- 六、风险控制与资金管理 -->
+            <div class="section">
+                <h2><span>🛡️</span>六、风险控制与资金管理（如何保命）</h2>
+                
+                <h3>6.1 风险控制的原则</h3>
+                <ul>
+                    <li><span class="highlight">止损是保护本金的最后一道防线</span> - 章盟主、瑞鹤仙</li>
+                    <li>止损是生命线，一字后面80%下跌 - 榜中榜</li>
+                    <li>有效跌破颈线位离场，坚决止损 - 落升</li>
+                    <li>不要预测底部、不要逆市操作、不要急于抄底、不要重仓操作、不要不止损 - 丁一熊、万法归宗</li>
+                </ul>
+
+                <h3>6.2 风险控制的方法</h3>
+                <ul>
+                    <li>设定止损点，坚决执行 - 所有游资共同认知</li>
+                    <li>每日每手不超过20点止损 - 艾琳</li>
+                    <li>日最大损失不超过总金额的1.5% - 艾琳</li>
+                    <li>仓位不超过50% - 艾琳</li>
+                </ul>
+
+                <h3>6.3 风险控制的注意事项</h3>
+                <div class="quote">"熊市最牛的是空，空，空！" - 万法归宗</div>
+                <div class="quote">"有熊市的基调，无论大盘在高位，低位，就是超低位，只要是跌势，就该跑" - 丁一熊</div>
+                <div class="quote">"调整本身就意味着节制，消化和萌芽更新" - 丁一熊</div>
+                <div class="quote">"市场总会是牛熊交替，周期循环，这是自然规律" - 丁一熊</div>
+            </div>
+
+            <!-- 七、心态管理与修身养性 -->
+            <div class="section">
+                <h2><span>🧘</span>七、心态管理与修身养性（心法）</h2>
+                
+                <h3>7.1 投资的心态</h3>
+                <ul>
+                    <li><span class="highlight">做短线就是不断自我否定，不断修正自己</span> - 92科比、瑞鹤仙</li>
+                    <li>做妖股学会隐忍是必不可少的 - 欢乐海岸</li>
+                    <li>小孩才讲对错，大人只讲利益 - 孤独牛背</li>
+                    <li>我算是职业的吧，刚开始也不是打板，后来自己学的，也没什么人教 - 令胡冲</li>
+                </ul>
+
+                <h3>7.2 心态管理的方法</h3>
+                <ul>
+                    <li>心静如水，轻松操作，平常心 - 丁一熊</li>
+                    <li>要听到大盘的呼吸，远离喧嚣，与寂寞相伴 - 落升</li>
+                    <li>没有特别的心情，交易非常简单 - 艾琳</li>
+                    <li>不管你的技术有多牛，脱离主流，只有死路一条！ - 著名刺客</li>
+                </ul>
+
+                <h3>7.3 心态管理的注意事项</h3>
+                <div class="quote">"不要存在恐高的心理，往往涨的越高的股票越安全的" - 欢乐海岸</div>
+                <div class="quote">"炒股做的是概率，只要你出手10个股票，命中5个是妖股，一年就能赚2倍以上" - 欢乐海岸</div>
+                <div class="quote">"没有人每次都能看准妖股，炒股做的是概率" - 欢乐海岸</div>
+                <div class="quote">"重复重复再重复，一招鲜吃遍天" - 榜中榜</div>
+            </div>
+
+            <!-- 八、技术分析的精髓 -->
+            <div class="section">
+                <h2><span>📈</span>八、技术分析的精髓（术）</h2>
+                
+                <div class="grid">
+                    <div class="card">
+                        <h4>K线形态</h4>
+                        <p>K线，来源于日本阴阳烛，原来的股市是通过报价，但是为了便于在这个行业内，统计分析，于是有了K线</p>
+                    </div>
+                    <div class="card">
+                        <h4>成交量研究</h4>
+                        <p>成交量的基础，成交量的安全性，集合竞价的秘密</p>
+                    </div>
+                    <div class="card">
+                        <h4>成本均线研究</h4>
+                        <p>成本均线理论，5日线是最牛最霸道的均线</p>
+                    </div>
+                    <div class="card">
+                        <h4>筹码理论研究</h4>
+                        <p>筹码理论，无阻力拉升，筹码密集区，主流和非主流的定义</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 九、情绪周期与板块轮动 -->
+            <div class="section">
+                <h2><span>📉</span>九、情绪周期与板块轮动（势）</h2>
+                
+                <h3>9.1 情绪周期四阶段理论</h3>
+                <ul>
+                    <li>低位震荡、主升、高位震荡、主跌 - 92科比</li>
+                    <li>重个股、轻指数是绝对错误的 - 瑞鹤仙</li>
+                    <li>不预测、只跟随是极大错误的 - 瑞鹤仙</li>
+                    <li>先于市场发现可发酵的舆论事件 - 92科比、瑞鹤仙</li>
+                </ul>
+
+                <h3>9.2 板块轮动规律</h3>
+                <ul>
+                    <li>反弹通常会出现旗手票和领涨板块龙头两种 - 明王</li>
+                    <li>主流热点板块在启动之初介入 - 落升</li>
+                    <li>题材是第一生产力，喜新厌旧 - 榜中榜</li>
+                    <li>补涨与切换战术：要么做高，要么做低，中位股的风险较大 - 92科比</li>
+                </ul>
+
+                <h3>9.3 赚钱效应与亏钱效应</h3>
+                <div class="quote">"投机做的到底是什么？赚钱效应(情绪)的延续，对资金的吸引，赚钱资金来，亏钱资金走" - 涅盘重升</div>
+                <div class="quote">"6大情绪：投机情绪、市场情绪、板块情绪、整体市场情绪、整体投机情绪、整体板块情绪" - 涅盘重升</div>
+            </div>
+
+            <!-- 十、实战案例分析 -->
+            <div class="section">
+                <h2><span>📚</span>十、实战案例分析（鉴）</h2>
+                
+                <div class="grid">
+                    <div class="card">
+                        <h4>成功案例</h4>
+                        <p>炒股养家：茅台、比亚迪、宁德时代</p>
+                        <p>Asking：600645、000503、新大陆</p>
+                        <p>赵老哥：中国中车、贵州茅台、宁德时代</p>
+                        <p>小鳄鱼：轴研科技、宏润建设、星期六</p>
+                    </div>
+                    <div class="card">
+                        <h4>失败案例</h4>
+                        <p>瑞鹤仙：失败的交割单的重要性远超成功的交割单</p>
+                        <p>著名刺客：招商公路、壹桥股份、华森制药、卫信康</p>
+                        <p>欢乐海岸：东方通信、九鼎新材、四川双马</p>
+                    </div>
+                </div>
+
+                <div class="quote">"我们赚大钱，全是符合这样的条件，而亏钱基本都是不符合而去强做" - ASKING</div>
+                <div class="quote">"说白了，不参与任何性质整理！" - ASKING</div>
+                <div class="quote">"只做超强势股的追涨和守株待兔" - ASKING</div>
+            </div>
+
+            <!-- 十一、常见误区与纠正 -->
+            <div class="section">
+                <h2><span>⚠️</span>十一、常见误区与纠正（避坑）</h2>
+                
+                <h3>11.1 常见误区</h3>
+                <ul>
+                    <li>频繁交易 - 万法归宗、章盟主</li>
+                    <li>参与调整 - ASKING、炒股养家</li>
+                    <li>强做 - ASKING、炒股养家</li>
+                    <li>重仓一只股票 - 章盟主、明王</li>
+                    <li>不设止损 - 所有游资共同提醒</li>
+                </ul>
+
+                <h3>11.2 纠正方法</h3>
+                <div class="quote">"学会空仓，等待需要绝对的耐心" - 万法归宗</div>
+                <div class="quote">"说白了，不参与任何性质整理！" - ASKING</div>
+                <div class="quote">"不要一次满仓，很容易成为忠烈祠堂中的牌位" - 明王</div>
+                <div class="quote">"止损是保护本金的最后一道防线" - 章盟主</div>
+
+                <h3>11.3 注意事项</h3>
+                <div class="quote">"市场永远是对的，跟随是最好的办法" - 万法归宗</div>
+                <div class="quote">"不要预测底部、不要逆市操作、不要急于抄底" - 丁一熊</div>
+                <div class="quote">"熊市最牛的是空，空，空！" - 万法归宗</div>
+            </div>
+
+            <!-- 十二、自我修炼与提升 -->
+            <div class="section">
+                <h2><span>🎓</span>十二、自我修炼与提升（进阶）</h2>
+                
+                <h3>12.1 学习名家手法</h3>
+                <ul>
+                    <li>学习名家手法、建立自己的交易体系、不断自我否定 - 所有游资共同认知</li>
+                    <li>做自己看的懂的 - 所有游资共同认知</li>
+                    <li>不断自我否定，不断修正自己 - 92科比、瑞鹤仙</li>
+                </ul>
+
+                <h3>12.2 建立自己的交易体系</h3>
+                <div class="quote">"交易体系 = 交易理念 + 选股体系 + 买入规则 + 卖出规则 + 仓位管理规则 + 风险控制规则 + 心态管理规则"</div>
+                <div class="quote">"交易体系需要不断修正，不断进化"</div>
+                <div class="quote">"交易体系需要适合自己的性格和资金量"</div>
+
+                <h3>12.3 不断自我否定</h3>
+                <div class="quote">"做短线就是不断自我否定，不断修正自己" - 92科比、瑞鹤仙</div>
+                <div class="quote">"失败的交割单的重要性远超成功的交割单" - 瑞鹤仙</div>
+                <div class="quote">"不断总结，不断修正，不断进化"</div>
+            </div>
+
+            <!-- 十三、总结与核心要点 -->
+            <div class="section">
+                <h2><span>🎯</span>十三、总结与核心要点（记忆）</h2>
+                
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 100%">核心要点掌握进度：100%</div>
+                </div>
+
+                <h3>13.1 核心要点总结</h3>
+                <ul>
+                    <li><span class="highlight">市场永远是对的</span> - 万法归宗、ASKING、令胡冲</li>
+                    <li><span class="highlight">情绪周期是所有战法的基础</span> - 炒股养家、Asking、职业炒手、赵老哥</li>
+                    <li><span class="highlight">龙头战法是核心</span> - 所有27位游资</li>
+                    <li><span class="highlight">仓位管理决定生死</span> - 龙飞虎、乔帮主、独股一箭</li>
+                    <li><span class="highlight">心态管理是长期盈利的关键</span> - 徐翔、小鳄鱼、92科比</li>
+                    <li><span class="highlight">风险控制是保护本金的最后一道防线</span> - 瑞鹤仙、著名刺客、欢乐海岸</li>
+                </ul>
+
+                <h3>13.2 交易体系核心</h3>
+                <div class="grid">
+                    <div class="card">
+                        <h4>交易理念</h4>
+                        <p>市场永远是对的，情绪周期是所有战法的基础</p>
+                    </div>
+                    <div class="card">
+                        <h4>选股体系</h4>
+                        <p>只做主流题材，只做龙头股</p>
+                    </div>
+                    <div class="card">
+                        <h4>买入规则</h4>
+                        <p>等待需要绝对的耐心，发现需要经验来确认</p>
+                    </div>
+                    <div class="card">
+                        <h4>卖出规则</h4>
+                        <p>卖出时机决定了获利度，线下卖出，坚决果断的认错出局</p>
+                    </div>
+                    <div class="card">
+                        <h4>仓位管理规则</h4>
+                        <p>不要一次满仓，5日线下不持仓超过20％</p>
+                    </div>
+                    <div class="card">
+                        <h4>风险控制规则</h4>
+                        <p>止损是保护本金的最后一道防线</p>
+                    </div>
+                    <div class="card">
+                        <h4>心态管理规则</h4>
+                        <p>做短线就是不断自我否定，不断修正自己</p>
+                    </div>
+                </div>
+
+                <h3>13.3 行动计划</h3>
+                <ul>
+                    <li>每天复盘，总结得失</li>
+                    <li>不断修正自己的交易体系</li>
+                    <li>控制回撤，稳定盈利</li>
+                    <li>长期生存，实现财务自由</li>
+                </ul>
+            </div>
+
+            <!-- 十四、自测题 -->
+            <div class="section">
+                <h2><span>✅</span>十四、自测题（检验）</h2>
+                
+                <h3>14.1 交易理念自测</h3>
+                <div class="checklist">
+                    <label><input type="checkbox"> 我是否相信市场永远是对的？</label>
+                    <label><input type="checkbox"> 我是否理解情绪周期是所有战法的基础？</label>
+                    <label><input type="checkbox"> 我是否认同龙头战法是核心？</label>
+                    <label><input type="checkbox"> 我是否明白仓位管理决定生死？</label>
+                    <label><input type="checkbox"> 我是否知道心态管理是长期盈利的关键？</label>
+                </div>
+
+                <h3>14.2 选股体系自测</h3>
+                <div class="checklist">
+                    <label><input type="checkbox"> 我是否只做主流题材？</label>
+                    <label><input type="checkbox"> 我是否只做龙头股？</label>
+                    <label><input type="checkbox"> 我是否选择题材+形态+人气+小盘+低价？</label>
+                    <label><input type="checkbox"> 我是否选择有题材标的，禁做无题材或题材不明标的？</label>
+                </div>
+
+                <h3>14.3 买入时机自测</h3>
+                <div class="checklist">
+                    <label><input type="checkbox"> 我是否具备等待需要绝对的耐心？</label>
+                    <label><input type="checkbox"> 我是否懂得5日线收复和成交量逆转同时形成？</label>
+                    <label><input type="checkbox"> 我是否知道买入的时机决定了主动权？</label>
+                    <label><input type="checkbox"> 我是否明白打板的时机，完全凭感觉？</label>
+                </div>
+
+                <h3>14.4 卖出策略自测</h3>
+                <div class="checklist">
+                    <label><input type="checkbox"> 我是否知道卖出时机决定了获利度？</label>
+                    <label><input type="checkbox"> 我是否懂得线下卖出，坚决果断的认错出局？</label>
+                    <label><input type="checkbox"> 我是否明白不要存在恐高的心理？</label>
+                    <label><input type="checkbox"> 我是否知道妖股都是M头，是有次高点的？</label>
+                </div>
+
+                <h3>14.5 仓位管理自测</h3>
+                <div class="checklist">
+                    <label><input type="checkbox"> 我是否做到不要一次满仓？</label>
+                    <label><input type="checkbox"> 我是否做到5日线下不持仓超过20％？</label>
+                    <label><input type="checkbox"> 我是否做到小资金也要分仓，也不加杠杆？</label>
+                    <label><input type="checkbox"> 我是否做到学会空仓，等待需要绝对的耐心？</label>
+                </div>
+
+                <h3>14.6 风险控制自测</h3>
+                <div class="checklist">
+                    <label><input type="checkbox"> 我是否设定止损点，坚决执行？</label>
+                    <label><input type="checkbox"> 我是否做到止损是保护本金的最后一道防线？</label>
+                    <label><input type="checkbox"> 我是否做到不要预测底部、不要逆市操作、不要急于抄底、不要重仓操作、不要不止损？</label>
+                    <label><input type="checkbox"> 我是否做到熊市最牛的是空，空，空！？</label>
+                </div>
+
+                <h3>14.7 心态管理自测</h3>
+                <div class="checklist">
+                    <label><input type="checkbox"> 我是否做到做短线就是不断自我否定，不断修正自己？</label>
+                    <label><input type="checkbox"> 我是否做到心静如水，轻松操作，平常心？</label>
+                    <label><input type="checkbox"> 我是否做到要听到大盘的呼吸，远离喧嚣，与寂寞相伴？</label>
+                    <label><input type="checkbox"> 我是否做到不管你的技术有多牛，脱离主流，只有死路一条！？</label>
+                </div>
+            </div>
+
+            <!-- 十五、行动计划与下一步 -->
+            <div class="section">
+                <h2><span>🚀</span>十五、行动计划与下一步（执行）</h2>
+                
+                <h3>15.1 立即行动</h3>
+                <div class="checklist">
+                    <label><input type="checkbox"> 熟读本文档，理解并记忆核心要点</label>
+                    <label><input type="checkbox"> 建立自己的交易体系（基于本文档）</label>
+                    <label><input type="checkbox"> 制定交易规则和纪律</label>
+                    <label><input type="checkbox"> 开始模拟交易或实盘操作（小资金）</label>
+                </div>
+
+                <h3>15.2 短期目标（1-3个月）</h3>
+                <div class="checklist">
+                    <label><input type="checkbox"> 熟练运用交易体系</label>
+                    <label><input type="checkbox"> 控制回撤，稳定盈利</label>
+                    <label><input type="checkbox"> 不断总结，不断修正</label>
+                    <label><input type="checkbox"> 建立自己的交易日志</label>
+                </div>
+
+                <h3>15.3 中期目标（3-6个月）</h3>
+                <div class="checklist">
+                    <label><input type="checkbox"> 交易体系成熟稳定</label>
+                    <label><input type="checkbox"> 实现稳定盈利</label>
+                    <label><input type="checkbox"> 资金量逐步增加</label>
+                    <label><input type="checkbox"> 心态管理成熟</label>
+                </div>
+
+                <h3>15.4 长期目标（1-3年）</h3>
+                <div class="checklist">
+                    <label><input type="checkbox"> 实现财务自由</label>
+                    <label><input type="checkbox"> 交易体系不断完善</label>
+                    <label><input type="checkbox"> 成为职业交易者</label>
+                    <label><input type="checkbox"> 帮助更多人稳定盈利</label>
+                </div>
+
+                <div style="text-align: center; margin-top: 30px;">
+                    <a href="#" class="button">开始模拟交易</a>
+                    <a href="#" class="button">建立交易日志</a>
+                    <a href="#" class="button">制定交易规则</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <h3>📚 附录：27位游资学习笔记索引</h3>
+            <p>第一批：情绪周期与龙头战法（5位）- 炒股养家、Asking、职业炒手、赵老哥、退学炒股</p>
+            <p>第二批：动态仓位与低吸战法（4位）- 龙飞虎、乔帮主、独股一箭、徐翔</p>
+            <p>第三批：新生代游资（4位）- 小鳄鱼、92科比、瑞鹤仙、著名刺客</p>
+            <p>第四批：妖股炒作与趋势狙击（4位）- 欢乐海岸、章盟主、ASKING、艾琳</p>
+            <p>第五批：长者的智慧与理解力（4位）- 丁一熊、万法归宗、浓汤野人、涅盘重升</p>
+            <p>第六批：理解力与熊市生存（4位）- 榜中榜、落升、明王、令胡冲</p>
+            <p>第七批：超短百科全书与控制回撤（3位）- 凡倍无名、孤独牛背</p>
+            <p style="margin-top: 20px; font-size: 18px;"><strong>祝你早日建立自己的交易体系，实现稳定盈利，财务自由！🚀</strong></p>
+            <p style="margin-top: 10px;">记住：市场永远是对的，情绪周期是所有战法的基础，龙头战法是核心，仓位管理决定生死，心态管理是长期盈利的关键，风险控制是保护本金的最后一道防线！💪</p>
+        </div>
+    </div>
+
+    <script>
+        // 保存复选框状态
+        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        checkboxes.forEach((checkbox, index) => {
+            // 从localStorage加载状态
+            const saved = localStorage.getItem(`checkbox_${index}`);
+            if (saved === 'true') {
+                checkbox.checked = true;
+            }
+
+            // 保存状态
+            checkbox.addEventListener('change', () => {
+                localStorage.setItem(`checkbox_${index}`, checkbox.checked);
+                updateProgress();
+            });
+        });
+
+        // 更新进度条
+        function updateProgress() {
+            const total = checkboxes.length;
+            const checked = document.querySelectorAll('input[type="checkbox"]:checked').length;
+            const progress = (checked / total) * 100;
+            
+            const progressBar = document.querySelector('.progress-fill');
+            if (progressBar) {
+                progressBar.style.width = progress + '%';
+                progressBar.textContent = `核心要点掌握进度：${Math.round(progress)}%`;
+            }
+        }
+
+        // 初始化进度条
+        updateProgress();
+    </script>
+</body>
+</html>
