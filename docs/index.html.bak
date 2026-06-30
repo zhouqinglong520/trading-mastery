@@ -37,18 +37,14 @@
     
     /* 侧边栏 */
     .sidebar {
-      width: 340px;
+      width: 280px;
       background: linear-gradient(180deg, #1a0a0a 0%, #0d0d0d 100%);
       border-right: 1px solid var(--border-color);
       height: 100vh;
       position: fixed;
       overflow-y: auto;
       z-index: 100;
-      scrollbar-width: thin;
-      scrollbar-color: var(--border-color) transparent;
     }
-    .sidebar::-webkit-scrollbar { width: 4px; }
-    .sidebar::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 4px; }
     
     .sidebar-header {
       padding: 24px 20px;
@@ -117,8 +113,8 @@
       display: flex;
       align-items: center;
       gap: 10px;
-      font-size: 16px;
-      font-weight: 600;
+      font-size: 15px;
+      font-weight: 500;
     }
     
     .nav-category-icon {
@@ -146,7 +142,7 @@
     }
     
     .nav-item {
-      padding: 10px 20px 10px 36px;
+      padding: 10px 20px 10px 48px;
       cursor: pointer;
       font-size: 14px;
       color: var(--text-secondary);
@@ -154,9 +150,6 @@
       display: flex;
       align-items: center;
       gap: 8px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
     }
     
     .nav-item:hover {
@@ -170,14 +163,11 @@
     }
     
     .nav-sub-item {
-      padding: 8px 20px 8px 44px;
+      padding: 8px 20px 8px 60px;
       cursor: pointer;
-      font-size: 14px;
+      font-size: 13px;
       color: var(--text-secondary);
       transition: all 0.2s;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
     }
     
     .nav-sub-item:hover {
@@ -192,12 +182,12 @@
     /* 主内容区 */
     .main-content {
       flex: 1;
-      margin-left: 340px;
+      margin-left: 280px;
       min-height: 100vh;
     }
     
     .content-header {
-      padding: 24px 40px;
+      padding: 24px 32px;
       border-bottom: 1px solid var(--border-color);
       background: var(--bg-card);
       position: sticky;
@@ -211,14 +201,14 @@
     }
     
     .content-body {
-      padding: 40px;
-      max-width: 900px;
+      padding: 32px;
+      max-width: 1200px;
     }
     
     .article-content {
       background: var(--bg-card);
       border-radius: 12px;
-      padding: 32px 40px;
+      padding: 32px;
       border: 1px solid var(--border-color);
     }
     
@@ -518,7 +508,6 @@
             subHeader.style.fontWeight = '600';
             subHeader.style.color = 'var(--accent-gold)';
             subHeader.innerHTML = '<span>📁</span> ' + sub.name;
-            subHeader.title = sub.name;
             navItems.appendChild(subHeader);
             
             const subDocs = subItems.filter(a => a.subcategory === sub.id);
