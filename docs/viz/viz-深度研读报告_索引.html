@@ -307,5 +307,53 @@
         // 页面加载完成后生成卡片
         document.addEventListener('DOMContentLoaded', generateCards);
     </script>
+
+<!-- Adsterra Ads -->
+<style>
+.ad-container { text-align: center; margin: 20px auto; padding: 10px; }
+.ad-label { font-size: 11px; color: #999; margin-bottom: 4px; letter-spacing: 1px; }
+.ad-top { margin-top: 20px; margin-bottom: 20px; padding: 15px; background: rgba(255,255,255,0.1); border-radius: 10px; }
+.ad-bottom { margin-top: 30px; margin-bottom: 20px; padding: 15px; background: rgba(255,255,255,0.1); border-radius: 10px; }
+</style>
+<div id="vizTopAd" class="ad-container ad-top">
+    <div class="ad-label">— 广告 —</div>
+</div>
+<div id="vizBottomAd" class="ad-container ad-bottom">
+    <div class="ad-label">— 广告 —</div>
+</div>
+<script>
+function loadAdsterra(containerId, key, width, height) {
+    const el = document.getElementById(containerId);
+    if (!el) return;
+    el.innerHTML = '<div class="ad-label">— 广告 —</div>';
+    const wrap = document.createElement('div');
+    wrap.style.width = width + 'px';
+    wrap.style.maxWidth = '100%';
+    wrap.style.height = height + 'px';
+    wrap.style.margin = '10px auto';
+    wrap.style.overflow = 'hidden';
+    const iframe = document.createElement('iframe');
+    iframe.width = String(width);
+    iframe.height = String(height);
+    iframe.style.border = 'none';
+    iframe.style.display = 'block';
+    iframe.setAttribute('scrolling', 'no');
+    iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin');
+    iframe.setAttribute('frameborder', '0');
+    wrap.appendChild(iframe);
+    el.appendChild(wrap);
+    const adHtml = '<!DOCTYPE html><html><head><meta charset="utf-8"><style>*{margin:0;padding:0}body{overflow:hidden}</style></head><body>' +
+        '<scr' + 'ipt>window.atOptions={'key':'' + key + '','format':'iframe','height':' + height + ','width':' + width + ','params':{}};</scr' + 'ipt>' +
+        '<scr' + 'ipt src="https://pl30122979.effectivecpmnetwork.com/' + key + '/invoke.js"></scr' + 'ipt>' +
+        '</body></html>';
+    const blob = new Blob([adHtml], { type: 'text/html' });
+    iframe.src = URL.createObjectURL(blob);
+}
+setTimeout(() => {
+    loadAdsterra('vizTopAd', '07a2d13b9fb4b43646af5334ff4a60da', 468, 60);
+    loadAdsterra('vizBottomAd', '3fea37f26fcbda4a0ce245e67d31f438', 300, 250);
+}, 500);
+</script>
+
 </body>
 </html>
