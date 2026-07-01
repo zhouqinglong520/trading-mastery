@@ -298,11 +298,51 @@
         const cn = cat ? cat.name : '';
         let sn = '';
         if (a.subcategory && cat?.sub) { const s = cat.sub.find(s=>s.id===a.subcategory); if(s) sn = ' > '+s.name; }
-        d.innerHTML = `<div class="detail-content"><button class="mobile-back" onclick="goBack()">← 返回列表</button><h1 class="detail-title">${a.title}</h1><div class="detail-meta">${cn}${sn} · ${a.docType||'笔记'}</div>${html}<div id="detailBottomAd" style="margin:30px auto;text-align:center;min-height:60px"></div></div>`;
+        
+        // Insert middle ad for long articles (>3000 chars)
+        let topHtml = '', midHtml = '', botHtml = '';
+        const rawLen = (a.content || '').length;
+        if (rawLen > 3000) {
+          // Find a good split point near the middle of rendered HTML
+          const midPoint = Math.floor(html.length / 2);
+          const splitTags = ['</h2>', '</h3>', '</h4>', '</p>', '</table>', '</ul>', '</ol>'];
+          let bestIdx = -1;
+          let bestDist = Infinity;
+          for (const tag of splitTags) {
+            let searchFrom = midPoint - 2000;
+            if (searchFrom < 0) searchFrom = 0;
+            const searchEnd = midPoint + 2000;
+            let idx = html.indexOf(tag, searchFrom);
+            while (idx !== -1 && idx < searchEnd) {
+              const dist = Math.abs(idx - midPoint);
+              if (dist < bestDist) { bestDist = dist; bestIdx = idx + tag.length; }
+              idx = html.indexOf(tag, idx + 1);
+            }
+          }
+          if (bestIdx > 0) {
+            topHtml = html.substring(0, bestIdx);
+            midHtml = '<div id="detailMidAd" style="margin:30px auto;text-align:center;min-height:250px;display:flex;align-items:center;justify-content:center;padding:10px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:var(--bg-soft);border-radius:8px"></div>';
+            botHtml = html.substring(bestIdx);
+          } else {
+            topHtml = html; midHtml = ''; botHtml = '';
+          }
+        } else {
+          topHtml = html;
+        }
+        
+        const adLabel = '<div style="font-size:11px;color:var(--text-mute);margin-bottom:4px;letter-spacing:1px">— 广告 —</div>';
+        
+        d.innerHTML = `<div class="detail-content"><button class="mobile-back" onclick="goBack()">← 返回列表</button><h1 class="detail-title">${a.title}</h1><div class="detail-meta">${cn}${sn} · ${a.docType||'笔记'}</div><div id="detailTopAd" style="margin:16px auto;text-align:center;min-height:60px">${adLabel}</div>${topHtml}${midHtml}${botHtml}<div id="detailBottomAd" style="margin:30px auto;text-align:center;min-height:60px">${adLabel}</div></div>`;
       }
-      // Load detail bottom ad
+      // Load article ads (top/middle/bottom)
         setTimeout(() => {
-          if (!a.isPdf) loadAdsterra('detailBottomAd', '07a2d13b9fb4b43646af5334ff4a60da', 468, 60);
+          if (!a.isPdf && !a.isHtml) {
+            loadAdsterra('detailTopAd', '07a2d13b9fb4b43646af5334ff4a60da', 468, 60);
+            loadAdsterra('detailBottomAd', '07a2d13b9fb4b43646af5334ff4a60da', 468, 60);
+            if ((a.content || '').length > 3000) {
+              loadAdsterra('detailMidAd', '3fea37f26fcbda4a0ce245e67d31f438', 300, 250);
+            }
+          }
         }, 300);
         d.scrollTop = 0;
     }
