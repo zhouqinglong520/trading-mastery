@@ -374,7 +374,7 @@
   
     // Adsterra ad loader
     function loadAdsterra(containerId, key, width, height) {
-      const el = document.getElementById(containerId);
+      var el = document.getElementById(containerId);
       if (!el) return;
       el.innerHTML = '';
       el.style.width = width + 'px';
@@ -382,24 +382,19 @@
       el.style.height = height + 'px';
       el.style.margin = '20px auto';
       el.style.overflow = 'hidden';
-
-      const iframe = document.createElement('iframe');
-      iframe.width = String(width);
-      iframe.height = String(height);
-      iframe.style.border = 'none';
-      iframe.style.display = 'block';
-      iframe.setAttribute('scrolling', 'no');
-      iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin');
-      iframe.setAttribute('frameborder', '0');
-      el.appendChild(iframe);
-
-      const adHtml = '<!DOCTYPE html><html><head><meta charset="utf-8"><style>*{margin:0;padding:0}body{overflow:hidden}</style></head><body>' +
-        '<scr' + 'ipt>window.atOptions={\'key\':\'' + key + '\',\'format\':\'iframe\',\'height\':' + height + ',\'width\':' + width + ',\'params\':{}};</scr' + 'ipt>' +
-        '<scr' + 'ipt src="https://pl30122979.effectivecpmnetwork.com/' + key + '/invoke.js"></scr' + 'ipt>' +
-        '</body></html>';
-
-      const blob = new Blob([adHtml], { type: 'text/html' });
-      iframe.src = URL.createObjectURL(blob);
+      var ifr = document.createElement('iframe');
+      ifr.width = width; ifr.height = height;
+      ifr.style.border = 'none'; ifr.style.overflow = 'hidden';
+      ifr.setAttribute('scrolling', 'no');
+      ifr.setAttribute('frameborder', '0');
+      el.appendChild(ifr);
+      var doc = ifr.contentWindow ? ifr.contentWindow.document : ifr.contentDocument;
+      doc.open();
+      doc.write('<!DOCTYPE html><html><head><style>*{margin:0;padding:0}body{overflow:hidden}</style></head><body>');
+      doc.write('<scr'+'ipt>window.atOptions={"key":"' + key + '","format":"iframe","height":' + height + ',"width":' + width + ',"params":{}};</scr'+'ipt>');
+      doc.write('<scr'+'ipt src="https://pl30122979.effectivecpmnetwork.com/' + key + '/invoke.js"></scr'+'ipt>');
+      doc.write('</body></html>');
+      doc.close();
     }
 
     // Download with ad delay
