@@ -895,51 +895,48 @@
 
     <button class="print-btn" onclick="window.print()">🖨️ 打印文档</button>
 
+
+
+
 <!-- Adsterra Ads -->
 <style>
-.ad-container { text-align: center; margin: 20px auto; padding: 10px; }
-.ad-label { font-size: 11px; color: #999; margin-bottom: 4px; letter-spacing: 1px; }
-.ad-top { margin-top: 20px; margin-bottom: 20px; padding: 15px; background: rgba(255,255,255,0.1); border-radius: 10px; }
-.ad-bottom { margin-top: 30px; margin-bottom: 20px; padding: 15px; background: rgba(255,255,255,0.1); border-radius: 10px; }
+.viz-ad-wrap { text-align: center; margin: 20px auto; padding: 12px; background: rgba(0,0,0,0.03); border-radius: 10px; max-width: 500px; }
+.viz-ad-wrap .ad-label { font-size: 11px; color: #999; margin-bottom: 6px; letter-spacing: 1px; }
+.viz-ad-top { margin-top: 24px; }
+.viz-ad-bottom { margin-bottom: 24px; }
+.viz-ad-slot { min-height: 60px; display: flex; align-items: center; justify-content: center; }
 </style>
-<div id="vizTopAd" class="ad-container ad-top">
+<div class="viz-ad-wrap viz-ad-top">
     <div class="ad-label">— 广告 —</div>
+    <div class="viz-ad-slot" id="vizAdTop"></div>
 </div>
-<div id="vizBottomAd" class="ad-container ad-bottom">
+<div class="viz-ad-wrap viz-ad-bottom">
     <div class="ad-label">— 广告 —</div>
+    <div class="viz-ad-slot" id="vizAdBottom"></div>
 </div>
 <script>
-function loadAdsterra(containerId, key, width, height) {
-    const el = document.getElementById(containerId);
-    if (!el) return;
-    el.innerHTML = '<div class="ad-label">— 广告 —</div>';
-    const wrap = document.createElement('div');
-    wrap.style.width = width + 'px';
-    wrap.style.maxWidth = '100%';
-    wrap.style.height = height + 'px';
-    wrap.style.margin = '10px auto';
-    wrap.style.overflow = 'hidden';
-    const iframe = document.createElement('iframe');
-    iframe.width = String(width);
-    iframe.height = String(height);
-    iframe.style.border = 'none';
-    iframe.style.display = 'block';
-    iframe.setAttribute('scrolling', 'no');
-    iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin');
-    iframe.setAttribute('frameborder', '0');
-    wrap.appendChild(iframe);
-    el.appendChild(wrap);
-    const adHtml = '<!DOCTYPE html><html><head><meta charset="utf-8"><style>*{margin:0;padding:0}body{overflow:hidden}</style></head><body>' +
-        '<scr' + 'ipt>window.atOptions={'key':'' + key + '','format':'iframe','height':' + height + ','width':' + width + ','params':{}};</scr' + 'ipt>' +
-        '<scr' + 'ipt src="https://pl30122979.effectivecpmnetwork.com/' + key + '/invoke.js"></scr' + 'ipt>' +
-        '</body></html>';
-    const blob = new Blob([adHtml], { type: 'text/html' });
-    iframe.src = URL.createObjectURL(blob);
-}
-setTimeout(() => {
-    loadAdsterra('vizTopAd', '07a2d13b9fb4b43646af5334ff4a60da', 468, 60);
-    loadAdsterra('vizBottomAd', '3fea37f26fcbda4a0ce245e67d31f438', 300, 250);
-}, 500);
+(function(){
+    function loadAd(slotId, key, w, h) {
+        var el = document.getElementById(slotId);
+        if (!el) return;
+        var ifr = document.createElement('iframe');
+        ifr.width = w; ifr.height = h;
+        ifr.style.border = 'none'; ifr.style.overflow = 'hidden';
+        ifr.setAttribute('scrolling','no');
+        el.appendChild(ifr);
+        var doc = ifr.contentWindow ? ifr.contentWindow.document : ifr.contentDocument;
+        doc.open();
+        doc.write('<!DOCTYPE html><html><head><style>*{margin:0;padding:0}body{overflow:hidden}</style></head><body>');
+        doc.write('<scr'+'ipt>window.atOptions={"key":"'+key+'","format":"iframe","height":'+h+',"width":'+w+',"params":{}};</scr'+'ipt>');
+        doc.write('<scr'+'ipt src="https://pl30122979.effectivecpmnetwork.com/'+key+'/invoke.js"></scr'+'ipt>');
+        doc.write('</body></html>');
+        doc.close();
+    }
+    try {
+        loadAd('vizAdTop', '07a2d13b9fb4b43646af5334ff4a60da', 468, 60);
+        loadAd('vizAdBottom', '3fea37f26fcbda4a0ce245e67d31f438', 300, 250);
+    } catch(e) { console.log('Ad load error:', e); }
+})();
 </script>
 
 </body>
