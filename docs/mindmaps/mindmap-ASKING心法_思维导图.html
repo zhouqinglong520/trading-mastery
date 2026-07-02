@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ASKING心法 - 思维导图</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { 
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif; 
+  background: #f5f7fa; 
+  overflow: hidden;
+}
+.header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  position: relative;
+  z-index: 10;
+}
+.header h1 {
+  font-size: 18px;
+  font-weight: 600;
+}
+.header .back-btn {
+  color: rgba(255,255,255,0.9);
+  text-decoration: none;
+  font-size: 13px;
+  padding: 6px 16px;
+  border: 1px solid rgba(255,255,255,0.4);
+  border-radius: 20px;
+  transition: all 0.2s;
+}
+.header .back-btn:hover {
+  background: rgba(255,255,255,0.15);
+  border-color: white;
+}
+.toolbar {
+  background: white;
+  padding: 8px 24px;
+  display: flex;
+  gap: 8px;
+  border-bottom: 1px solid #e8e8e8;
+  align-items: center;
+}
+.toolbar button {
+  background: #f0f2f5;
+  color: #555;
+  border: none;
+  padding: 6px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+  transition: all 0.2s;
+}
+.toolbar button:hover {
+  background: #667eea;
+  color: white;
+}
+.toolbar .zoom-info {
+  margin-left: auto;
+  color: #999;
+  font-size: 12px;
+}
+#canvas {
+  width: 100%;
+  height: calc(100vh - 95px);
+  cursor: grab;
+}
+#canvas:active {
+  cursor: grabbing;
+}
+/* Node styles */
+.node-group {
+  cursor: pointer;
+}
+.node-rect {
+  rx: 8;
+  ry: 8;
+  transition: all 0.15s ease;
+}
+.node-group:hover .node-rect {
+  filter: brightness(0.95);
+  stroke-width: 2.5;
+}
+.node-text {
+  font-size: 13px;
+  fill: #333;
+  dominant-baseline: central;
+  pointer-events: none;
+}
+.node-text.root {
+  font-size: 16px;
+  font-weight: 700;
+  fill: white;
+}
+.link {
+  fill: none;
+  stroke-width: 2;
+  opacity: 0.6;
+}
+.expand-btn {
+  cursor: pointer;
+}
+.expand-btn circle {
+  fill: white;
+  stroke: #ccc;
+  stroke-width: 1.5;
+}
+.expand-btn text {
+  font-size: 12px;
+  fill: #888;
+  text-anchor: middle;
+  dominant-baseline: central;
+}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>🧠 ASKING心法</h1>
+  <a href="../index.html" class="back-btn">← 返回首页</a>
+</div>
+<div class="toolbar">
+  <button onclick="zoomIn()">➕ 放大</button>
+  <button onclick="zoomOut()">➖ 缩小</button>
+  <button onclick="fitView()">📐 适应</button>
+  <button onclick="expandAll()">📂 全展开</button>
+  <button onclick="collapseAll()">📁 全折叠</button>
+  <span class="zoom-info" id="zoomInfo">100%</span>
+</div>
+<svg id="canvas"></svg>
+
+<script>
+// 数据
+const treeData = {"name": "ASKING心法", "children": [{"name": "📊 学习概览", "children": [{"name": "总章节数: 68", "children": []}, {"name": "学习状态: ✅已完成", "children": []}, {"name": "笔记格式: Markdown", "children": []}]}, {"name": "第1章：ASKING简介与成长历程", "children": []}, {"name": "1.1 个人背景", "children": [{"name": "真名：邱宝裕", "children": []}, {"name": "网名：ASKING（A股之神）", "children": []}, {"name": "出生年代：1970年代", "children": []}, {"name": "籍贯：福建福州", "children": []}, {"name": "入市时间：1994年", "children": []}]}, {"name": "1.2 资金增长历程", "children": [{"name": "1994年：第一次入市，上证指数从1500点一直绵绵下跌", "children": []}, {"name": "1997年：期货打暴，钱没了，只好再杀回股市", "children": []}, {"name": "1998年春节后：第三次重返股市，借了10几万", "children": []}, {"name": "2003年下半年：资金量达到一定的规模", "children": []}, {"name": "2004年：资金从10几万到几千万，成交量从两三百万到7,8个亿", "children": []}]}, {"name": "1.3 操盘席位", "children": [{"name": "席位：兴业证券股份有限公司福州湖东路证券营业部", "children": []}, {"name": "操作特点：专做人气股、领涨股、龙头股", "children": []}]}, {"name": "1.4 成长关键词", "children": [{"name": "超短线：从1998年到2006年7月23日，专注超短线", "children": []}, {"name": "龙头战法：只做人气股、领涨股、龙头股", "children": []}, {"name": "守株待兔：短线介入点，等待最强的那只股票出现", "children": []}, {"name": "仓位管理：半仓操作，确认后加仓到全仓", "children": []}, {"name": "心态控制：十分里边，心态、控制力占7分，技术占3分", "children": []}]}, {"name": "第2章：核心交易理念", "children": []}, {"name": "2.1 对市场的理解力", "children": [{"name": "交易是所有分析以后的结果，并不是盘口随意的追涨", "children": []}, {"name": "做人气股、领涨股时资金最安全，效率最高", "children": []}, {"name": "人气股不仅仅是热点，还是热点中的焦点", "children": []}, {"name": "一般的资金只是发现和跟随，宁波解放南路是发掘和引导，技术含量要高得多", "children": []}]}, {"name": "2.2 下决心付诸行动的决断力", "children": [{"name": "邱宝裕在1997年期货打暴，钱没了", "children": []}, {"name": "他妈很支持他，到处张罗，总算凑了10来万", "children": []}, {"name": "于是1998年春节后，他又杀回来了", "children": []}, {"name": "其实这是他第三次重返股市了，最早要从1994年说起", "children": []}]}, {"name": "2.3 核心操作观念", "children": [{"name": "选股很重要，是决定性的前提，但选股还不是全部", "children": []}, {"name": "任何一种操作方法，哪怕是做下跌通道的一个小反抽，只要是不参与任何级别调整，买了就为了马上挣钱，这种方法都是短线", "children": []}, {"name": "说白了，不参与任何性质整理！", "children": []}, {"name": "所以，就我的看法，荣展做的只是超强势股，并非真正的龙头，我和职业炒手兄所找的才是龙头", "children": []}]}, {"name": "2.4 龙头战法", "children": [{"name": "我们赚大钱，全是符合这样的条件，而亏钱基本都是不符合而去强做", "children": []}, {"name": "我的追涨操作为什么都出现在大盘已大涨的情况下。原因很简单，我不能确认每一次大盘是否能继续向上，所以就挑最强的股票上", "children": []}, {"name": "大盘如果还向好，最强的股票就会再次大幅向上；大盘如果不行，则最强的股票通常还能横几天，可以果断退出", "children": []}]}, {"name": "第3章：选股体系", "children": []}, {"name": "3.1 选股的原则", "children": [{"name": "做人气股、领涨股时资金最安全，效率最高", "children": []}, {"name": "人气股不仅仅是热点，还是热点中的焦点", "children": []}, {"name": "只做超强势股的追涨和守株待兔", "children": []}, {"name": "选股很重要，是决定性的前提", "children": []}, {"name": "龙头只所以安全，就在于与大盘转势共振", "children": []}]}, {"name": "3.2 选股的方法", "children": [{"name": "需要绝对的耐心", "children": []}, {"name": "在一轮经典的下跌过后，市场面临转势，但我们不知道谁会先涨", "children": []}, {"name": "资金量大的操作必然会提前布局，而我们需要的就是睁大眼睛，等待最强的那只股票出现，然后闭着眼睛进入就可以了", "children": []}, {"name": "需要经验来确认", "children": []}, {"name": "龙头需要技术吗，不需要，要的是临阵时的果敢和勇气", "children": []}]}, {"name": "3.3 选股的注意事项", "children": [{"name": "我们赚大钱，全是符合这样的条件，而亏钱基本都是不符合而去强做", "children": []}, {"name": "说白了，不参与任何性质整理！", "children": []}, {"name": "任何一种操作方法，只要是参与了任何级别调整，买了不是为了马上挣钱，这种方法都不是短线", "children": []}, {"name": "荣展做的只是超强势股，并非真正的龙头", "children": []}, {"name": "我和职业炒手兄所找的才是龙头", "children": []}]}, {"name": "第4章：买入时机把握", "children": []}, {"name": "4.1 买入时机的选择", "children": [{"name": "龙头只存在于大盘转势初期", "children": []}, {"name": "也就是说，2004年9月份以来只有600645叫龙头，其他的只叫超强势股", "children": []}, {"name": "龙头只所以安全，就在于与大盘转势共振", "children": []}, {"name": "市场也需要一只涨幅力度大的股票来树立赚钱效应", "children": []}, {"name": "是我的一个短线介入点", "children": []}]}, {"name": "4.2 买入的方法", "children": [{"name": "确认是追涨时，先进半仓", "children": []}, {"name": "当天涨停，次日继续加仓到全仓，让其利润最大化", "children": []}, {"name": "当天涨停，次日继续加仓到全仓", "children": []}, {"name": "让其利润最大化", "children": []}, {"name": "当天不能涨停，次日择高点先出等回调做守株待兔", "children": []}]}, {"name": "4.3 买入的注意事项", "children": [{"name": "我的追涨操作为什么都出现在大盘已大涨的情况下", "children": []}, {"name": "原因很简单，我不能确认每一次大盘是否能继续向上，所以就挑最强的股票上", "children": []}, {"name": "我们赚大钱，全是符合这样的条件，而亏钱基本都是不符合而去强做", "children": []}, {"name": "说白了，不参与任何性质整理！", "children": []}, {"name": "任何一种操作方法，只要是参与了任何级别调整，买了不是为了马上挣钱，这种方法都不是短线", "children": []}]}, {"name": "第5章：持有与卖出策略", "children": []}, {"name": "5.1 持有策略", "children": [{"name": "确认是追涨时，先进半仓", "children": []}, {"name": "当天涨停，次日继续加仓到全仓", "children": []}, {"name": "当天涨停，次日继续加仓到全仓", "children": []}, {"name": "让其利润最大化", "children": []}, {"name": "做守株待兔时，也是先半仓，获利后出局不加仓", "children": []}]}, {"name": "5.2 卖出", "children": [{"name": "当天不能涨停，次日择高点先出等回调做守株待兔", "children": []}, {"name": "让其利润最大化", "children": []}, {"name": "但不要贪婪", "children": []}, {"name": "龙头只所以安全，就在于与大盘转势共振", "children": []}, {"name": "如果大盘明后天量能缩下来，那也只有操作600645才不会让人亏损", "children": []}]}, {"name": "5.3 卖出的方法", "children": [{"name": "当天涨停，次日继续加仓到全仓", "children": []}, {"name": "让其利润最大化", "children": []}, {"name": "失利后止损不加仓", "children": []}, {"name": "做守株待兔时，也是先半仓，获利后出局不加仓，失利后止损不加仓", "children": []}, {"name": "龙头需要技术吗，不需要，要的是临阵时的果敢和勇气", "children": []}]}, {"name": "第6章：仓位管理与资金管理", "children": []}, {"name": "6.1 仓位管理的原则", "children": [{"name": "确认是追涨时，先进半仓", "children": []}, {"name": "当天涨停，次日继续加仓到全仓", "children": []}, {"name": "当天涨停，次日继续加仓到全仓", "children": []}, {"name": "让其利润最大化", "children": []}, {"name": "做守株待兔时，也是先半仓，获利后出局不加仓", "children": []}]}, {"name": "6.2 仓位管理的方法", "children": [{"name": "确认是追涨时，先进半仓", "children": []}, {"name": "当天涨停，次日继续加仓到全仓", "children": []}, {"name": "当天涨停，次日继续加仓到全仓", "children": []}, {"name": "让其利润最大化", "children": []}, {"name": "做守株待兔时，也是先半仓，获利后出局不加仓", "children": []}]}, {"name": "6.3 仓位管理的注意事项", "children": [{"name": "确认是追涨时，先进半仓", "children": []}, {"name": "当天涨停，次日继续加仓到全仓", "children": []}, {"name": "做守株待兔时，也是先半仓，获利后出局不加仓", "children": []}, {"name": "失利后止损不加仓", "children": []}, {"name": "我们赚大钱，全是符合这样的条件，而亏钱基本都是不符合而去强做", "children": []}]}, {"name": "第7章：风险控制与资金管理", "children": []}, {"name": "7.1 风险控制的原则", "children": [{"name": "失利后止损不加仓", "children": []}, {"name": "做守株待兔时，也是先半仓，获利后出局不加仓，失利后止损不加仓", "children": []}, {"name": "说白了，不参与任何性质整理！", "children": []}, {"name": "任何一种操作方法，只要是参与了任何级别调整，买了不是为了马上挣钱，这种方法都不是短线", "children": []}, {"name": "我们赚大钱，全是符合这样的条件，而亏钱基本都是不符合而去强做", "children": []}]}, {"name": "7.2 风险控制的方法", "children": [{"name": "失利后止损不加仓", "children": []}, {"name": "做守株待兔时，也是先半仓，获利后出局不加仓，失利后止损不加仓", "children": []}, {"name": "确认是追涨时，先进半仓", "children": []}, {"name": "当天涨停，次日继续加仓到全仓", "children": []}, {"name": "当天不能涨停，次日择高点先出等回调做守株待兔", "children": []}]}, {"name": "7.3 风险控制的注意事项", "children": [{"name": "失利后止损不加仓", "children": []}, {"name": "做守株待兔时，也是先半仓，获利后出局不加仓，失利后止损不加仓", "children": []}, {"name": "让其利润最大化，但不要贪婪", "children": []}, {"name": "到达目标位就要果断卖出", "children": []}, {"name": "龙头需要技术吗，不需要，要的是临阵时的果敢和勇气", "children": []}]}, {"name": "第8章：心态管理与修身养性", "children": []}, {"name": "8.1 投资的心态", "children": [{"name": "等待需要绝对的耐心", "children": []}, {"name": "在一轮经典的下跌过后，市场面临转势，但我们不知道谁会先涨", "children": []}, {"name": "一旦发现，需要经验来确认", "children": []}, {"name": "跟随则是最次要的买入动作了", "children": []}, {"name": "不要被市场情绪左右", "children": []}]}, {"name": "8.2 心态管理的方法", "children": [{"name": "制定详细的投资计划", "children": []}, {"name": "按计划执行，不要随意更改", "children": []}, {"name": "严格执行止损纪律", "children": []}, {"name": "纪律是保护本金的最后一道防线", "children": []}, {"name": "定期反思总结", "children": []}]}, {"name": "8.3 心态管理的注意事项", "children": [{"name": "市场情绪，不要被左右", "children": []}, {"name": "冷静才能做出正确的决策", "children": []}, {"name": "短期波动是正常的，不要被影响", "children": []}, {"name": "只要趋势没有结束，就要持有", "children": []}, {"name": "相信自己的判断", "children": []}]}, {"name": "第9章：短线节奏的把握", "children": []}, {"name": "9.1 短线节奏的重要性", "children": [{"name": "超短线我最有发言权了，从1998年到2006年7月23日，资金从10几万到几千万", "children": []}, {"name": "成交量从两三百万到7,8个亿", "children": []}, {"name": "豪宅，名车，吃喝玩乐，通通从股市中来", "children": []}]}, {"name": "9.2 短线节奏的把握方法", "children": [{"name": "需要绝对的耐心", "children": []}, {"name": "在一轮经典的下跌过后，市场面临转势，但我们不知道谁会先涨", "children": []}, {"name": "需要经验来确认", "children": []}, {"name": "龙头需要技术吗，不需要，要的是临阵时的果敢和勇气", "children": []}, {"name": "则是最次要的买入动作了", "children": []}]}, {"name": "9.3 短线节奏的注意事项", "children": [{"name": "我们赚大钱，全是符合这样的条件，而亏钱基本都是不符合而去强做", "children": []}, {"name": "说白了，不参与任何性质整理！", "children": []}, {"name": "说白了，不参与任何性质整理！", "children": []}, {"name": "任何一种操作方法，只要是参与了任何级别调整，买了不是为了马上挣钱，这种方法都不是短线", "children": []}, {"name": "我们赚大钱，全是符合这样的条件，而亏钱基本都是不符合而去强做", "children": []}]}, {"name": "第10章：实战案例分析", "children": []}, {"name": "10.1 600645案例（2004年9月）", "children": [{"name": "2004年9月份以来，600645是龙头", "children": []}, {"name": "龙头只所以安全，就在于与大盘转势共振", "children": []}, {"name": "市场也需要一只涨幅力度大的股票来树立赚钱效应", "children": []}]}, {"name": "10.2 000503案例（2004年11月）", "children": [{"name": "2004年11月份以来，000503是超强势股", "children": []}, {"name": "我们赚大钱，全是符合这样的条件，而亏钱基本都是不符合而去强做", "children": []}]}, {"name": "10.3 新大陆案例（2003年）", "children": [{"name": "新大陆第二波的推手", "children": []}, {"name": "ASKING进入十大股东", "children": []}, {"name": "龙头需要技术吗，不需要，要的是临阵时的果敢和勇气", "children": []}, {"name": "如果你操作的一直都是市场各阶段最强的股票，那你自然就能做到龙头", "children": []}]}, {"name": "第11章：常见误区与纠正", "children": []}, {"name": "11.1 误区一：频繁交易", "children": [{"name": "频繁买卖，追求短期暴利", "children": []}, {"name": "不愿意持有，拿不住股票", "children": []}]}, {"name": "11.2 误区二：参与调整", "children": [{"name": "参与了任何级别调整，买了不是为了马上挣钱", "children": []}, {"name": "说白了，参与任何性质整理！", "children": []}]}, {"name": "11.3 误区三：强做", "children": [{"name": "不符合条件而去强做", "children": []}, {"name": "我们赚大钱，全是符合这样的条件，而亏钱基本都是不符合而去强做", "children": []}]}, {"name": "11.4 误区四：重仓一只股票", "children": [{"name": "把所有资金都投入一只股票", "children": []}, {"name": "不注意分散风险", "children": []}]}, {"name": "11.5 误区五：不设止损", "children": [{"name": "不设止损位，抱幻想", "children": []}, {"name": "亏损后死扛，不愿意认错", "children": []}]}, {"name": "第12章：与其他游资的比较", "children": []}, {"name": "12.1 与炒股养家的比较", "children": [{"name": "都注重市场情绪和人气", "children": []}, {"name": "都有自己完整的交易体系", "children": []}, {"name": "炒股养家更注重情绪周期，ASKING更注重龙头战法", "children": []}, {"name": "炒股养家更稳健，ASKING更激进", "children": []}]}, {"name": "12.2 与职业炒手的比较", "children": [{"name": "都擅长龙头战法", "children": []}, {"name": "都注重选股", "children": []}, {"name": "职业炒手更注重交易本质，ASKING更注重龙头战法", "children": []}, {"name": "职业炒手更注重弱市操作，ASKING更注重超强势股", "children": []}]}, {"name": "12.3 与赵老哥的比较", "children": [{"name": "都擅长龙头战法", "children": []}, {"name": "都注重题材炒作", "children": []}, {"name": "赵老哥更注重连板战法，ASKING更注重龙头战法", "children": []}, {"name": "赵老哥更注重题材，ASKING更注重人气", "children": []}]}, {"name": "第13章：自我修炼与提升", "children": []}, {"name": "13.1 学习名家手法", "children": [{"name": "ASKING在成长过程中，学习了不少名家的操盘手法", "children": []}, {"name": "不断锤炼自己，才能快速进步", "children": []}]}, {"name": "13.2 建立自己的交易体系", "children": [{"name": "ASKING建立了完整的龙头战法体系", "children": []}, {"name": "这是他成功的关键", "children": []}]}, {"name": "13.3 不断自我否定", "children": [{"name": "即使现在是大游资，不进则退", "children": []}, {"name": "必须不断学习，不断进步", "children": []}]}, {"name": "13.4 做自己看的懂的", "children": [{"name": "> 我也只能理解很小一部分的市场，做自己看的懂的，赚自己模式的钱，只赚自己能力范围内看的懂的钱，这是股市生存之道。", "children": []}]}, {"name": "第14章：总结与核心要点", "children": []}, {"name": "14.1 核心理念", "children": [{"name": "1. 只做超强势股的追涨和守株待兔 2. 等待需要绝对的耐心，发现需要经验来确认，跟随则是最次要的买入动作了 3. 龙头需要技术吗，不需要，要的是临阵时的果敢和勇气 4. ...", "children": []}]}, {"name": "14.2 选股体系", "children": [{"name": "1. 选股的原则：人气股、领涨股、龙头股；超强势股；与市场共振；不做下跌通道 2. 选股的方法：等待；发现；跟随 3. 选股的注意事项：不要强做；不要参与调整；不要做超强势股", "children": []}]}, {"name": "14.3 买入时机把握", "children": [{"name": "1. 买入时机的选择：大盘转势初期；与大盘共振；守株待兔；二次脉冲 2. 买入的方法：半仓买入；全仓买入；守株待兔买入；龙头买入 3. 买入的注意事项：不要追高；不要强做；不要...", "children": []}]}, {"name": "14.4 风险控制", "children": [{"name": "1. 风险控制的原则：止损是保护本金的最后一道防线；不要参与任何性质整理；不要强做；不要重仓一只股票 2. 风险控制的方法：止损；半仓操作；守株待兔；龙头战法 3. 风险控制的注意...", "children": []}]}, {"name": "14.5 心态管理", "children": [{"name": "1. 投资的心态：耐心；纪律；冷静；自信 2. 心态管理的方法：制定计划；执行纪律；反思总结；保持学习 3. 心态管理的注意事项：不要被市场情绪左右；不要被短期波动影响；不要被...", "children": []}]}, {"name": "第15章：行动计划与自测题", "children": []}, {"name": "15.1 30天行动计划", "children": [{"name": "[ ] 阅读ASKING的经典文章3遍", "children": []}, {"name": "[ ] 理解\"只做超强势股的追涨和守株待兔\"的深刻含义", "children": []}, {"name": "[ ] 总结自己过去投资的误区", "children": []}, {"name": "[ ] 制定\"不参与任何性质整理\"的操作纪律", "children": []}, {"name": "[ ] 深入研究选股的原则", "children": []}]}, {"name": "15.2 核心要点检查清单", "children": [{"name": "[ ] 我是在做超强势股，还是在做普通股票？", "children": []}, {"name": "[ ] 我理解龙头的本质吗？", "children": []}, {"name": "[ ] 我是在等待，还是盲目操作？", "children": []}, {"name": "[ ] 我是在做自己看的懂的，还是盲目操作？", "children": []}, {"name": "[ ] 这是大盘转势初期吗？", "children": []}]}, {"name": "15.3 每日自测题", "children": [{"name": "基础题（必做）： 1. ASKING的核心操作观念是什么？（答案：只做超强势股的追涨和守株待兔） 2. 龙头需要技术吗？（答案：不需要，要的是临阵时的果敢和勇气） 3. 我们赚大钱的条件是什么...", "children": []}]}, {"name": "附录：ASKING经典语录", "children": [{"name": "1. 关于核心操作观念：    > 只做超强势股的追涨和守株待兔（仓位管理必不可少，否则会做电梯）。", "children": []}]}]};
+
+// 颜色方案
+const COLORS = ["#4FC3F7", "#81C784", "#FFB74D", "#E57373", "#BA68C8", "#4DB6AC", "#FF8A65", "#AED581", "#7986CB", "#F06292", "#FFD54F", "#A1887F", "#90A4AE", "#CE93D8", "#80CBC4", "#FFAB91"];
+
+// 状态
+let currentTransform = { x: 0, y: 0, k: 1 };
+let svgWidth, svgHeight;
+let root, nodeId = 0;
+
+// 初始化
+const svg = document.getElementById('canvas');
+const rect = svg.getBoundingClientRect();
+svgWidth = rect.width;
+svgHeight = rect.height;
+svg.setAttribute('width', svgWidth);
+svg.setAttribute('height', svgHeight);
+
+// 主容器
+const mainGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+svg.appendChild(mainGroup);
+
+// 构建树结构
+function buildTree(data, depth = 0, colorIdx = 0) {
+  const node = {
+    id: nodeId++,
+    data: data,
+    depth: depth,
+    color: COLORS[colorIdx % COLORS.length],
+    children: [],
+    _children: null, // collapsed children
+    x: 0,
+    y: 0
+  };
+  
+  if (data.children && data.children.length > 0) {
+    node.children = data.children.map((c, i) => 
+      buildTree(c, depth + 1, depth === 0 ? i : colorIdx)
+    );
+  }
+  
+  return node;
+}
+
+root = buildTree(treeData);
+
+// 布局计算 - 水平树布局
+function layout(node, x0 = 0) {
+  const nodeHeight = 32;
+  const verticalGap = 8;
+  const levelWidth = 220;
+  
+  // 计算子树高度
+  const visibleChildren = node.children || [];
+  if (visibleChildren.length === 0) {
+    node._subtreeHeight = nodeHeight;
+    node.x = x0;
+    return;
+  }
+  
+  // 递归布局子节点
+  let childX = x0 + levelWidth;
+  let totalChildHeight = 0;
+  
+  visibleChildren.forEach((child, i) => {
+    layout(child, childX);
+    totalChildHeight += child._subtreeHeight;
+    if (i > 0) totalChildHeight += verticalGap;
+  });
+  
+  node._subtreeHeight = Math.max(nodeHeight, totalChildHeight);
+  
+  // 垂直居中
+  let startY = -totalChildHeight / 2;
+  visibleChildren.forEach((child, i) => {
+    child.y += startY + child._subtreeHeight / 2;
+    startY += child._subtreeHeight + verticalGap;
+  });
+  
+  node.x = x0;
+}
+
+// 计算文本宽度（近似）
+function textWidth(text) {
+  let w = 0;
+  for (let i = 0; i < text.length; i++) {
+    const code = text.charCodeAt(i);
+    if (code > 127) w += 14;
+    else w += 7.5;
+  }
+  return w;
+}
+
+// 渲染
+function render() {
+  while (mainGroup.firstChild) mainGroup.removeChild(mainGroup.firstChild);
+  
+  function renderNode(node, parentNode) {
+    const tw = textWidth(node.data.name);
+    const padding = node.depth === 0 ? 24 : 14;
+    const nodeW = tw + padding * 2;
+    const nodeH = node.depth === 0 ? 40 : 30;
+    
+    // 连接线
+    if (parentNode) {
+      const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      const px = parentNode._renderX + (textWidth(parentNode.data.name) + 28) / 2 + 14;
+      const py = parentNode._renderY;
+      const cx = node._renderX - nodeW / 2;
+      const cy = node._renderY;
+      const mx = (px + cx) / 2;
+      
+      path.setAttribute('d', `M${px},${py} C${mx},${py} ${mx},${cy} ${cx},${cy}`);
+      path.setAttribute('class', 'link');
+      path.setAttribute('stroke', node.color);
+      mainGroup.appendChild(path);
+    }
+    
+    // 节点组
+    const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+    g.setAttribute('class', 'node-group');
+    g.setAttribute('transform', `translate(${node._renderX - nodeW/2}, ${node._renderY - nodeH/2})`);
+    
+    // 节点矩形
+    const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+    rect.setAttribute('width', nodeW);
+    rect.setAttribute('height', nodeH);
+    rect.setAttribute('class', 'node-rect');
+    
+    if (node.depth === 0) {
+      rect.setAttribute('fill', '#667eea');
+      rect.setAttribute('stroke', '#5568d3');
+      rect.setAttribute('stroke-width', '0');
+      rect.setAttribute('rx', '20');
+      rect.setAttribute('ry', '20');
+    } else {
+      rect.setAttribute('fill', 'white');
+      rect.setAttribute('stroke', node.color);
+      rect.setAttribute('stroke-width', '2');
+      rect.setAttribute('rx', '8');
+      rect.setAttribute('ry', '8');
+    }
+    g.appendChild(rect);
+    
+    // 左侧色条
+    if (node.depth > 0) {
+      const bar = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+      bar.setAttribute('x', '0');
+      bar.setAttribute('y', '0');
+      bar.setAttribute('width', '4');
+      bar.setAttribute('height', nodeH);
+      bar.setAttribute('fill', node.color);
+      bar.setAttribute('rx', '2');
+      g.appendChild(bar);
+    }
+    
+    // 文本
+    const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+    text.setAttribute('x', node.depth === 0 ? nodeW/2 : padding + 4);
+    text.setAttribute('y', nodeH / 2);
+    text.setAttribute('class', node.depth === 0 ? 'node-text root' : 'node-text');
+    if (node.depth === 0) text.setAttribute('text-anchor', 'middle');
+    text.textContent = node.data.name;
+    g.appendChild(text);
+    
+    // 折叠/展开按钮
+    const hasChildren = node.children && node.children.length > 0;
+    const hasCollapsed = node._children && node._children.length > 0;
+    
+    if (hasChildren || hasCollapsed) {
+      const btnG = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+      btnG.setAttribute('class', 'expand-btn');
+      btnG.setAttribute('transform', `translate(${nodeW + 8}, ${nodeH/2})`);
+      
+      const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      circle.setAttribute('r', '9');
+      btnG.appendChild(circle);
+      
+      const btnText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+      btnText.textContent = hasChildren ? '−' : '+';
+      btnG.appendChild(btnText);
+      
+      const countText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+      const count = hasCollapsed ? node._children.length : node.children.length;
+      countText.setAttribute('x', '14');
+      countText.setAttribute('font-size', '10');
+      countText.setAttribute('fill', '#aaa');
+      countText.textContent = count;
+      btnG.appendChild(countText);
+      
+      btnG.addEventListener('click', (e) => {
+        e.stopPropagation();
+        toggleNode(node);
+      });
+      g.appendChild(btnG);
+    }
+    
+    // 点击节点也切换
+    g.addEventListener('click', () => {
+      if (node.children || node._children) toggleNode(node);
+    });
+    
+    mainGroup.appendChild(g);
+    node._renderX = node._renderX;
+    node._renderY = node._renderY;
+    
+    // 递归渲染子节点
+    if (node.children) {
+      node.children.forEach(child => renderNode(child, node));
+    }
+  }
+  
+  // 执行布局
+  root._renderX = 0;
+  root._renderY = 0;
+  
+  // 计算布局（递归）
+  function calcLayout(node, x0) {
+    const nodeH = node.depth === 0 ? 40 : 30;
+    const vGap = 6;
+    const levelW = Math.max(180, 220 - node.depth * 10);
+    
+    const vis = node.children || [];
+    if (vis.length === 0) {
+      node._subtreeH = nodeH;
+      node._renderX = x0;
+      return;
+    }
+    
+    let childX = x0 + levelW;
+    let totalH = 0;
+    vis.forEach((c, i) => {
+      calcLayout(c, childX);
+      totalH += c._subtreeH;
+      if (i > 0) totalH += vGap;
+    });
+    
+    node._subtreeH = Math.max(nodeH, totalH);
+    
+    let sy = -totalH / 2;
+    vis.forEach((c, i) => {
+      c._renderY = sy + c._subtreeH / 2;
+      sy += c._subtreeH + vGap;
+    });
+    
+    node._renderX = x0;
+  }
+  
+  calcLayout(root, 0);
+  renderNode(root, null);
+  
+  // 初始居中
+  fitView();
+}
+
+function toggleNode(node) {
+  if (node.children && node.children.length > 0) {
+    node._children = node.children;
+    node.children = null;
+  } else if (node._children) {
+    node.children = node._children;
+    node._children = null;
+  }
+  render();
+}
+
+// 缩放平移
+let isDragging = false, startX, startY, startTX, startTY;
+
+svg.addEventListener('mousedown', (e) => {
+  isDragging = true;
+  startX = e.clientX;
+  startY = e.clientY;
+  startTX = currentTransform.x;
+  startTY = currentTransform.y;
+});
+
+svg.addEventListener('mousemove', (e) => {
+  if (!isDragging) return;
+  currentTransform.x = startTX + (e.clientX - startX);
+  currentTransform.y = startTY + (e.clientY - startY);
+  applyTransform();
+});
+
+svg.addEventListener('mouseup', () => isDragging = false);
+svg.addEventListener('mouseleave', () => isDragging = false);
+
+svg.addEventListener('wheel', (e) => {
+  e.preventDefault();
+  const delta = e.deltaY > 0 ? 0.9 : 1.1;
+  currentTransform.k = Math.max(0.2, Math.min(3, currentTransform.k * delta));
+  applyTransform();
+  document.getElementById('zoomInfo').textContent = Math.round(currentTransform.k * 100) + '%';
+});
+
+function applyTransform() {
+  mainGroup.setAttribute('transform', 
+    `translate(${currentTransform.x}, ${currentTransform.y}) scale(${currentTransform.k})`);
+}
+
+function zoomIn() {
+  currentTransform.k = Math.min(3, currentTransform.k * 1.2);
+  applyTransform();
+  document.getElementById('zoomInfo').textContent = Math.round(currentTransform.k * 100) + '%';
+}
+
+function zoomOut() {
+  currentTransform.k = Math.max(0.2, currentTransform.k / 1.2);
+  applyTransform();
+  document.getElementById('zoomInfo').textContent = Math.round(currentTransform.k * 100) + '%';
+}
+
+function fitView() {
+  // 简单适应：将视图居中
+  currentTransform.x = svgWidth * 0.3;
+  currentTransform.y = svgHeight * 0.5;
+  currentTransform.k = Math.min(1, svgHeight / (root._subtreeH + 100));
+  currentTransform.k = Math.max(0.3, Math.min(1.5, currentTransform.k));
+  applyTransform();
+  document.getElementById('zoomInfo').textContent = Math.round(currentTransform.k * 100) + '%';
+}
+
+function expandAll() {
+  function expand(n) {
+    if (n._children) { n.children = n._children; n._children = null; }
+    if (n.children) n.children.forEach(expand);
+  }
+  expand(root);
+  render();
+}
+
+function collapseAll() {
+  function collapse(n, depth) {
+    if (depth > 1 && n.children && n.children.length > 0) {
+      n._children = n.children;
+      n.children = null;
+    }
+    const ch = n.children || n._children || [];
+    ch.forEach(c => collapse(c, depth + 1));
+  }
+  collapse(root, 0);
+  render();
+}
+
+// 初始渲染
+render();
+
+// 窗口resize
+window.addEventListener('resize', () => {
+  const r = svg.getBoundingClientRect();
+  svgWidth = r.width;
+  svgHeight = r.height;
+  svg.setAttribute('width', svgWidth);
+  svg.setAttribute('height', svgHeight);
+  fitView();
+});
+</script>
+</body>
+</html>
