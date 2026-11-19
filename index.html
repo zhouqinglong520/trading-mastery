@@ -7,280 +7,83 @@
     <meta name="description" content="A股超短线交易知识学习库，收录游资心法、交易笔记、原始资料与可视化内容。">
     <title>交易大师 · 游资心法库</title>
     <style>
-        :root {
-            color-scheme: dark;
-            --bg: #0b1220;
-            --surface: #111c2e;
-            --surface-raised: #17243a;
-            --border: rgba(191, 208, 232, .13);
-            --text: #edf3fb;
-            --muted: #9aabc2;
-            --accent: #e6b45c;
-            --accent-soft: rgba(230, 180, 92, .12);
-            --green: #67c6a3;
-            --radius: 18px;
-            --shadow: 0 18px 50px rgba(0, 0, 0, .22);
-        }
-
-        * { box-sizing: border-box; }
-        html { scroll-behavior: smooth; scroll-padding-top: 88px; }
-        body {
-            margin: 0;
-            background: radial-gradient(ellipse at 50% -20%, #1c2b43 0, var(--bg) 48%);
-            color: var(--text);
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans SC", "Microsoft YaHei", sans-serif;
-            line-height: 1.65;
-        }
-        a { color: inherit; }
-        a:focus-visible, button:focus-visible, input:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
-        .container { width: min(1120px, calc(100% - 40px)); margin: 0 auto; }
-
-        .topbar {
-            position: sticky;
-            top: 0;
-            z-index: 20;
-            border-bottom: 1px solid var(--border);
-            background: rgba(11, 18, 32, .88);
-            backdrop-filter: blur(16px);
-        }
-        .topbar-inner { min-height: 64px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
-        .brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; font-weight: 750; letter-spacing: .02em; white-space: nowrap; }
-        .brand-mark { display: grid; width: 34px; height: 34px; place-items: center; border-radius: 11px; color: #172033; background: var(--accent); font-size: 18px; }
-        .nav { display: flex; align-items: center; gap: 22px; overflow-x: auto; scrollbar-width: none; }
-        .nav::-webkit-scrollbar { display: none; }
-        .nav a { color: var(--muted); font-size: 13px; text-decoration: none; white-space: nowrap; transition: color .2s; }
-        .nav a:hover { color: var(--accent); }
-
-        .hero { position: relative; overflow: hidden; padding: 82px 0 55px; }
-        .hero::after { position: absolute; z-index: -1; top: 0; right: 3%; width: 340px; height: 340px; border: 1px solid rgba(230,180,92,.09); border-radius: 50%; box-shadow: 0 0 0 45px rgba(230,180,92,.025), 0 0 0 90px rgba(230,180,92,.02); content: ""; }
-        .eyebrow { display: inline-flex; align-items: center; gap: 8px; color: var(--accent); font-size: 12px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; }
-        .eyebrow::before { width: 20px; height: 1px; background: currentColor; content: ""; }
-        h1 { max-width: 760px; margin: 16px 0 12px; font-size: clamp(36px, 6vw, 64px); line-height: 1.12; letter-spacing: -.045em; }
-        h1 span { color: var(--accent); }
-        .hero-copy { max-width: 600px; margin: 0; color: var(--muted); font-size: 16px; }
-        .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
-        .button { display: inline-flex; min-height: 46px; align-items: center; justify-content: center; gap: 9px; padding: 0 18px; border: 1px solid var(--border); border-radius: 10px; color: var(--text); text-decoration: none; font-size: 14px; font-weight: 700; transition: transform .2s, border-color .2s, background .2s; }
-        .button:hover { transform: translateY(-2px); border-color: rgba(230,180,92,.55); }
-        .button-primary { border-color: var(--accent); background: var(--accent); color: #172033; }
-        .button-primary:hover { background: #f0c675; }
-        .stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; max-width: 780px; margin-top: 42px; }
-        .stat { padding: 16px 18px; border: 1px solid var(--border); border-radius: 13px; background: rgba(17, 28, 46, .72); }
-        .stat-number { display: block; color: var(--text); font-size: 26px; font-weight: 750; line-height: 1.2; }
-        .stat-label { display: block; margin-top: 5px; color: var(--muted); font-size: 12px; }
-
-        main { padding-bottom: 48px; }
-        .section { margin: 20px 0; padding: clamp(22px, 4vw, 34px); border: 1px solid var(--border); border-radius: var(--radius); background: linear-gradient(145deg, rgba(17,28,46,.96), rgba(15,24,40,.96)); box-shadow: var(--shadow); }
-        .section-heading { display: flex; align-items: end; justify-content: space-between; gap: 16px; margin-bottom: 22px; }
-        .section-kicker { display: block; margin-bottom: 4px; color: var(--accent); font-size: 11px; font-weight: 750; letter-spacing: .14em; }
-        .section-title { margin: 0; font-size: clamp(22px, 3vw, 29px); line-height: 1.3; letter-spacing: -.025em; }
-        .section-intro { max-width: 680px; margin: -8px 0 22px; color: var(--muted); font-size: 14px; }
-        .card-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
-        .card { display: flex; min-height: 196px; flex-direction: column; align-items: flex-start; padding: 21px; border: 1px solid var(--border); border-radius: 14px; background: rgba(255,255,255,.025); transition: transform .2s, border-color .2s, background .2s; }
-        .card:hover { transform: translateY(-3px); border-color: rgba(230,180,92,.4); background: rgba(230,180,92,.045); }
-        .card-icon { display: grid; width: 40px; height: 40px; place-items: center; margin-bottom: 15px; border: 1px solid rgba(230,180,92,.18); border-radius: 12px; background: var(--accent-soft); font-size: 20px; }
-        .card h3 { margin: 0 0 8px; font-size: 16px; }
-        .card p { margin: 0 0 17px; color: var(--muted); font-size: 13px; line-height: 1.7; }
-        .card .link { margin-top: auto; color: var(--accent); font-size: 13px; font-weight: 700; text-decoration: none; }
-        .card .link:hover { color: #f3cb81; }
-        .card-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: auto; }
-        .card-actions .link { margin-top: 0; }
-
-        .trader-tools { display: flex; align-items: center; gap: 12px; }
-        .search { width: min(250px, 45vw); min-height: 40px; padding: 0 13px; border: 1px solid var(--border); border-radius: 9px; background: #0c1524; color: var(--text); font: inherit; font-size: 13px; }
-        .search::placeholder { color: #7788a0; }
-        .trader-list { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
-        .trader-item { display: flex; min-height: 48px; align-items: center; justify-content: space-between; padding: 0 13px; border: 1px solid var(--border); border-radius: 10px; background: rgba(255,255,255,.025); transition: border-color .2s, color .2s, background .2s; }
-        .trader-item::after { color: #6f8097; content: "↗"; font-size: 12px; }
-        .trader-item:hover { border-color: rgba(230,180,92,.45); background: var(--accent-soft); color: var(--accent); }
-        .trader-item a { width: 100%; color: inherit; font-size: 13px; font-weight: 650; text-decoration: none; }
-        .no-results { display: none; margin: 18px 0 0; color: var(--muted); font-size: 13px; }
-        .path-step { position: relative; }
-        .step-number { margin-bottom: 14px; color: var(--accent); font-size: 12px; font-weight: 750; letter-spacing: .12em; }
-        .disclaimer { margin: 18px 0 0; padding: 13px 15px; border: 1px solid rgba(230,180,92,.16); border-radius: 10px; background: rgba(230,180,92,.055); color: #c9b994; font-size: 12px; }
-
-        /* 广告位采用非侵入式预留；将已审核的 Adsterra 官方代码放入容器后自动显示。 */
-        .ad-slot { display: none; position: relative; min-height: 90px; margin: 20px 0; overflow: hidden; border: 1px dashed rgba(154,171,194,.28); border-radius: 12px; background: rgba(17,28,46,.55); }
-        .ad-slot:has(iframe), .ad-slot:has(ins), .ad-slot:has(script) { display: block; }
-        .ad-slot::before { position: absolute; top: 7px; left: 10px; z-index: 1; padding: 1px 6px; border-radius: 4px; background: rgba(11,18,32,.8); color: #8292a8; content: "广告"; font-size: 10px; }
-        .ad-slot iframe, .ad-slot ins { max-width: 100%; }
-
-        .footer { padding: 28px 0 40px; border-top: 1px solid var(--border); color: var(--muted); text-align: center; font-size: 12px; }
-        .footer p { margin: 5px 0; }
-        .footer a { color: var(--accent); text-decoration: none; }
-        .back-top { position: fixed; right: 20px; bottom: 20px; display: grid; width: 42px; height: 42px; place-items: center; border: 1px solid var(--border); border-radius: 50%; background: var(--surface-raised); color: var(--text); text-decoration: none; box-shadow: var(--shadow); }
-
-        @media (max-width: 850px) {
-            .nav { gap: 15px; }
-            .card-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-            .trader-list { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-        }
-        @media (max-width: 600px) {
-            .container { width: min(100% - 28px, 1120px); }
-            .topbar-inner { min-height: 58px; flex-wrap: wrap; gap: 0; padding: 10px 0 0; }
-            .brand { min-height: 42px; }
-            .nav { width: 100%; min-height: 40px; gap: 20px; }
-            .hero { padding: 55px 0 35px; }
-            .hero-copy { font-size: 14px; }
-            .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 9px; margin-top: 30px; }
-            .stat { padding: 13px; }
-            .stat-number { font-size: 23px; }
-            .section { margin: 14px 0; padding: 20px 16px; border-radius: 14px; }
-            .section-heading { align-items: flex-start; flex-direction: column; }
-            .trader-tools { width: 100%; }
-            .search { width: 100%; }
-            .card-grid { grid-template-columns: 1fr; }
-            .card { min-height: 0; }
-            .trader-list { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
-            .trader-item { min-height: 44px; padding: 0 10px; }
-            .back-top { right: 14px; bottom: 14px; }
-        }
-        @media (prefers-reduced-motion: reduce) {
-            html { scroll-behavior: auto; }
-            *, *::before, *::after { transition-duration: .01ms !important; }
-        }
+        :root{color-scheme:dark;--bg:#0b1220;--panel:#111c2e;--raised:#17243a;--border:rgba(191,208,232,.13);--text:#edf3fb;--muted:#9aabc2;--gold:#e6b45c;--gold-soft:rgba(230,180,92,.12);--radius:18px;--shadow:0 18px 50px rgba(0,0,0,.2)}
+        *{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:84px}body{margin:0;background:radial-gradient(ellipse at 50% -20%,#1c2b43 0,var(--bg) 48%);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans SC","Microsoft YaHei",sans-serif;line-height:1.65}a{color:inherit}a:focus-visible,input:focus-visible{outline:3px solid var(--gold);outline-offset:3px}.container{width:min(1120px,calc(100% - 40px));margin:0 auto}.visually-hidden{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+        .topbar{position:sticky;top:0;z-index:20;border-bottom:1px solid var(--border);background:rgba(11,18,32,.9);backdrop-filter:blur(16px)}.topbar-inner{min-height:64px;display:flex;align-items:center;justify-content:space-between;gap:24px}.brand{display:inline-flex;align-items:center;gap:10px;text-decoration:none;font-weight:750;white-space:nowrap}.brand-mark{display:grid;width:34px;height:34px;place-items:center;border-radius:11px;background:var(--gold);color:#172033;font-size:18px}.nav{display:flex;align-items:center;gap:22px;overflow-x:auto;scrollbar-width:none}.nav::-webkit-scrollbar{display:none}.nav a{color:var(--muted);font-size:13px;text-decoration:none;white-space:nowrap}.nav a:hover{color:var(--gold)}
+        .hero{position:relative;overflow:hidden;padding:76px 0 52px}.hero:after{position:absolute;z-index:-1;top:0;right:3%;width:320px;height:320px;border:1px solid rgba(230,180,92,.09);border-radius:50%;box-shadow:0 0 0 45px rgba(230,180,92,.025),0 0 0 90px rgba(230,180,92,.02);content:""}.eyebrow{display:inline-flex;align-items:center;gap:8px;color:var(--gold);font-size:12px;font-weight:700;letter-spacing:.16em}.eyebrow:before{width:20px;height:1px;background:currentColor;content:""}h1{max-width:760px;margin:16px 0 12px;font-size:clamp(36px,6vw,64px);line-height:1.12;letter-spacing:-.045em}h1 span{color:var(--gold)}.hero-copy{max-width:600px;margin:0;color:var(--muted);font-size:16px}.hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:27px}.button{display:inline-flex;min-height:46px;align-items:center;justify-content:center;gap:9px;padding:0 18px;border:1px solid var(--border);border-radius:10px;text-decoration:none;font-size:14px;font-weight:700;transition:transform .2s,border-color .2s,background .2s}.button:hover{transform:translateY(-2px);border-color:rgba(230,180,92,.55)}.button-primary{border-color:var(--gold);background:var(--gold);color:#172033}.button-primary:hover{background:#f0c675}.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;max-width:780px;margin-top:38px}.stat{padding:16px 18px;border:1px solid var(--border);border-radius:13px;background:rgba(17,28,46,.76)}.stat-number{display:block;font-size:26px;font-weight:750;line-height:1.2}.stat-label{display:block;margin-top:5px;color:var(--muted);font-size:12px}
+        main{padding-bottom:44px}.section{margin:20px 0;padding:clamp(22px,4vw,34px);border:1px solid var(--border);border-radius:var(--radius);background:linear-gradient(145deg,rgba(17,28,46,.97),rgba(15,24,40,.97));box-shadow:var(--shadow)}.section-heading{display:flex;align-items:end;justify-content:space-between;gap:16px;margin-bottom:22px}.section-kicker{display:block;margin-bottom:4px;color:var(--gold);font-size:11px;font-weight:750;letter-spacing:.14em}.section-title{margin:0;font-size:clamp(22px,3vw,29px);line-height:1.3;letter-spacing:-.025em}.section-intro{max-width:680px;margin:-8px 0 22px;color:var(--muted);font-size:14px}.card-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.card{display:flex;min-height:190px;flex-direction:column;align-items:flex-start;padding:21px;border:1px solid var(--border);border-radius:14px;background:rgba(255,255,255,.025);transition:transform .2s,border-color .2s,background .2s}.card:hover{transform:translateY(-3px);border-color:rgba(230,180,92,.4);background:rgba(230,180,92,.045)}.card-icon{display:grid;width:40px;height:40px;place-items:center;margin-bottom:14px;border:1px solid rgba(230,180,92,.18);border-radius:12px;background:var(--gold-soft);font-size:20px}.card h3{margin:0 0 8px;font-size:16px}.card p{margin:0 0 16px;color:var(--muted);font-size:13px;line-height:1.7}.card .link{margin-top:auto;color:var(--gold);font-size:13px;font-weight:700;text-decoration:none}.card .link:hover{color:#f3cb81}.card-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto}.card-actions .link{margin-top:0}
+        .trader-tools{display:flex;align-items:center;gap:12px}.search{width:min(250px,45vw);min-height:40px;padding:0 13px;border:1px solid var(--border);border-radius:9px;background:#0c1524;color:var(--text);font:inherit;font-size:13px}.search::placeholder{color:#7788a0}.trader-list{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}.trader-item{display:flex;min-height:48px;align-items:center;justify-content:space-between;padding:0 13px;border:1px solid var(--border);border-radius:10px;background:rgba(255,255,255,.025);transition:border-color .2s,color .2s,background .2s}.trader-item:after{color:#6f8097;content:"↗";font-size:12px}.trader-item:hover{border-color:rgba(230,180,92,.45);background:var(--gold-soft);color:var(--gold)}.trader-item a{width:100%;color:inherit;font-size:13px;font-weight:650;text-decoration:none}.no-results{display:none;margin:18px 0 0;color:var(--muted);font-size:13px}.step-number{margin-bottom:14px;color:var(--gold);font-size:12px;font-weight:750;letter-spacing:.12em}.disclaimer{margin:18px 0 0;padding:13px 15px;border:1px solid rgba(230,180,92,.16);border-radius:10px;background:rgba(230,180,92,.055);color:#c9b994;font-size:12px}
+        /* 广告位默认折叠；实际粘贴广告平台提供的广告代码后才占位，避免空白广告框。 */
+        .ad-slot{display:none;position:relative;min-height:90px;margin:20px 0;overflow:hidden;border:1px dashed rgba(154,171,194,.28);border-radius:12px;background:rgba(17,28,46,.55)}.ad-slot.is-active{display:block}.ad-slot:before{position:absolute;top:7px;left:10px;z-index:1;padding:1px 6px;border-radius:4px;background:rgba(11,18,32,.8);color:#8292a8;content:"广告";font-size:10px}.ad-slot iframe,.ad-slot ins{max-width:100%}
+        .footer{padding:28px 0 40px;border-top:1px solid var(--border);color:var(--muted);text-align:center;font-size:12px}.footer p{margin:5px 0}.footer a{color:var(--gold);text-decoration:none}.back-top{position:fixed;right:20px;bottom:20px;display:grid;width:42px;height:42px;place-items:center;border:1px solid var(--border);border-radius:50%;background:var(--raised);text-decoration:none;box-shadow:var(--shadow)}
+        @media(max-width:850px){.nav{gap:15px}.card-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.trader-list{grid-template-columns:repeat(4,minmax(0,1fr))}}
+        @media(max-width:600px){.container{width:min(100% - 28px,1120px)}.topbar-inner{min-height:58px;flex-wrap:wrap;gap:0;padding:8px 0 0}.brand{min-height:40px}.nav{width:100%;min-height:40px;gap:20px}.hero{padding:50px 0 34px}.hero-copy{font-size:14px}.stats{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin-top:28px}.stat{padding:13px}.stat-number{font-size:23px}.section{margin:14px 0;padding:20px 16px;border-radius:14px}.section-heading{align-items:flex-start;flex-direction:column}.trader-tools,.search{width:100%}.card-grid{grid-template-columns:1fr}.card{min-height:0}.trader-list{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.trader-item{min-height:44px;padding:0 10px}.back-top{right:14px;bottom:14px}}
+        @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{transition-duration:.01ms!important}}
     </style>
 </head>
 <body id="top">
-    <div class="topbar">
-        <div class="container topbar-inner">
-            <a class="brand" href="#top" aria-label="交易大师首页"><span class="brand-mark" aria-hidden="true">交</span><span>交易大师</span></a>
-            <nav class="nav" aria-label="主导航">
-                <a href="#start">快速开始</a>
-                <a href="#traders">游资心法</a>
-                <a href="#visuals">可视化</a>
-                <a href="#original">原始资料</a>
-            </nav>
-        </div>
-    </div>
-
+    <div class="topbar"><div class="container topbar-inner">
+        <a class="brand" href="#top" aria-label="交易大师首页"><span class="brand-mark" aria-hidden="true">交</span><span>交易大师</span></a>
+        <nav class="nav" aria-label="主导航"><a href="#start">快速开始</a><a href="#traders">游资心法</a><a href="#visuals">可视化</a><a href="#original">原始资料</a></nav>
+    </div></div>
     <header class="hero container">
         <span class="eyebrow">A股短线学习资料库</span>
         <h1>把交易智慧，<span>整理成体系。</span></h1>
         <p class="hero-copy">汇集游资心法、实战笔记、原始资料与可视化内容。按主题浏览，循序学习，持续复盘。</p>
-        <div class="hero-actions">
-            <a class="button button-primary" href="#start">开始探索 <span aria-hidden="true">→</span></a>
-            <a class="button" href="#traders">浏览游资专题</a>
-        </div>
-        <div class="stats" aria-label="资料库统计">
-            <div class="stat"><span class="stat-number">147</span><span class="stat-label">篇笔记与文章</span></div>
-            <div class="stat"><span class="stat-number">26</span><span class="stat-label">位游资专题</span></div>
-            <div class="stat"><span class="stat-number">68</span><span class="stat-label">份原始 PDF</span></div>
-            <div class="stat"><span class="stat-number">14</span><span class="stat-label">个可视化资料</span></div>
-        </div>
+        <div class="hero-actions"><a class="button button-primary" href="#start">开始探索 <span aria-hidden="true">→</span></a><a class="button" href="#traders">浏览游资专题</a></div>
+        <div class="stats" aria-label="资料库统计"><div class="stat"><span class="stat-number">147</span><span class="stat-label">篇笔记与文章</span></div><div class="stat"><span class="stat-number">26</span><span class="stat-label">位游资专题</span></div><div class="stat"><span class="stat-number">68</span><span class="stat-label">份原始 PDF</span></div><div class="stat"><span class="stat-number">14</span><span class="stat-label">个可视化资料</span></div></div>
     </header>
-
     <main class="container">
-        <!-- Adsterra 广告位：粘贴已审核的官方广告代码后显示；不配置时不占用页面空间。 -->
+        <!-- Adsterra 广告位：加入已审核的官方广告代码后显示；未配置时不占页面空间。 -->
         <div class="ad-slot" aria-label="广告位"></div>
-
-        <section class="section" id="start">
-            <div class="section-heading">
-                <div><span class="section-kicker">GET STARTED</span><h2 class="section-title">快速开始</h2></div>
-            </div>
+        <section class="section" id="start"><div class="section-heading"><div><span class="section-kicker">GET STARTED</span><h2 class="section-title">快速开始</h2></div></div>
             <div class="card-grid">
                 <article class="card"><span class="card-icon" aria-hidden="true">📖</span><h3>建立交易体系</h3><p>从情绪周期与交易规则入手，系统了解个人交易体系。</p><a class="link" href="./交易体系/01_龙行刺情绪周期交易体系.md">开始学习 →</a></article>
                 <article class="card"><span class="card-icon" aria-hidden="true">🎯</span><h3>探索游资心法</h3><p>浏览炒股养家、ASKING、赵老哥等专题笔记与资料。</p><a class="link" href="./游资心法/">查看专题 →</a></article>
                 <article class="card"><span class="card-icon" aria-hidden="true">📊</span><h3>图解重点内容</h3><p>通过可视化页面和思维导图，快速建立知识框架。</p><a class="link" href="./可视化/">查看可视化 →</a></article>
             </div>
         </section>
-
-        <section class="section" id="traders">
-            <div class="section-heading">
-                <div><span class="section-kicker">TRADER NOTES</span><h2 class="section-title">游资心法</h2></div>
-                <div class="trader-tools"><label class="visually-hidden" for="trader-search">搜索游资名称</label><input class="search" id="trader-search" type="search" placeholder="搜索游资名称…" autocomplete="off"></div>
-            </div>
+        <section class="section" id="traders"><div class="section-heading"><div><span class="section-kicker">TRADER NOTES</span><h2 class="section-title">游资心法</h2></div><div class="trader-tools"><label class="visually-hidden" for="trader-search">搜索游资名称</label><input class="search" id="trader-search" type="search" placeholder="搜索游资名称…" autocomplete="off"></div></div>
             <p class="section-intro">按名称查找专题，进入后浏览学习笔记、深度研报和思维导图。</p>
             <div class="trader-list" id="trader-list">
-                <div class="trader-item"><a href="./游资心法/炒股养家/">炒股养家</a></div>
-                <div class="trader-item"><a href="./游资心法/ASKING/">ASKING</a></div>
-                <div class="trader-item"><a href="./游资心法/92科比/">92科比</a></div>
-                <div class="trader-item"><a href="./游资心法/徐翔/">徐翔</a></div>
-                <div class="trader-item"><a href="./游资心法/赵老哥/">赵老哥</a></div>
-                <div class="trader-item"><a href="./游资心法/龙飞虎/">龙飞虎</a></div>
-                <div class="trader-item"><a href="./游资心法/瑞鹤仙/">瑞鹤仙</a></div>
-                <div class="trader-item"><a href="./游资心法/退学炒股/">退学炒股</a></div>
-                <div class="trader-item"><a href="./游资心法/令胡冲/">令胡冲</a></div>
-                <div class="trader-item"><a href="./游资心法/乔帮主/">乔帮主</a></div>
-                <div class="trader-item"><a href="./游资心法/龙行刺/">龙行刺</a></div>
-                <div class="trader-item"><a href="./游资心法/丁一熊/">丁一熊</a></div>
-                <div class="trader-item"><a href="./游资心法/万法归宗/">万法归宗</a></div>
-                <div class="trader-item"><a href="./游资心法/凡倍无名/">凡倍无名</a></div>
-                <div class="trader-item"><a href="./游资心法/孤独牛背/">孤独牛背</a></div>
-                <div class="trader-item"><a href="./游资心法/小鳄鱼/">小鳄鱼</a></div>
-                <div class="trader-item"><a href="./游资心法/明王/">明王</a></div>
-                <div class="trader-item"><a href="./游资心法/艾琳/">艾琳</a></div>
-                <div class="trader-item"><a href="./游资心法/浓汤野人/">浓汤野人</a></div>
-                <div class="trader-item"><a href="./游资心法/欢乐海岸/">欢乐海岸</a></div>
-                <div class="trader-item"><a href="./游资心法/著名刺客/">著名刺客</a></div>
-                <div class="trader-item"><a href="./游资心法/职业炒手/">职业炒手</a></div>
-                <div class="trader-item"><a href="./游资心法/杨百万/">杨百万</a></div>
-                <div class="trader-item"><a href="./游资心法/Asking/">Asking</a></div>
-                <div class="trader-item"><a href="./游资心法/养家/">养家</a></div>
-                <div class="trader-item"><a href="./游资心法/章建平/">章建平</a></div>
-                <div class="trader-item"><a href="./游资心法/方新侠/">方新侠</a></div>
-            </div>
-            <p class="no-results" id="no-results" role="status">没有找到匹配的专题，请试试其他关键词。</p>
+                <div class="trader-item"><a href="./游资心法/炒股养家/">炒股养家</a></div><div class="trader-item"><a href="./游资心法/ASKING/">ASKING</a></div><div class="trader-item"><a href="./游资心法/92科比/">92科比</a></div><div class="trader-item"><a href="./游资心法/徐翔/">徐翔</a></div><div class="trader-item"><a href="./游资心法/赵老哥/">赵老哥</a></div><div class="trader-item"><a href="./游资心法/龙飞虎/">龙飞虎</a></div><div class="trader-item"><a href="./游资心法/瑞鹤仙/">瑞鹤仙</a></div><div class="trader-item"><a href="./游资心法/退学炒股/">退学炒股</a></div><div class="trader-item"><a href="./游资心法/令胡冲/">令胡冲</a></div><div class="trader-item"><a href="./游资心法/乔帮主/">乔帮主</a></div><div class="trader-item"><a href="./游资心法/龙行刺/">龙行刺</a></div><div class="trader-item"><a href="./游资心法/丁一熊/">丁一熊</a></div><div class="trader-item"><a href="./游资心法/万法归宗/">万法归宗</a></div><div class="trader-item"><a href="./游资心法/凡倍无名/">凡倍无名</a></div><div class="trader-item"><a href="./游资心法/孤独牛背/">孤独牛背</a></div><div class="trader-item"><a href="./游资心法/小鳄鱼/">小鳄鱼</a></div><div class="trader-item"><a href="./游资心法/明王/">明王</a></div><div class="trader-item"><a href="./游资心法/艾琳/">艾琳</a></div><div class="trader-item"><a href="./游资心法/浓汤野人/">浓汤野人</a></div><div class="trader-item"><a href="./游资心法/欢乐海岸/">欢乐海岸</a></div><div class="trader-item"><a href="./游资心法/著名刺客/">著名刺客</a></div><div class="trader-item"><a href="./游资心法/职业炒手/">职业炒手</a></div><div class="trader-item"><a href="./游资心法/杨百万/">杨百万</a></div><div class="trader-item"><a href="./游资心法/Asking/">Asking</a></div><div class="trader-item"><a href="./游资心法/养家/">养家</a></div><div class="trader-item"><a href="./游资心法/章建平/">章建平</a></div><div class="trader-item"><a href="./游资心法/方新侠/">方新侠</a></div>
+            </div><p class="no-results" id="no-results" role="status">没有找到匹配的专题，请试试其他关键词。</p>
         </section>
-
-        <section class="section" id="learning-path">
-            <div class="section-heading"><div><span class="section-kicker">LEARNING PATH</span><h2 class="section-title">推荐学习路径</h2></div></div>
-            <div class="card-grid">
-                <article class="card path-step"><span class="step-number">PHASE 01 · 建立认知</span><h3>先理解基础框架</h3><p>从炒股养家、ASKING心法开始，再阅读龙行刺情绪周期体系。</p></article>
-                <article class="card path-step"><span class="step-number">PHASE 02 · 深化理解</span><h3>比较不同交易思路</h3><p>阅读92科比、退学炒股、瑞鹤仙等专题，整理共性与差异。</p></article>
-                <article class="card path-step"><span class="step-number">PHASE 03 · 持续复盘</span><h3>形成自己的记录</h3><p>结合每日复盘与交易日志，定期回看并修正自己的认知。</p></article>
-            </div>
+        <section class="section" id="learning-path"><div class="section-heading"><div><span class="section-kicker">LEARNING PATH</span><h2 class="section-title">推荐学习路径</h2></div></div>
+            <div class="card-grid"><article class="card"><span class="step-number">PHASE 01 · 建立认知</span><h3>先理解基础框架</h3><p>从炒股养家、ASKING心法开始，再阅读龙行刺情绪周期体系。</p></article><article class="card"><span class="step-number">PHASE 02 · 深化理解</span><h3>比较不同交易思路</h3><p>阅读92科比、退学炒股、瑞鹤仙等专题，整理共性与差异。</p></article><article class="card"><span class="step-number">PHASE 03 · 持续复盘</span><h3>形成自己的记录</h3><p>结合每日复盘与交易日志，定期回看并修正自己的认知。</p></article></div>
             <p class="disclaimer">风险提示：本网站内容仅供学习交流，不构成投资建议。市场有风险，决策请谨慎。</p>
         </section>
-
-        <section class="section" id="visuals">
-            <div class="section-heading"><div><span class="section-kicker">VISUAL LIBRARY</span><h2 class="section-title">可视化资料</h2></div></div>
-            <div class="card-grid">
-                <article class="card"><span class="card-icon" aria-hidden="true">🌊</span><h3>情绪周期体系</h3><p>龙行刺情绪周期交易体系可视化。</p><a class="link" href="./可视化/【终极版】龙行刺情绪周期交易体系（可视化）.html">打开资料 →</a></article>
-                <article class="card"><span class="card-icon" aria-hidden="true">🧭</span><h3>游资心法总览</h3><p>游资心法学习笔记的图解与汇总。</p><a class="link" href="./可视化/28位游资心法学习笔记_可视化.html">打开资料 →</a></article>
-                <article class="card"><span class="card-icon" aria-hidden="true">🔎</span><h3>深度研报汇总</h3><p>游资专题深度研读报告与内容总结。</p><a class="link" href="./可视化/26位游资深度研读报告_完整总结.html">打开资料 →</a></article>
-                <article class="card"><span class="card-icon" aria-hidden="true">🧩</span><h3>交易体系整合</h3><p>融合整理的交易体系可视化页面。</p><a class="link" href="./可视化/交易体系_严格整合版_可视化.html">打开资料 →</a></article>
-            </div>
+        <section class="section" id="visuals"><div class="section-heading"><div><span class="section-kicker">VISUAL LIBRARY</span><h2 class="section-title">可视化资料</h2></div></div>
+            <div class="card-grid"><article class="card"><span class="card-icon" aria-hidden="true">🌊</span><h3>情绪周期体系</h3><p>龙行刺情绪周期交易体系可视化。</p><a class="link" href="./可视化/【终极版】龙行刺情绪周期交易体系（可视化）.html">打开资料 →</a></article><article class="card"><span class="card-icon" aria-hidden="true">🧭</span><h3>游资心法总览</h3><p>游资心法学习笔记的图解与汇总。</p><a class="link" href="./可视化/28位游资心法学习笔记_可视化.html">打开资料 →</a></article><article class="card"><span class="card-icon" aria-hidden="true">🔎</span><h3>深度研报汇总</h3><p>游资专题深度研读报告与内容总结。</p><a class="link" href="./可视化/26位游资深度研读报告_完整总结.html">打开资料 →</a></article><article class="card"><span class="card-icon" aria-hidden="true">🧩</span><h3>交易体系整合</h3><p>融合整理的交易体系可视化页面。</p><a class="link" href="./可视化/交易体系_严格整合版_可视化.html">打开资料 →</a></article></div>
         </section>
-
-        <!-- 第二个广告位：内容区与资料区之间；仅在加入广告代码后显示。 -->
+        <!-- 内容区与资料区之间的第二个广告位；未配置广告代码时自动折叠。 -->
         <div class="ad-slot" aria-label="广告位"></div>
-
-        <section class="section" id="original">
-            <div class="section-heading"><div><span class="section-kicker">ORIGINAL MATERIALS</span><h2 class="section-title">原始资料与下载</h2></div></div>
+        <section class="section" id="original"><div class="section-heading"><div><span class="section-kicker">ORIGINAL MATERIALS</span><h2 class="section-title">原始资料与下载</h2></div></div>
             <p class="section-intro">收录游资原始心法、追龙系列及其他学习资料。下载或阅读前请留意文件格式。</p>
-            <div class="card-grid">
-                <article class="card"><span class="card-icon" aria-hidden="true">📚</span><h3>游资原始心法</h3><p>查看炒股养家、ASKING、退学炒股、赵老哥等专题原始资料。</p><a class="link" href="./原始资料/游资原始心法/">浏览全部资料 →</a></article>
-                <article class="card"><span class="card-icon" aria-hidden="true">🏆</span><h3>顶级游资精选</h3><p>快速进入精选专题的原始资料目录。</p><div class="card-actions"><a class="link" href="./原始资料/游资原始心法/炒股养家/">炒股养家 →</a><a class="link" href="./原始资料/游资原始心法/ASKING/">ASKING →</a><a class="link" href="./原始资料/游资原始心法/赵老哥/">赵老哥 →</a></div></article>
-                <article class="card"><span class="card-icon" aria-hidden="true">🗂️</span><h3>追龙系列</h3><p>从超短入门、手法、竞价到选时、选股与预期，逐步进阶。</p><a class="link" href="./原始资料/追龙系列/">查看系列 →</a></article>
-                <article class="card"><span class="card-icon" aria-hidden="true">📈</span><h3>同花顺概念板块</h3><p>了解如何在同花顺分时图上显示股票所属概念板块。</p><a class="link" href="./原始资料/1012 怎么在同花顺分时图上显示股票所属概念板块-.pdf">打开 PDF →</a></article>
-                <article class="card"><span class="card-icon" aria-hidden="true">💬</span><h3>超短常见问题</h3><p>超短常见问题回答，适合入门时参考。</p><a class="link" href="./原始资料/0818 超短常见问题回答-.pdf">打开 PDF →</a></article>
-                <article class="card"><span class="card-icon" aria-hidden="true">🧠</span><h3>交易者特质与复盘</h3><p>精选交易者特质、经验语录与龙虎榜图谱资料。</p><div class="card-actions"><a class="link" href="./原始资料/0828 顶级交易者必备的特质-.pdf">交易者特质 →</a><a class="link" href="./原始资料/1124游资龙虎榜图谱.pdf">龙虎榜图谱 →</a></div></article>
-            </div>
+            <div class="card-grid"><article class="card"><span class="card-icon" aria-hidden="true">📚</span><h3>游资原始心法</h3><p>查看炒股养家、ASKING、退学炒股、赵老哥等专题原始资料。</p><a class="link" href="./原始资料/游资原始心法/">浏览全部资料 →</a></article><article class="card"><span class="card-icon" aria-hidden="true">🏆</span><h3>顶级游资精选</h3><p>快速进入精选专题的原始资料目录。</p><div class="card-actions"><a class="link" href="./原始资料/游资原始心法/炒股养家/">炒股养家 →</a><a class="link" href="./原始资料/游资原始心法/ASKING/">ASKING →</a><a class="link" href="./原始资料/游资原始心法/赵老哥/">赵老哥 →</a></div></article><article class="card"><span class="card-icon" aria-hidden="true">🗂️</span><h3>追龙系列</h3><p>从超短入门、手法、竞价到选时、选股与预期，逐步进阶。</p><a class="link" href="./原始资料/追龙系列/">查看系列 →</a></article><article class="card"><span class="card-icon" aria-hidden="true">📈</span><h3>同花顺概念板块</h3><p>了解如何在同花顺分时图上显示股票所属概念板块。</p><a class="link" href="./原始资料/1012 怎么在同花顺分时图上显示股票所属概念板块-.pdf">打开 PDF →</a></article><article class="card"><span class="card-icon" aria-hidden="true">💬</span><h3>超短常见问题</h3><p>超短常见问题回答，适合入门时参考。</p><a class="link" href="./原始资料/0818 超短常见问题回答-.pdf">打开 PDF →</a></article><article class="card"><span class="card-icon" aria-hidden="true">🧠</span><h3>交易者特质与复盘</h3><p>精选交易者特质、经验语录与龙虎榜图谱资料。</p><div class="card-actions"><a class="link" href="./原始资料/0828 顶级交易者必备的特质-.pdf">交易者特质 →</a><a class="link" href="./原始资料/1124游资龙虎榜图谱.pdf">龙虎榜图谱 →</a></div></article></div>
         </section>
     </main>
-
-    <footer class="footer">
-        <div class="container">
-            <p><strong>交易大师 · 游资心法库</strong></p>
-            <p><a href="https://github.com/zhouqinglong520/trading-mastery" target="_blank" rel="noopener noreferrer">GitHub 项目主页</a></p>
-            <p>内容仅供学习交流，不构成投资建议。</p>
-        </div>
-    </footer>
+    <footer class="footer"><div class="container"><p><strong>交易大师 · 游资心法库</strong></p><p><a href="https://github.com/zhouqinglong520/trading-mastery" target="_blank" rel="noopener noreferrer">GitHub 项目主页</a></p><p>内容仅供学习交流，不构成投资建议。</p></div></footer>
     <a class="back-top" href="#top" aria-label="返回顶部">↑</a>
     <script>
         const searchInput = document.getElementById('trader-search');
         const traderItems = Array.from(document.querySelectorAll('.trader-item'));
         const noResults = document.getElementById('no-results');
-
         searchInput.addEventListener('input', () => {
             const query = searchInput.value.trim().toLocaleLowerCase();
-            let visibleCount = 0;
+            let visible = 0;
             traderItems.forEach((item) => {
                 const matches = item.textContent.toLocaleLowerCase().includes(query);
                 item.hidden = !matches;
-                if (matches) visibleCount += 1;
+                if (matches) visible += 1;
             });
-            noResults.style.display = visibleCount === 0 ? 'block' : 'none';
+            noResults.style.display = visible === 0 ? 'block' : 'none';
+        });
+        document.querySelectorAll('.ad-slot').forEach((slot) => {
+            const hasAdContent = () => slot.querySelector('iframe, ins, script, [data-ad], .ad-container');
+            const updateAdSlot = () => slot.classList.toggle('is-active', Boolean(hasAdContent()));
+            updateAdSlot();
+            new MutationObserver(updateAdSlot).observe(slot, { childList: true, subtree: true });
         });
     </script>
 </body>
